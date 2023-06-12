@@ -1,5 +1,5 @@
 export default {
-  scope: 'role-requests',
+  scope: 'role_requests',
   namespaced: true,
   state: () => ({}),
   getters: {
