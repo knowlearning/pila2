@@ -1,5 +1,6 @@
 export default {
   scope: 'role-assertions',
-  state: {},
+  namespaced: true,
+  state: () => ({}),
   actions: {}
 }

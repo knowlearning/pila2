@@ -9,7 +9,8 @@ export default {
   }),
   getters: {
     isLoaded: state => () => state.loaded,
-    isAnonymous: state => () => state.provider === 'anonymous'
+    isAnonymous: state => () => state.provider === 'anonymous',
+    user: state => () => state.user
   },
   mutations: {
     load(state, { user, provider }) {

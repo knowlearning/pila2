@@ -1,10 +1,14 @@
 import app from './app.js'
 import roles from './roles.js'
+import roleRequests from './role-requests.js'
+import roleAssertions from './role-assertions.js'
 
 export default {
   modules: {
     app,
-    roles
+    roles,
+    roleRequests,
+    roleAssertions
   },
   state: () => ({
     loaded: false
