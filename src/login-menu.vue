@@ -60,15 +60,14 @@
       }
     },
     methods: {
-      t(slug) { return this.$store.getters.translate(slug) },
+      t(slug) {
+        return slug //this.$store.getters.translate(slug)
+      },
       async login(provider=this.usernameProvider) {
         const { username, password } = this
         this.$emit('signingIn')
-        const { success } = await Core.send({ type: 'login', provider, username, password})
-        if (!success) {
-          this.error = this.t('invalid-username-or-password')
-          this.password = ''
-        }
+        await Agent.login(provider)
+        //  TODO: handle username password login errors
       }
     }
   }

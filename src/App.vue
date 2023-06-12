@@ -3,10 +3,18 @@
     loading...
   </div>
   <LoginMenu v-else-if="isAnonymous" />
-  <div v-else>
-    wooo {{ $store.state.app.user }}
+  <div
+    id="main-app"
+    v-else
+  >
+    <div>
+      wooo {{ $store.state.app.user }}
+      <button @click="logOut">log out</button>
+    </div>
+    <div id="main-app-body">
+      <router-view></router-view>
+    </div>
   </div>
-  <router-view></router-view>
 </template>
 
 <script>
@@ -17,9 +25,26 @@
     computed: {
       isLoaded() { return this.$store.state.loaded },
       isAnonymous() { return this.$store.getters['app/isAnonymous']() }
+    },
+    methods: {
+      logOut() {
+        Agent.logout()
+      }
     }
   }
 </script>
 
 <style scoped>
+#main-app
+{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+#main-app-body
+{
+  flex-grow: 1;
+}
 </style>

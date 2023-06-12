@@ -1,6 +1,10 @@
 /* FONT AWESOME -- TODO: Is there a better way to import?  */
 @import url('font-awesome/css/font-awesome.min.css');
 
+body {
+    margin: 0;
+}
+
 div, p, h1, h2, h3, h4, h5 {
     margin: 0;
     padding: 0;
