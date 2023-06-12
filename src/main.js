@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
+import router from './router/index.js'
 import { browserAgent, vuePersistentStore } from '@knowlearning/agents'
 import './style.css'
 import storeDef from './store/index.js'
@@ -14,6 +15,7 @@ async function initialize() {
 
   const app = createApp(App)
   app.use(createStore(store))
+  app.use(router)
   app.mount('#app')
 }
 

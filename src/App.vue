@@ -6,6 +6,7 @@
   <div v-else>
     wooo {{ $store.state.app.user }}
   </div>
+  <router-view></router-view>
 </template>
 
 <script>
