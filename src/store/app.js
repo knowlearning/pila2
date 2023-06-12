@@ -1,11 +1,15 @@
 export default {
   namespaced: true,
   scope: 'app',
-  state: {
+  state: () => ({
     loaded: false,
     user: null,
     provider: null,
     language: null
+  }),
+  getters: {
+    isLoaded: state => () => state.loaded,
+    isAnonymous: state => () => state.provider === 'anonymous'
   },
   mutations: {
     load(state, { user, provider }) {
@@ -22,8 +26,4 @@ export default {
       }
     }
   }
-}
-
-export const plugin = store => {
-  store.load()
 }

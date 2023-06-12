@@ -1,14 +1,10 @@
 export default {
   namespaced: true,
-  state: {},
+  state: () => ({}),
   actions: {
     async load() {
       const roles = await Agent.state('roles')
       // TODO: load in roles
     }
   }
-}
-
-export const plugin = store => {
-  store.load()
 }

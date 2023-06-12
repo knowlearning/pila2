@@ -1,5 +1,5 @@
-import app, { plugin as appPlugin } from './roles.js'
-import roles, { plugin as rolesPlugin } from './roles.js'
+import app from './app.js'
+import roles from './roles.js'
 
 export default {
   modules: {
@@ -8,7 +8,9 @@ export default {
   },
   state: {},
   plugins: [
-    appPlugin,
-    rolesPlugin
+    store => {
+      store.dispatch('app/load')
+      store.dispatch('roles/load')
+    }
   ]
 }
