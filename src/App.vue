@@ -15,7 +15,7 @@
   export default {
     components: { LoginMenu },
     computed: {
-      isLoaded() { return this.$store.getters['app/isLoaded']() },
+      isLoaded() { return this.$store.state.loaded },
       isAnonymous() { return this.$store.getters['app/isAnonymous']() }
     }
   }

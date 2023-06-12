@@ -15,7 +15,6 @@ export default {
     load(state, { user, provider }) {
       state.user = user
       state.provider = provider
-      state.loaded = true
     }
   },
   actions: {

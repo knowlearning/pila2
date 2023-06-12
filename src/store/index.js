@@ -6,11 +6,25 @@ export default {
     app,
     roles
   },
-  state: {},
+  state: () => ({
+    loaded: false
+  }),
+  mutations: {
+    loaded(state, loaded) { state.loaded = loaded}
+  },
+  actions: {
+    loaded({ commit }, loaded) { commit('loaded', loaded) }
+  },
   plugins: [
-    store => {
-      store.dispatch('app/load')
-      store.dispatch('roles/load')
+    async store => {
+      store.dispatch('loaded', false)
+
+      await Promise.all([
+        store.dispatch('app/load'),
+        store.dispatch('roles/load')
+      ])
+
+      store.dispatch('loaded', true)
     }
   ]
 }
