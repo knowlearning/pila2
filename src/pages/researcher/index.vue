@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import RoleRequester from '../role-requester.vue'
+  import RoleRequester from '../../role-requester.vue'
 
   export default {
     components: {

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AdminView from '../admin/index.vue'
-import ResearcherView from '../researcher/index.vue'
-import TeacherView from '../teacher/index.vue'
-import StudentView from '../student/index.vue'
+import AdminView from '../pages/admin/index.vue'
+import ResearcherView from '../pages/researcher/index.vue'
+import TeacherView from '../pages/teacher/index.vue'
+import StudentView from '../pages/student/index.vue'
 
 export default createRouter({
   history: createWebHistory(),
