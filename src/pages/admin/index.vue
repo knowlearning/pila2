@@ -1,5 +1,5 @@
 <template>
-  <h1>ADMIN VIEW!!!!!!!!!!!!!!</h1>
+  <h1>ADMIN</h1>
   <div>
     <h1>Role Assignments</h1>
     <table>
@@ -8,7 +8,7 @@
           <th>Name</th>
           <th>Email</th>
           <th>Assigner</th>
-          <th>Assigned Date</th>
+          <th>Assigned</th>
           <th>Role</th>
         </tr>
       </thead>
@@ -37,8 +37,8 @@
         <tr>
           <th>Name</th>
           <th>Email</th>
-          <th>Request Date</th>
-          <th>Role Request</th>
+          <th>Requested</th>
+          <th>Role</th>
           <th></th>
         </tr>
       </thead>
