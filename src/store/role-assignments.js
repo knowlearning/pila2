@@ -1,4 +1,5 @@
 export default {
+  scope: null,
   namespaced: true,
   state: () => ({}),
   getters: {
