@@ -19,7 +19,10 @@
           <td><UserInfo :user="assigner" name /></td>
           <td>{{ updated }}</td>
           <td>
-            <select @change="({ target: { value } }) => grantRole(user, value)">
+            <select
+              v-if="role !== 'admin'"
+              @change="({ target: { value } }) => grantRole(user, value)"
+            >
               <option
                 v-for="roleName in availableRoles"
                 :selected="roleName === role"
@@ -27,6 +30,7 @@
                 {{ roleName }}
               </option>
             </select>
+            <span v-else>admin</span>
           </td>
         </tr>
       </tbody>
@@ -72,7 +76,7 @@
     },
     computed: {
       availableRoles() {
-        return ['admin', 'researcher', 'teacher', 'student']
+        return ['researcher', 'teacher', 'student']
       },
       roleRequests() {
         return this.$store.getters['requestedRoles/requests']()
