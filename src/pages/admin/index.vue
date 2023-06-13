@@ -14,9 +14,9 @@
       </thead>
       <tbody>
         <tr v-for="{ role, assigner, updated }, user in roleAssignments">
-          <td>{{ user }}</td>
-          <td>email...</td>
-          <td>{{ assigner }}</td>
+          <td><UserInfo :user="user" name /></td>
+          <td><UserInfo :user="user" email /></td>
+          <td><UserInfo :user="assigner" name /></td>
           <td>{{ updated }}</td>
           <td>
             <select @change="({ target: { value } }) => grantRole(user, value)">
@@ -44,8 +44,8 @@
       </thead>
       <tbody>
         <tr v-for="{ role, updated }, user in roleRequests">
-          <td>{{ user }}</td>
-          <td>email...</td>
+          <td><UserInfo :user="user" name /></td>
+          <td><UserInfo :user="user" email /></td>
           <td>{{ updated }}</td>
           <td>{{ role }}</td>
           <td>
@@ -61,8 +61,12 @@
 </template>
 
 <script>
+  import UserInfo from '../../user-info.vue'
 
   export default {
+    components: {
+      UserInfo
+    },
     state() {
       return {}
     },
