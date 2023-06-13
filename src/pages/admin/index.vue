@@ -65,7 +65,7 @@
     },
     computed: {
       availableRoles() {
-        return ['researcher', 'teacher', 'student']
+        return ['admin', 'researcher', 'teacher', 'student']
       },
       roleRequests() {
         return this.$store.getters['requestedRoles/requests']()
