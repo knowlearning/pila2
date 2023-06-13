@@ -18,7 +18,16 @@
           <td>email...</td>
           <td>{{ assigner }}</td>
           <td>{{ updated }}</td>
-          <td>{{ role }}</td>
+          <td>
+            <select @change="({ target: { value } }) => grantRole(user, value)">
+              <option
+                v-for="roleName in availableRoles"
+                :selected="roleName === role"
+              >
+                {{ roleName }}
+              </option>
+            </select>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -55,6 +64,9 @@
       return {}
     },
     computed: {
+      availableRoles() {
+        return ['researcher', 'teacher', 'student']
+      },
       roleRequests() {
         return this.$store.getters['requestedRoles/requests']()
       },

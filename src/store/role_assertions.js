@@ -8,8 +8,9 @@ export default {
     }
   },
   actions: {
-    grant({ commit }, { user, role }) {
+    async grant({ commit, dispatch }, { user, role }) {
       commit('grant', { user, role })
+      await dispatch('roleAssignments/load', null, {root:true})
     }
   }
 }
