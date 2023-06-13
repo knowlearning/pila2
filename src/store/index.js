@@ -1,16 +1,18 @@
 import app from './app.js'
-import roles from './roles.js'
 import roleRequests from './role-requests.js'
 import roleAssertions from './role_assertions.js'
 import requestedRoles from './requested_roles.js'
+import roleAssignments from './role-assignments.js'
+import myRole from './my-role.js'
 
 export default {
   modules: {
     app,
-    roles,
+    myRole,
     roleRequests,
     roleAssertions,
-    requestedRoles
+    requestedRoles,
+    roleAssignments
   },
   state: () => ({
     loaded: false
@@ -27,7 +29,7 @@ export default {
 
       await Promise.all([
         store.dispatch('app/load'),
-        store.dispatch('roles/load'),
+        store.dispatch('roleAssignments/load'),
         store.dispatch('requestedRoles/load')
       ])
 
