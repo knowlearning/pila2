@@ -20,10 +20,15 @@ export default {
       else return !!rolePermissions[myRole][permission]
     }
   },
+  mutations: {
+    set(state, { role }) {
+      state.role = role
+    }
+  },
   actions: {
-    async load() {
-      const roles = await Agent.state('my-roles')
-      // TODO: load in roles
+    async load({ commit }) {
+      const [myRole] = await Agent.state('my-role')
+      commit('set', myRole || { role: 'student' })
     }
   }
 }

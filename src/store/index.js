@@ -29,6 +29,7 @@ export default {
 
       await Promise.all([
         store.dispatch('app/load'),
+        store.dispatch('myRole/load'),
         store.dispatch('roleAssignments/load'),
         store.dispatch('requestedRoles/load')
       ])
