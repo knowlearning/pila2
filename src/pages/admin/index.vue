@@ -1,6 +1,6 @@
 <template>
   <h1>ADMIN</h1>
-  <div>
+  <div v-if="iAmAnAdmin">
     <h1>Role Assignments</h1>
     <table>
       <thead>
@@ -55,6 +55,9 @@
       </tbody>
     </table>
   </div>
+  <div v-else>
+    Admin Role Required
+  </div>
 </template>
 
 <script>
@@ -72,6 +75,9 @@
       },
       roleAssignments() {
         return this.$store.getters['roleAssignments/assignments']()
+      },
+      iAmAnAdmin() {
+        return this.$store.getters['myRole/myRole']() === 'admin'
       }
     },
     methods: {
