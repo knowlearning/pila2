@@ -4,12 +4,14 @@
     <div>
       <button @click="tab = 'teacher-groups'">Teacher Groups</button>
       <button @click="tab = 'content'">Content</button>
+      <button @click="tab = 'studies'">Studies</button>
     </div>
     <TeacherGroups v-if="tab === 'teacher-groups'"/>
     <div v-if="tab === 'content'">
       <MyContent />
       <ExpertContent />
     </div>
+    <Studies v-if="tab === 'studies'" />
   </div>
   <RoleRequester v-else role="researcher" />
 </template>
@@ -19,13 +21,15 @@
   import RoleRequester from '../../role-requester.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
+  import Studies from './studies.vue'
 
   export default {
     components: {
       TeacherGroups,
       MyContent,
       ExpertContent,
-      RoleRequester
+      RoleRequester,
+      Studies
     },
     data() {
       return {

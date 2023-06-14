@@ -8,11 +8,15 @@ import expertContent from './expert-content.js'
 import myRole from './my-role.js'
 import groups from './groups.js'
 import groupMembers from './group_members.js'
+import studies from './studies.js'
+import studyRequests from './study_requests.js'
 
 export default {
   modules: {
     app,
     myRole,
+    studies,
+    studyRequests,
     groups,
     groupMembers,
     myContent,
