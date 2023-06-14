@@ -1,5 +1,6 @@
 import app from './app.js'
 import roleRequests from './role-requests.js'
+import myContent from './my_content.js'
 import roleAssertions from './role_assertions.js'
 import requestedRoles from './requested_roles.js'
 import roleAssignments from './role-assignments.js'
@@ -9,6 +10,7 @@ export default {
   modules: {
     app,
     myRole,
+    myContent,
     roleRequests,
     roleAssertions,
     requestedRoles,
