@@ -4,9 +4,11 @@
     <div>
       <button @click="tab = 'roles'">Roles</button>
       <button @click="tab = 'content'">Content</button>
+      <button @click="tab = 'studies'">Studies</button>
     </div>
     <AdminRoleManager v-if="tab === 'roles'" />
     <AdminContentManager v-else-if="tab === 'content'" />
+    <AdminStudyManager v-else-if="tab === 'studies'" />
   </div>
   <div v-else>
     Admin Role Required
@@ -16,10 +18,12 @@
 <script>
   import AdminRoleManager from './roles.vue'
   import AdminContentManager from './content.vue'
+  import AdminStudyManager from './studies.vue'
   export default {
     components: {
       AdminRoleManager,
-      AdminContentManager
+      AdminContentManager,
+      AdminStudyManager
     },
     data() {
       return {

@@ -10,6 +10,7 @@ import groups from './groups.js'
 import groupMembers from './group_members.js'
 import studies from './studies.js'
 import studyRequests from './study_requests.js'
+import requestedStudies from './requested_studies.js'
 
 export default {
   modules: {
@@ -17,6 +18,7 @@ export default {
     myRole,
     studies,
     studyRequests,
+    requestedStudies,
     groups,
     groupMembers,
     myContent,
@@ -44,7 +46,8 @@ export default {
         store.dispatch('myRole/load'),
         store.dispatch('roleAssignments/load'),
         store.dispatch('expertContent/load'),
-        store.dispatch('requestedRoles/load')
+        store.dispatch('requestedRoles/load'),
+        store.dispatch('requestedStudies/load')
       ])
 
       store.dispatch('loaded', true)
