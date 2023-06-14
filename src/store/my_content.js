@@ -13,7 +13,7 @@ export default {
       delete state[id]
     },
     toggleExpert(state, id) {
-      state[id].expert = { expert: !state[id].expert }
+      state[id].expert = !state[id].expert
     }
   },
   actions: {
