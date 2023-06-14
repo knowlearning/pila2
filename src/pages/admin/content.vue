@@ -1,39 +1,18 @@
 <template>
   <MyContent expertEditing />
-  <h1>Expert Content</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Content</th>
-        <th>Admin</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="{ assigner }, id in expertContent"
-        :key="id"
-      >
-        <td> {{ id }} </td>
-        <td><ContentName :id="id" /></td>
-        <td><UserInfo :user="assigner" name /></td>
-        <td>
-          <button @click="toggleExpert(id)">remove</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <ExpertContent expertEditing />
 </template>
 
 <script>
   import MyContent from '../../my-content.vue'
+  import ExpertContent from '../../expert-content.vue'
   import ContentName from '../../content-name.vue'
   import UserInfo from '../../user-info.vue'
 
   export default {
     components: {
       MyContent,
+      ExpertContent,
       ContentName,
       UserInfo
     },
