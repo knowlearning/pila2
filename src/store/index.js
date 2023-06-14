@@ -6,11 +6,15 @@ import requestedRoles from './requested_roles.js'
 import roleAssignments from './role-assignments.js'
 import expertContent from './expert-content.js'
 import myRole from './my-role.js'
+import groups from './groups.js'
+import groupMembers from './group_members.js'
 
 export default {
   modules: {
     app,
     myRole,
+    groups,
+    groupMembers,
     myContent,
     expertContent,
     roleRequests,

@@ -3,7 +3,16 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    assignments: state => () => state
+    assignments: state => () => state,
+    teachers: state => () => {
+      const teachers = []
+      Object
+        .entries(state)
+        .forEach(([user, {role}]) => {
+          if (role === 'teacher') teachers.push(user)
+        })
+      return teachers
+    }
   },
   mutations: {
     add(state, { assignee, role, assigner, updated }) {

@@ -1,0 +1,132 @@
+<template>
+  <h1>Teacher Groups</h1>
+  <button @click="add">New Group</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="{ name }, id in groups"
+        :key="id"
+        :class="{ selected: id === current }"
+        @click="current = current === id ? null: id"
+      >
+        <td>{{ name }}</td>
+        <td>
+          <button @click.stop="remove(id)">x</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div v-if="current">
+    <hr>
+    <h1>{{ groups[current].name }}</h1>
+    <div class="member-tables">
+      <div>
+        <table>
+          <tr>
+            <th>Member</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+          <tr
+            v-for="member in currentGroupMembers"
+            :key="member"
+          >
+            <td><UserInfo :user="member" name /></td>
+            <td><UserInfo :user="member" email /></td>
+            <td>
+              <button @click="removeMember(member, current)">x</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <table>
+          <tr>
+            <th>Member</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+          <tr
+            v-for="member in teacherNotInCurrentGroup"
+            :key="member"
+          >
+            <td>
+              <button @click="addMember(member, current)">+</button>
+            </td>
+            <td><UserInfo :user="member" name /></td>
+            <td><UserInfo :user="member" email /></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import UserInfo from '../../user-info.vue'
+
+  export default {
+    components: {
+      UserInfo
+    },
+    data() {
+      return {
+        current: null
+      }
+    },
+    computed: {
+      groups() {
+        return this.$store.getters['groups/groups']()
+      },
+      teachers() {
+        return this.$store.getters['roleAssignments/teachers']()
+      },
+      teacherNotInCurrentGroup() {
+        return this.teachers.filter(id => !this.currentGroupMembers.includes(id))
+      },
+      currentGroupMembers() {
+        return this.$store.getters['groupMembers/members'](this.current)
+      }
+    },
+    methods: {
+      async add() {
+        const name = prompt('Group name')
+        this.current = await this.$store.dispatch('groups/add', { name })
+      },
+      remove(id) {
+        this.$store.dispatch('groups/remove', id)
+        if (this.current === id) this.current = null
+      },
+      addMember(user, group) {
+        this.$store.dispatch('groupMembers/add', { user, group })
+      },
+      removeMember(user, group) {
+        this.$store.dispatch('groupMembers/remove', { user, group })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+.selected {
+  background: yellow;
+}
+
+tr {
+  cursor: pointer;
+}
+
+.member-tables {
+  display: flex;
+  justify-content: space-around;
+  align-items: top;
+}
+
+</style>
