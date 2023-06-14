@@ -3,9 +3,6 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    
-  },
-  getters: {
     assignments: state => () => state
   },
   mutations: {

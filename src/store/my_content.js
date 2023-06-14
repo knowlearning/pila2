@@ -19,8 +19,7 @@ export default {
   actions: {
     async toggleExpert({ commit, dispatch }, id) {
       commit('toggleExpert', id)
-      // TODO: dispatch load for expert content
-      // await dispatch('roleAssignments/load', null, {root:true})
+      await dispatch('expertContent/load', null, {root:true})
     },
     add({ commit }, id) {
       commit('add', id)

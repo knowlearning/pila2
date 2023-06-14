@@ -4,6 +4,7 @@ import myContent from './my_content.js'
 import roleAssertions from './role_assertions.js'
 import requestedRoles from './requested_roles.js'
 import roleAssignments from './role-assignments.js'
+import expertContent from './expert-content.js'
 import myRole from './my-role.js'
 
 export default {
@@ -11,6 +12,7 @@ export default {
     app,
     myRole,
     myContent,
+    expertContent,
     roleRequests,
     roleAssertions,
     requestedRoles,
@@ -33,6 +35,7 @@ export default {
         store.dispatch('app/load'),
         store.dispatch('myRole/load'),
         store.dispatch('roleAssignments/load'),
+        store.dispatch('expertContent/load'),
         store.dispatch('requestedRoles/load')
       ])
 
