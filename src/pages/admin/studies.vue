@@ -11,7 +11,7 @@
     <tbody>
       <tr v-for="{ researcher, granted }, study in requestedStudies">
         <td><UserInfo :user="researcher" name /></td>
-        <td>Study Info... Name {{ study }}</td>
+        <td><ScopeValue :scope="study" :path="['name']" /></td>
         <td>
           <input
             type="checkbox"
@@ -26,10 +26,12 @@
 
 <script>
   import UserInfo from '../../user-info.vue'
+  import ScopeValue from '../../scope-value.vue'
 
   export default {
     components: {
-      UserInfo
+      UserInfo,
+      ScopeValue
     },
     state() {
       return {}
