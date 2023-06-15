@@ -20,7 +20,7 @@ export default {
     return { loaded: false, state: {} }
   },
   async created() {
-    this.state = await this.user ? Agent.state(this.scope, this.user) : Agent.state(this.scope)
+    this.state = await (this.user ? Agent.state(this.scope, this.user) : Agent.state(this.scope))
     this.loaded = true
   },
   computed: {
