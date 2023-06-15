@@ -103,11 +103,11 @@
         this.$store.dispatch('groups/remove', id)
         if (this.current === id) this.current = null
       },
-      addMember(user, group_id) {
-        this.$store.dispatch('groupMembers/add', { user, group_id })
+      addMember(user_id, group_id) {
+        this.$store.dispatch('groupMembers/add', { user_id, group_id })
       },
-      removeMember(user, group_id) {
-        this.$store.dispatch('groupMembers/remove', { user, group_id })
+      removeMember(user_id, group_id) {
+        this.$store.dispatch('groupMembers/remove', { user_id, group_id })
       }
     }
   }
