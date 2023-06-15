@@ -6,8 +6,8 @@ export default {
     requests: state => () => state
   },
   mutations: {
-    add(state, { study, researcher, updated }) {
-      state[study] = { researcher, updated }
+    add(state, { study, researcher, granted, updated }) {
+      state[study] = { researcher, updated, granted }
     }
   },
   actions: {

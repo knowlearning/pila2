@@ -11,6 +11,7 @@ import groupMembers from './group_members.js'
 import studies from './studies.js'
 import studyRequests from './study_requests.js'
 import requestedStudies from './requested_studies.js'
+import studyGrants from './study_grants.js'
 
 export default {
   modules: {
@@ -19,6 +20,7 @@ export default {
     studies,
     studyRequests,
     requestedStudies,
+    studyGrants,
     groups,
     groupMembers,
     myContent,

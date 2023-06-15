@@ -5,16 +5,19 @@
       <tr>
         <th>Researcher</th>
         <th>Name</th>
-        <th>Updated</th>
         <th>Published</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="{ researcher, updated }, study in requestedStudies">
+      <tr v-for="{ researcher, granted }, study in requestedStudies">
         <td><UserInfo :user="researcher" name /></td>
         <td>Study Info... Name {{ study }}</td>
-        <td>{{ updated }}</td>
         <td>
+          <input
+            type="checkbox"
+            :checked="!!granted"
+            @click="publish(study, !granted)"
+          />
         </td>
       </tr>
     </tbody>
@@ -37,6 +40,9 @@
       }
     },
     methods: {
+      publish(study, granted) {
+        return this.$store.dispatch('studyGrants/grant', { study, granted })
+      }
     }
   }
 
