@@ -5,7 +5,6 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -17,9 +16,6 @@
       >
         <td><ScopeValue :scope="id" :user="researcher" :path="['name']" /></td>
         <td><ScopeValue :scope="id" :user="researcher" :path="['description']" /></td>
-        <td>
-          <button @click.stop="remove(id)">x</button>
-        </td>
       </tr>
     </tbody>
   </table>
