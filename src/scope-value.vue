@@ -10,13 +10,17 @@
 export default {
   props: {
     scope: String,
+    user: {
+      type: String,
+      required: false
+    },
     path: Array
   },
   data() {
     return { loaded: false, state: {} }
   },
   async created() {
-    this.state = await Agent.state(this.scope)
+    this.state = await this.user ? Agent.state(this.scope, this.user) : Agent.state(this.scope)
     this.loaded = true
   },
   computed: {

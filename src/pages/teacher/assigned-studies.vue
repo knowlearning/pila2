@@ -10,13 +10,13 @@
     </thead>
     <tbody>
       <tr
-        v-for="_, id in studies"
+        v-for="{ researcher }, id in studies"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
       >
-        <td><ScopeValue :scope="id" :path="['name']" /></td>
-        <td><ScopeValue :scope="id" :path="['description']" /></td>
+        <td><ScopeValue :scope="id" :user="researcher" :path="['name']" /></td>
+        <td><ScopeValue :scope="id" :user="researcher" :path="['description']" /></td>
         <td>
           <button @click.stop="remove(id)">x</button>
         </td>
@@ -28,7 +28,7 @@
     :key="current"
   >
     <h1>
-      <ScopeValue :scope="current" :path="['name']" />
+      <ScopeValue :scope="current" :user="studies[current].researcher" :path="['name']" />
     </h1>
   </div>
 </template>
