@@ -25,15 +25,23 @@
     </tbody>
   </table>
   <div v-if="current">
-    <button
-      @click="requestPublish(current)"
-      v-if="!publishRequested(current)"
-    >
-      Request Publish
-    </button>
+    <div v-if="isGranted(current) === true">
+      Publish Request GRANTED
+    </div>
+    <div v-else-if="isGranted(current) === false">
+      Publish Request DENIED
+    </div>
     <div v-else>
-      Publish Requested
-      <button @click="undoRequest(current)">undo</button>
+      <button
+        @click="requestPublish(current)"
+        v-if="!publishRequested(current)"
+      >
+        Request Publish
+      </button>
+      <div v-else>
+        Publish Requested
+        <button @click="undoRequest(current)">undo</button>
+      </div>
     </div>
   </div>
 </template>
@@ -63,6 +71,9 @@
       remove(id) {
         this.$store.dispatch('studies/remove', id)
         if (this.current === id) this.current = null
+      },
+      isGranted(id) {
+        return this.$store.getters['requestedStudies/granted'](id)
       },
       requestPublish(id) {
         this.$store.dispatch('studyRequests/add', id)

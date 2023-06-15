@@ -3,7 +3,10 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    requests: state => () => state
+    requests: state => () => state,
+    granted: state => study =>  {
+      return state[study] && state[study].granted
+    }
   },
   mutations: {
     add(state, { study, researcher, granted, updated }) {
