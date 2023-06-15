@@ -6,38 +6,38 @@ export default {
   state: () => ({}),
   getters: {
     assignments: state => () => state,
-    isAssigned: (_state, getters) => (group, study) => {
-      return getters.assignedGroups(study).includes(group)
+    isAssigned: (_state, getters) => (group_id, study) => {
+      return getters.assignedGroups(study).includes(group_id)
     },
     assignedGroups: state => study => {
       return (
         Object
           .values(state)
           .filter(({ study: s }) => study === s)
-          .map(({ group }) => group)
+          .map(({ group_id }) => group_id)
       )
     }
   },
   mutations: {
-    assign(state, { group, study }) {
-      state[uuid()] = { group, study }
+    assign(state, { group_id, study }) {
+      state[uuid()] = { group_id, study }
     },
-    unassign(state, { group, study }) {
+    unassign(state, { group_id, study }) {
       Object
         .entries(state)
-        .forEach(([id, { group: g, study: s }]) => {
-          if (group === g && study === s) delete state[id]
+        .forEach(([id, { group_id: g, study: s }]) => {
+          if (group_id === g && study === s) delete state[id]
         })
     }
   },
   actions: {
-    assign({commit, getters}, { group, study }) {
-      if (getters.isAssigned(group, study)) return
+    assign({commit, getters}, { group_id, study }) {
+      if (getters.isAssigned(group_id, study)) return
 
-      commit('assign', { group, study })
+      commit('assign', { group_id, study })
     },
-    unassign({commit}, { group, study }) {
-      commit('unassign', { group, study })
+    unassign({commit}, { group_id, study }) {
+      commit('unassign', { group_id, study })
     }
   }
 }

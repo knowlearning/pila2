@@ -93,11 +93,11 @@
       publishRequested(id) {
         return this.$store.getters['studyRequests/requested'](id)
       },
-      makeAssignment(group, study) {
-        this.$store.dispatch('studyAssignments/assign', { group, study })
+      makeAssignment(group_id, study) {
+        this.$store.dispatch('studyAssignments/assign', { group_id, study })
       },
-      removeAssignment(group, study) {
-        this.$store.dispatch('studyAssignments/unassign', { group, study })
+      removeAssignment(group_id, study) {
+        this.$store.dispatch('studyAssignments/unassign', { group_id, study })
       }
     }
 

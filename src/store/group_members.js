@@ -9,29 +9,29 @@ export default {
       return(
         Object
           .values(state)
-          .filter(({ group }) => group === groupId)
+          .filter(({ group_id }) => group_id === groupId)
           .map(({ user }) => user)
       )
     }
   },
   mutations: {
-    add(state, { user, group }) {
-      state[uuid()] = { user, group }
+    add(state, { user, group_id }) {
+      state[uuid()] = { user, group_id }
     },
-    remove(state, { user, group }) {
+    remove(state, { user, group_id }) {
       Object
         .entries(state)
-        .forEach(([id, { user: u, group: g }]) => {
-          if (user === u && group === g) delete state[id]
+        .forEach(([id, { user: u, group_id: g }]) => {
+          if (user === u && group_id === g) delete state[id]
         })
     }
   },
   actions: {
-    add({ commit }, { user, group }) {
-      commit('add', { user, group })
+    add({ commit }, { user, group_id }) {
+      commit('add', { user, group_id })
     },
-    remove({ commit }, { user, group }) {
-      commit('remove', { user, group })
+    remove({ commit }, { user, group_id }) {
+      commit('remove', { user, group_id })
     }
   }
 }
