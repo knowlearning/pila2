@@ -21,8 +21,7 @@ export default {
   },
   actions: {
     async load({ commit }) {
-      // TODO: remove || [] hack...
-      const roleAssignments = await Agent.state('role-assignments') || []
+      const roleAssignments = await Agent.state('role-assignments')
       roleAssignments
         .forEach(assignment => commit('add', assignment))
     }
