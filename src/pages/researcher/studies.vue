@@ -24,42 +24,23 @@
       </tr>
     </tbody>
   </table>
-  <div
+  <Study
     v-if="current"
+    :id="current"
     :key="current"
-  >
-    <h1>
-      <ScopeValue :scope="current" :path="['name']" />
-    </h1>
-    <div v-if="isGranted(current) === true">
-      Publish Request GRANTED
-    </div>
-    <div v-else-if="isGranted(current) === false">
-      Publish Request DENIED
-    </div>
-    <div v-else>
-      <button
-        @click="requestPublish(current)"
-        v-if="!publishRequested(current)"
-      >
-        Request Publish
-      </button>
-      <div v-else>
-        Publish Requested
-        <button @click="undoRequest(current)">undo</button>
-      </div>
-    </div>
-  </div>
+  />
 </template>
 
 <script>
   import ScopeValue from '../../scope-value.vue'
   import UserInfo from '../../user-info.vue'
+  import Study from './study.vue'
 
   export default {
     components: {
       UserInfo,
-      ScopeValue
+      ScopeValue,
+      Study
     },
     data() {
       return {
@@ -79,18 +60,6 @@
       remove(id) {
         this.$store.dispatch('studies/remove', id)
         if (this.current === id) this.current = null
-      },
-      isGranted(id) {
-        return this.$store.getters['requestedStudies/granted'](id)
-      },
-      requestPublish(id) {
-        this.$store.dispatch('studyRequests/add', id)
-      },
-      undoRequest(id) {
-        this.$store.dispatch('studyRequests/remove', id)
-      },
-      publishRequested(id) {
-        return this.$store.getters['studyRequests/requested'](id)
       }
     }
   }
