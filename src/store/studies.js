@@ -16,9 +16,10 @@ export default {
     }
   },
   actions: {
-    add({commit}, { name, id=uuid()}) {
-      commit('add', { name, id })
-      
+    async add({commit}, { name, id=uuid()}) {
+      const studyConfig = await Agent.mutate(id)
+      studyConfig.name = name
+      commit('add', { id })
       return id
     },
     remove({commit}, id) {

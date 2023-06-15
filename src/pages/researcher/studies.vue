@@ -16,15 +16,21 @@
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
       >
-        <td>{{ id }}</td>
-        <td>Descriptionnnnnnn,,,,====...</td>
+        <td><ScopeValue :scope="id" :path="['name']" /></td>
+        <td><ScopeValue :scope="id" :path="['description']" /></td>
         <td>
           <button @click.stop="remove(id)">x</button>
         </td>
       </tr>
     </tbody>
   </table>
-  <div v-if="current">
+  <div
+    v-if="current"
+    :key="current"
+  >
+    <h1>
+      <ScopeValue :scope="current" :path="['name']" />
+    </h1>
     <div v-if="isGranted(current) === true">
       Publish Request GRANTED
     </div>
@@ -47,11 +53,13 @@
 </template>
 
 <script>
+  import ScopeValue from '../../scope-value.vue'
   import UserInfo from '../../user-info.vue'
 
   export default {
     components: {
-      UserInfo
+      UserInfo,
+      ScopeValue
     },
     data() {
       return {
