@@ -8,6 +8,7 @@
     </div>
     <Groups
       v-if="tab === 'teacher-groups'"
+      type="teachers"
       :possibleMembers="teachers"
     />
     <div v-if="tab === 'content'">

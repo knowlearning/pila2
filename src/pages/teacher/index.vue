@@ -6,6 +6,11 @@
       <button @click="tab = 'content'">Content</button>
       <button @click="tab = 'studies'">Studies</button>
     </div>
+    <Groups
+      v-if="tab === 'classes'"
+      type="class"
+      :possibleMembers="students"
+    />
     <div v-if="tab === 'content'">
       <MyContent />
       <ExpertContent />
@@ -17,12 +22,14 @@
 
 <script>
   import RoleRequester from '../../role-requester.vue'
+  import Groups from '../../groups.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
   import AssignedStudies from './assigned-studies.vue'
 
   export default {
     components: {
+      Groups,
       MyContent,
       ExpertContent,
       RoleRequester,
@@ -31,6 +38,12 @@
     data() {
       return {
         tab: 'classes'
+      }
+    },
+    methods: {
+      students() {
+        //  TODO: get students by some means...
+        return []
       }
     }
   }

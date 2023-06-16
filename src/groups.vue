@@ -1,5 +1,5 @@
 <template>
-  <h1>Teacher Groups</h1>
+  <h1>Groups</h1>
   <button @click="add">New Group</button>
   <table>
     <thead>
@@ -76,7 +76,8 @@
       UserInfo
     },
     props: {
-      possibleMembers: Function
+      possibleMembers: Function,
+      type: String
     },
     data() {
       return {
@@ -85,7 +86,7 @@
     },
     computed: {
       groups() {
-        return this.$store.getters['groups/groups']()
+        return this.$store.getters['groups/groups'](this.type)
       },
       currentGroupMembers() {
         return this.$store.getters['groupMembers/members'](this.current)
@@ -94,7 +95,8 @@
     methods: {
       async add() {
         const name = prompt('Group name')
-        this.current = await this.$store.dispatch('groups/add', { name })
+        const { type } = this
+        this.current = await this.$store.dispatch('groups/add', { name, type })
       },
       remove(id) {
         this.$store.dispatch('groups/remove', id)

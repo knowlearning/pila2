@@ -5,7 +5,14 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    groups: state => () => state
+    groups: state => typeFilter => {
+      if (typeFilter) return Object.fromEntries(
+        Object
+          .entries(state)
+          .filter(([_, { type }]) => type === typeFilter )
+      )
+      else return state
+    }
   },
   mutations: {
     add(state, { name, type, id }) {
