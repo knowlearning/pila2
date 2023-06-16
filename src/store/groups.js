@@ -8,16 +8,16 @@ export default {
     groups: state => () => state
   },
   mutations: {
-    add(state, { name, id }) {
-      state[id] = { name }
+    add(state, { name, type, id }) {
+      state[id] = { name, type }
     },
     remove(state, id) {
       delete state[id]
     }
   },
   actions: {
-    add({commit}, { name, id=uuid()}) {
-      commit('add', { name, id })
+    add({commit}, { name, type, id=uuid()}) {
+      commit('add', { name, type, id })
       return id
     },
     remove({commit}, id) {

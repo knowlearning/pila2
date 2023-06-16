@@ -4,15 +4,12 @@ export default {
   state: () => ({}),
   getters: {
     assignments: state => () => state,
-    teachers: state => () => {
-      const teachers = []
+    usersWithRole: state => role => (
       Object
         .entries(state)
-        .forEach(([user, {role}]) => {
-          if (role === 'teacher') teachers.push(user)
-        })
-      return teachers
-    }
+        .filter(([user, {role: r}]) => r === role)
+        .map(([user]) => user)
+    )
   },
   mutations: {
     add(state, { assignee, role, assigner, updated }) {

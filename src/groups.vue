@@ -53,7 +53,7 @@
             <th></th>
           </tr>
           <tr
-            v-for="member in teacherNotInCurrentGroup"
+            v-for="member in possibleMembers()"
             :key="member"
           >
             <td>
@@ -69,11 +69,14 @@
 </template>
 
 <script>
-  import UserInfo from '../../user-info.vue'
+  import UserInfo from './user-info.vue'
 
   export default {
     components: {
       UserInfo
+    },
+    props: {
+      possibleMembers: Function
     },
     data() {
       return {
@@ -83,12 +86,6 @@
     computed: {
       groups() {
         return this.$store.getters['groups/groups']()
-      },
-      teachers() {
-        return this.$store.getters['roleAssignments/teachers']()
-      },
-      teacherNotInCurrentGroup() {
-        return this.teachers.filter(id => !this.currentGroupMembers.includes(id))
       },
       currentGroupMembers() {
         return this.$store.getters['groupMembers/members'](this.current)

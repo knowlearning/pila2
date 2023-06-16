@@ -5,14 +5,17 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    members: state => groupId => {
-      return(
-        Object
-          .values(state)
-          .filter(({ group_id }) => group_id === groupId)
-          .map(({ user_id }) => user_id)
-      )
-    }
+    members: state => groupId => (
+      Object
+        .values(state)
+        .filter(({ group_id }) => group_id === groupId)
+        .map(({ user_id }) => user_id)
+    ),
+    belongs: state => (uid, gid) => (
+      Object
+        .values(state)
+        .some(({ group_id, user_id }) => group_id === gid && user_id === uid)
+    )
   },
   mutations: {
     add(state, { user_id, group_id }) {
@@ -27,7 +30,9 @@ export default {
     }
   },
   actions: {
-    add({ commit }, { user_id, group_id }) {
+    add({ commit, getters }, { user_id, group_id }) {
+      if (getters.belongs(user_id, group_id)) return
+
       commit('add', { user_id, group_id })
     },
     remove({ commit }, { user_id, group_id }) {

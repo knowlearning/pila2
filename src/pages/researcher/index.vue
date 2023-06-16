@@ -6,7 +6,10 @@
       <button @click="tab = 'content'">Content</button>
       <button @click="tab = 'studies'">Studies</button>
     </div>
-    <TeacherGroups v-if="tab === 'teacher-groups'"/>
+    <Groups
+      v-if="tab === 'teacher-groups'"
+      :possibleMembers="teachers"
+    />
     <div v-if="tab === 'content'">
       <MyContent />
       <ExpertContent />
@@ -17,7 +20,7 @@
 </template>
 
 <script>
-  import TeacherGroups from './teacher-groups.vue'
+  import Groups from '../../groups.vue'
   import RoleRequester from '../../role-requester.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
@@ -25,7 +28,7 @@
 
   export default {
     components: {
-      TeacherGroups,
+      Groups,
       MyContent,
       ExpertContent,
       RoleRequester,
@@ -34,6 +37,11 @@
     data() {
       return {
         tab: 'teacher-groups'
+      }
+    },
+    methods: {
+      teachers() {
+        return this.$store.getters['roleAssignments/usersWithRole']('teacher')
       }
     }
   }
