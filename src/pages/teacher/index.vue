@@ -9,7 +9,7 @@
     <Groups
       v-if="tab === 'classes'"
       type="class"
-      :possibleMembers="students"
+      :possibleMembers="() => students"
     />
     <div v-if="tab === 'content'">
       <MyContent />
@@ -37,14 +37,13 @@
     },
     data() {
       return {
-        tab: 'classes'
+        tab: 'classes',
+        students: []
       }
     },
-    methods: {
-      students() {
-        //  TODO: get students by some means...
-        return []
-      }
+    async created() {
+      const students = await Agent.state('my-students')
+      this.students = students.map(({ student }) => student)
     }
   }
 </script>
