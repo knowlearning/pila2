@@ -8,7 +8,7 @@ import expertContent from './expert-content.js'
 import myRole from './my-role.js'
 import groups from './groups.js'
 import groupMembers from './group_members.js'
-import studies from './studies.js'
+import assignableItems from './assignable_items.js'
 import studyRequests from './study_requests.js'
 import requestedStudies from './requested_studies.js'
 import studyGrants from './study_grants.js'
@@ -19,7 +19,7 @@ export default {
   modules: {
     app,
     myRole,
-    studies,
+    assignableItems,
     studyRequests,
     requestedStudies,
     studyGrants,

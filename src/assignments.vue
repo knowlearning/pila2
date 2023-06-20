@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="_, id in studies"
+        v-for="_, id in assignable_items"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+  import { v4 as uuid } from 'uuid'
   import ScopeValue from './scope-value.vue'
   import UserInfo from './user-info.vue'
   import Study from './assignment.vue'
@@ -41,23 +42,30 @@
       ScopeValue,
       Study
     },
+    props: {
+      type: String
+    },
     data() {
       return {
         current: null
       }
     },
     computed: {
-      studies() {
-        return this.$store.getters['studies/studies']()
+      assignable_items() {
+        return this.$store.getters['assignableItems/items'](this.type)
       }
     },
     methods: {
       async add() {
         const name = prompt('Study name')
-        this.current = await this.$store.dispatch('studies/add', { name })
+        const id = uuid()
+        const assignableItem = await Agent.mutate(id)
+        assignableItem.name = name // TODO: add reasonable defaults based on type
+        this.current = id
+        this.$store.dispatch('assignableItems/add', { id, item_type: this.type })
       },
       remove(id) {
-        this.$store.dispatch('studies/remove', id)
+        this.$store.dispatch('assignableItems/remove', id)
         if (this.current === id) this.current = null
       }
     }

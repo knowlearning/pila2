@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="{ assigner_id }, id in studies"
+        v-for="{ assigner_id }, id in assignments"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
@@ -37,7 +37,7 @@
     <h1>
       <ScopeValue
         :scope="current"
-        :user="studies[current].assigner_id"
+        :user="assignments[current].assigner_id"
         :path="['name']"
       />
     </h1>
@@ -59,7 +59,7 @@
       }
     },
     computed: {
-      studies() {
+      assignments() {
         return this.$store.getters['assignmentsToMe/assignments']()
       }
     }

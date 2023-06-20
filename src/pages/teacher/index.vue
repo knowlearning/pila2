@@ -16,8 +16,14 @@
       <MyContent />
       <ExpertContent />
     </div>
-    <Assignments v-if="tab === 'assignments'" />
-    <AssingmentsToMe v-if="tab === 'assignments-to-me'" />
+    <Assignments
+      v-if="tab === 'assignments'"
+      type="teacher-to-students"
+    />
+    <AssingmentsToMe
+      v-if="tab === 'assignments-to-me'"
+      type="researcher-to-teacher"
+    />
   </div>
   <RoleRequester v-else role="teacher" />
 </template>
