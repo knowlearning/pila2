@@ -1,10 +1,16 @@
 <template>
   <h1>Student</h1>
   <div>
-    You're a student!!!!!! Go learn now.
+    <AssingmentsToMe />
   </div>
 </template>
 
 <script>
-  export default {}
+  import AssingmentsToMe from '../../assignments-to-me.vue'
+
+  export default {
+    components: {
+      AssingmentsToMe
+    }
+  }
 </script>
