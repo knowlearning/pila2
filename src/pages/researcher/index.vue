@@ -15,7 +15,7 @@
       <MyContent />
       <ExpertContent />
     </div>
-    <Studies v-if="tab === 'studies'" />
+    <Assignments v-if="tab === 'studies'" />
   </div>
   <RoleRequester v-else role="researcher" />
 </template>
@@ -25,7 +25,7 @@
   import RoleRequester from '../../role-requester.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import Studies from './studies.vue'
+  import Assignments from '../../assignments.vue'
 
   export default {
     components: {
@@ -33,7 +33,7 @@
       MyContent,
       ExpertContent,
       RoleRequester,
-      Studies
+      Assignments
     },
     data() {
       return {

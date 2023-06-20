@@ -1,5 +1,4 @@
 <template>
-  <h1>Studies</h1>
   <button @click="add">New Study</button>
   <table>
     <thead>
@@ -32,9 +31,9 @@
 </template>
 
 <script>
-  import ScopeValue from '../../scope-value.vue'
-  import UserInfo from '../../user-info.vue'
-  import Study from './study.vue'
+  import ScopeValue from './scope-value.vue'
+  import UserInfo from './user-info.vue'
+  import Study from './assignment.vue'
 
   export default {
     components: {

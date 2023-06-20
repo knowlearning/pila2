@@ -61,8 +61,8 @@
 </template>
 
 <script>
-  import UserInfo from '../../user-info.vue'
-  import ScopeValue from '../../scope-value.vue'
+  import UserInfo from './user-info.vue'
+  import ScopeValue from './scope-value.vue'
 
   export default {
     props: {
@@ -79,7 +79,7 @@
     },
     methods: {
       groupAssignmentsFor(study) {
-        return this.$store.getters['studyAssignments/assignedGroups'](study)
+        return this.$store.getters['assignments/assignedGroups'](study)
       },
       isGranted(id) {
         return this.$store.getters['requestedStudies/granted'](id)
@@ -93,11 +93,11 @@
       publishRequested(id) {
         return this.$store.getters['studyRequests/requested'](id)
       },
-      makeAssignment(group_id, study) {
-        this.$store.dispatch('studyAssignments/assign', { group_id, study })
+      makeAssignment(group_id, assignment_id) {
+        this.$store.dispatch('assignments/assign', { group_id, assignment_id })
       },
-      removeAssignment(group_id, study) {
-        this.$store.dispatch('studyAssignments/unassign', { group_id, study })
+      removeAssignment(group_id, assignment_id) {
+        this.$store.dispatch('assignments/unassign', { group_id, assignment_id })
       }
     }
 

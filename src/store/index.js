@@ -13,7 +13,7 @@ import studyRequests from './study_requests.js'
 import requestedStudies from './requested_studies.js'
 import studyGrants from './study_grants.js'
 import assignedStudies from './assigned-studies.js'
-import studyAssignments from './study_assignments.js'
+import assignments from './assignments.js'
 
 export default {
   modules: {
@@ -24,7 +24,7 @@ export default {
     requestedStudies,
     studyGrants,
     assignedStudies,
-    studyAssignments,
+    assignments,
     groups,
     groupMembers,
     myContent,
