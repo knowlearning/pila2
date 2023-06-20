@@ -12,7 +12,7 @@ import studies from './studies.js'
 import studyRequests from './study_requests.js'
 import requestedStudies from './requested_studies.js'
 import studyGrants from './study_grants.js'
-import assignedStudies from './assigned-studies.js'
+import assignmentsToMe from './assignments-to-me.js'
 import assignments from './assignments.js'
 
 export default {
@@ -23,7 +23,7 @@ export default {
     studyRequests,
     requestedStudies,
     studyGrants,
-    assignedStudies,
+    assignmentsToMe,
     assignments,
     groups,
     groupMembers,
@@ -54,7 +54,7 @@ export default {
         store.dispatch('expertContent/load'),
         store.dispatch('requestedRoles/load'),
         store.dispatch('requestedStudies/load'),
-        store.dispatch('assignedStudies/load')
+        store.dispatch('assignmentsToMe/load')
       ])
 
       store.dispatch('loaded', true)

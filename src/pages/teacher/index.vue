@@ -5,7 +5,7 @@
       <button @click="tab = 'classes'">Classes</button>
       <button @click="tab = 'content'">Content</button>
       <button @click="tab = 'assignments'">Assignments</button>
-      <button @click="tab = 'studies'">Studies</button>
+      <button @click="tab = 'assignments-to-me'">Studies</button>
     </div>
     <Groups
       v-if="tab === 'classes'"
@@ -17,7 +17,7 @@
       <ExpertContent />
     </div>
     <Assignments v-if="tab === 'assignments'" />
-    <AssignedStudies v-if="tab === 'studies'" />
+    <AssingmentsToMe v-if="tab === 'assignments-to-me'" />
   </div>
   <RoleRequester v-else role="teacher" />
 </template>
@@ -27,7 +27,7 @@
   import Groups from '../../groups.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import AssignedStudies from './assigned-studies.vue'
+  import AssingmentsToMe from '../../assignments-to-me.vue'
   import Assignments from '../../assignments.vue'
 
   export default {
@@ -37,7 +37,7 @@
       ExpertContent,
       RoleRequester,
       Assignments,
-      AssignedStudies
+      AssingmentsToMe
     },
     data() {
       return {

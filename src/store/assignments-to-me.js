@@ -12,7 +12,7 @@ export default {
   },
   actions: {
     async load({ commit }) {
-      const assignments = await Agent.state('assigned-studies')
+      const assignments = await Agent.state('assignments-to-me')
       assignments.forEach(a => commit('add', a))
     }
   }

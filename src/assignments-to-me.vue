@@ -1,5 +1,4 @@
 <template>
-  <h1>Assigned Studies</h1>
   <table>
     <thead>
       <tr>
@@ -30,8 +29,8 @@
 </template>
 
 <script>
-  import ScopeValue from '../../scope-value.vue'
-  import UserInfo from '../../user-info.vue'
+  import ScopeValue from './scope-value.vue'
+  import UserInfo from './user-info.vue'
 
   export default {
     components: {
@@ -45,7 +44,7 @@
     },
     computed: {
       studies() {
-        return this.$store.getters['assignedStudies/assignments']()
+        return this.$store.getters['assignmentsToMe/assignments']()
       }
     }
   }
