@@ -6,8 +6,8 @@ export default {
     assignments: state => () => state
   },
   mutations: {
-    add(state, { study, researcher }) {
-      state[study] = { researcher }
+    add(state, { assignment_id, researcher }) {
+      state[assignment_id] = { researcher }
     }
   },
   actions: {

@@ -13,8 +13,20 @@
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
       >
-        <td><ScopeValue :scope="id" :user="researcher" :path="['name']" /></td>
-        <td><ScopeValue :scope="id" :user="researcher" :path="['description']" /></td>
+        <td>
+          <ScopeValue
+            :scope="id"
+            :user="researcher"
+            :path="['name']"
+          />
+        </td>
+        <td>
+          <ScopeValue
+            :scope="id"
+            :user="researcher"
+            :path="['description']"
+          />
+      </td>
       </tr>
     </tbody>
   </table>
@@ -23,7 +35,11 @@
     :key="current"
   >
     <h1>
-      <ScopeValue :scope="current" :user="studies[current].researcher" :path="['name']" />
+      <ScopeValue
+        :scope="current"
+        :user="studies[current].researcher"
+        :path="['name']"
+      />
     </h1>
   </div>
 </template>
