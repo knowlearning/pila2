@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="{ researcher }, id in studies"
+        v-for="{ assigner_id }, id in studies"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
@@ -16,14 +16,14 @@
         <td>
           <ScopeValue
             :scope="id"
-            :user="researcher"
+            :user="assigner_id"
             :path="['name']"
           />
         </td>
         <td>
           <ScopeValue
             :scope="id"
-            :user="researcher"
+            :user="assigner_id"
             :path="['description']"
           />
       </td>
@@ -37,7 +37,7 @@
     <h1>
       <ScopeValue
         :scope="current"
-        :user="studies[current].researcher"
+        :user="studies[current].assigner_id"
         :path="['name']"
       />
     </h1>
