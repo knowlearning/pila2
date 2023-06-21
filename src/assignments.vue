@@ -23,24 +23,31 @@
       </tr>
     </tbody>
   </table>
-  <Study
-    v-if="current"
-    :id="current"
-    :key="current"
-  />
+  <div v-if="current" :key="current">
+    <StudyAssignment
+      v-if="type === 'researcher-to-group'"
+      :id="current"
+    />
+    <TeacherAssignment
+      v-else-if="type === 'teacher-to-class'"
+      :id="current"
+    />
+  </div>
 </template>
 
 <script>
   import { v4 as uuid } from 'uuid'
   import ScopeValue from './scope-value.vue'
   import UserInfo from './user-info.vue'
-  import Study from './assignment.vue'
+  import StudyAssignment from './study-assignment.vue'
+  import TeacherAssignment from './teacher-assignment.vue'
 
   export default {
     components: {
       UserInfo,
       ScopeValue,
-      Study
+      StudyAssignment,
+      TeacherAssignment
     },
     props: {
       type: String
