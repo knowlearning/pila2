@@ -4,6 +4,7 @@
     <div>
       <button @click="tab = 'teacher-groups'">Teacher Groups</button>
       <button @click="tab = 'content'">Content</button>
+      <button @click="tab = 'files'">Files</button>
       <button @click="tab = 'studies'">Studies</button>
     </div>
     <Groups
@@ -14,6 +15,9 @@
     <div v-if="tab === 'content'">
       <MyContent />
       <ExpertContent />
+    </div>
+    <div v-if="tab === 'files'">
+      <Files />
     </div>
     <Assignments
       v-if="tab === 'studies'"
@@ -29,12 +33,14 @@
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
   import Assignments from '../../assignments.vue'
+  import Files from '../../files.vue'
 
   export default {
     components: {
       Groups,
       MyContent,
       ExpertContent,
+      Files,
       RoleRequester,
       Assignments
     },

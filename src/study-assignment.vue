@@ -15,6 +15,25 @@
       Content
       <input v-model="study.content" />
     </div>
+    <div>
+      Files
+      <ul>
+        <li v-for="id, index in study.files">
+          <button @click="download(id)">download</button>
+          <ContentName :id="id" />
+          <button @click="study.files.splice(index, 1)">x</button>
+        </li>
+      </ul>
+      <select v-model="selectedFile">
+        <option value="UNSELECTED">Add File</option>
+        <option
+          v-for="_, id in files"
+          :value="id"
+        >
+          <ContentName :id="id" />
+        </option>
+      </select>
+    </div>
   </div>
   <div v-if="isGranted">
     Publish Request GRANTED
@@ -42,14 +61,17 @@
 
 <script>
   import UserInfo from './user-info.vue'
+  import ContentName from './content-name.vue'
   import ScopeValue from './scope-value.vue'
   import GroupAssigner from './group-assigner.vue'
+  import download from './download.js'
 
   export default {
     props: {
       id: String
     },
     components: {
+      ContentName,
       ScopeValue,
       UserInfo,
       GroupAssigner
@@ -57,16 +79,30 @@
     data() {
       return {
         loading: true,
+        selectedFile: 'UNSELECTED',
         study: null
       }
     },
     async created() {
       this.study = await Agent.mutate(this.id)
+      if (!this.study.files) this.study.files = []
       this.loading = false
     },
     computed: {
       isGranted() {
         return this.$store.getters['requestedStudies/granted'](this.id)
+      },
+      files() {
+        return this.$store.getters['files/files']()
+      }
+    },
+    watch: {
+      selectedFile(n) {
+        if (n === 'UNSELECTED') return
+        else {
+          this.study.files.push(this.selectedFile)
+          this.selectedFile = 'UNSELECTED'
+        }
       }
     },
     methods: {
@@ -78,6 +114,9 @@
       },
       publishRequested(id) {
         return this.$store.getters['studyRequests/requested'](id)
+      },
+      download(id) {
+        download(id)
       }
     }
 
