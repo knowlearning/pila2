@@ -1,7 +1,21 @@
 <template>
-  <h1>
-    <ScopeValue :scope="id" :path="['name']" />
-  </h1>
+  <div v-if="loading">
+    ...
+  </div>
+  <div v-else>
+    <div>
+      Name
+      <input v-model="study.name" />
+    </div>
+    <div>
+      Description
+      <textarea v-model="study.description" />
+    </div>
+    <div>
+      Content
+      <input v-model="study.content" />
+    </div>
+  </div>
   <div v-if="isGranted">
     Publish Request GRANTED
   </div>
@@ -39,6 +53,16 @@
       ScopeValue,
       UserInfo,
       GroupAssigner
+    },
+    data() {
+      return {
+        loading: true,
+        study: null
+      }
+    },
+    async created() {
+      this.study = await Agent.mutate(this.id)
+      this.loading = false
     },
     computed: {
       isGranted() {
