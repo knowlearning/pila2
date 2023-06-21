@@ -34,37 +34,25 @@
     v-if="current"
     :key="current"
   >
-    <h1>
-      <ScopeValue
-        :scope="current"
-        :user="assignments[current].assigner_id"
-        :path="['name']"
-      />
-    </h1>
-    Content: 
-    <ScopeValue
-      :scope="current"
-      :user="assignments[current].assigner_id"
-      :path="['content']"
+    <TeacherStudyAssignment
+      v-if="type === 'researcher-to-group'"
+      :assignment_id="current"
+      :assigner_id="assignments[current].assigner_id"
     />
-    <p>
-      <ScopeValue
-        :scope="current"
-        :user="assignments[current].assigner_id"
-        :path="['description']"
-      />
-    </p>
+    <div v-else>Need view for type "{{ type }}"</div>
   </div>
 </template>
 
 <script>
   import ScopeValue from './scope-value.vue'
   import UserInfo from './user-info.vue'
+  import TeacherStudyAssignment from './teacher-study-assignment.vue'
 
   export default {
     components: {
       UserInfo,
-      ScopeValue
+      ScopeValue,
+      TeacherStudyAssignment
     },
     props: {
       type: String
