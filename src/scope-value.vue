@@ -20,7 +20,11 @@ export default {
     return { loaded: false, state: {} }
   },
   async created() {
-    this.state = await (this.user ? Agent.state(this.scope, this.user) : Agent.state(this.scope))
+    const onUpdate = update => {
+      //  TODO: remove hack
+      this.state = JSON.parse(JSON.stringify(update.state))
+    }
+    this.state = await (this.user ? Agent.state(this.scope, this.user).watch(onUpdate) : Agent.state(this.scope).watch(onUpdate))
     this.loaded = true
   },
   computed: {
