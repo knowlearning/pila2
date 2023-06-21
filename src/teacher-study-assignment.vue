@@ -43,7 +43,9 @@ export default {
   async created() {
     this.study = await Agent.state(this.assignment_id, this.assigner_id)
   },
-  download(id) { download(id) }
+  methods: {
+    download(id) { download(id) }
+  }
 }
 
 </script>
