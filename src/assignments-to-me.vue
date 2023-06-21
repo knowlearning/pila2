@@ -41,6 +41,19 @@
         :path="['name']"
       />
     </h1>
+    Content: 
+    <ScopeValue
+      :scope="current"
+      :user="assignments[current].assigner_id"
+      :path="['content']"
+    />
+    <p>
+      <ScopeValue
+        :scope="current"
+        :user="assignments[current].assigner_id"
+        :path="['description']"
+      />
+    </p>
   </div>
 </template>
 
