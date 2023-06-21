@@ -2,7 +2,6 @@
   <h1>
     <ScopeValue :scope="id" :path="['name']" />
   </h1>
-  {{ $store.getters['groups/groups']('class') }}
   <GroupAssigner
     :id="id"
     :groups="$store.getters['groups/groups']('class')"
