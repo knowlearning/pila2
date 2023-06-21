@@ -24,9 +24,13 @@
 </template>
 
 <script>
+import ContentName from './content-name.vue'
 import download from './download.js'
 
 export default {
+  components: {
+    ContentName
+  },
   props: {
     assignment_id: String,
     assigner_id: String
