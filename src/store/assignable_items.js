@@ -3,7 +3,14 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    items: state => item_type => state //  TODO: filter by type
+    items: state => item_type => (
+      Object
+        .fromEntries(
+          Object
+            .entries(state)
+            .filter(([_, d]) => d.item_type === item_type)
+        )
+    )
   },
   mutations: {
     add(state, { item_type, id }) {
