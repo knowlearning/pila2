@@ -17,7 +17,7 @@
     </div>
     <Assignments
       v-if="tab === 'studies'"
-      type="researcher-to-teacher"
+      type="researcher-to-group"
     />
   </div>
   <RoleRequester v-else role="researcher" />

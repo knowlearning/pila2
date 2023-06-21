@@ -1,7 +1,7 @@
 <template>
   <h1>Student</h1>
   <div>
-    <AssingmentsToMe />
+    <AssingmentsToMe type="teacher-to-class" />
   </div>
 </template>
 

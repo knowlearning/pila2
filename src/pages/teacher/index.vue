@@ -18,11 +18,11 @@
     </div>
     <Assignments
       v-if="tab === 'assignments'"
-      type="teacher-to-students"
+      type="teacher-to-class"
     />
     <AssingmentsToMe
       v-if="tab === 'assignments-to-me'"
-      type="researcher-to-teacher"
+      type="researcher-to-group"
     />
   </div>
   <RoleRequester v-else role="teacher" />

@@ -53,6 +53,9 @@
       UserInfo,
       ScopeValue
     },
+    props: {
+      type: String
+    },
     data() {
       return {
         current: null
@@ -60,7 +63,7 @@
     },
     computed: {
       assignments() {
-        return this.$store.getters['assignmentsToMe/assignments']()
+        return this.$store.getters['assignmentsToMe/assignments'](this.type)
       }
     }
   }

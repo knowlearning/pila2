@@ -3,11 +3,18 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    assignments: state => () => state
+    assignments: state => item_type => (
+      Object
+        .fromEntries(
+          Object
+            .entries(state)
+            .filter(([_, d]) => d.item_type === item_type)
+        )
+    )
   },
   mutations: {
-    add(state, { assignment_id, assigner_id }) {
-      state[assignment_id] = { assigner_id }
+    add(state, { assignment_id, assigner_id, item_type }) {
+      state[assignment_id] = { assigner_id, item_type }
     }
   },
   actions: {
