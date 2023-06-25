@@ -1,0 +1,147 @@
+postgres:
+  tables:
+    role_requests:
+      role: TEXT
+    role_assertions:
+      role: TEXT
+    my_content:
+      expert: BOOLEAN
+    study_requests: {}
+    study_grants:
+      granted: BOOLEAN
+    assignments:
+      group_id: TEXT
+      assignment_id: TEXT
+    group_members:
+      user_id: TEXT
+      group_id: TEXT
+    assignable_items:
+      item_type: TEXT
+    teachers: {}
+  functions:
+    userHasPermission:
+      returns: BOOLEAN
+      language: PLpgSQL
+      body: |
+        BEGIN
+          RETURN permission = 'admin' AND user_id IN ('Z27illIpwKSKyneNpxhCEZiTjLJ2', 'jX4ruKnaNfRP2D0gftNPeowb2ZE2');
+        END;
+      arguments:
+      - name: user_id
+        type: TEXT
+      - name: permission
+        type: TEXT
+  scopes:
+    role-assignments: |
+      SELECT
+          t1.id      AS assignee,
+          t1.owner   AS assigner,
+          t1.updated AS updated,
+          CASE
+            WHEN userHasPermission(t1.id, 'admin') THEN 'admin'
+            ELSE t1.role
+          END AS role
+      FROM role_assertions t1
+      INNER JOIN (
+          SELECT id, MAX(updated) AS max_updated
+          FROM role_assertions
+          WHERE userHasPermission(owner, 'admin')
+          GROUP BY id
+      ) t2
+      ON t1.id = t2.id
+        AND t1.updated = t2.max_updated
+        AND userHasPermission(t1.owner, 'admin')
+    requested-roles: |
+      SELECT id AS user, role, updated
+      FROM role_requests
+      WHERE owner = id
+    my-role: |
+      SELECT
+          t1.id      AS assignee,
+          t1.owner   AS assigner,
+          t1.updated AS updated,
+          CASE
+            WHEN userHasPermission(t1.id, 'admin') THEN 'admin'
+            ELSE t1.role
+          END AS role
+      FROM role_assertions t1
+      INNER JOIN (
+          SELECT id, MAX(updated) AS max_updated
+          FROM role_assertions
+          WHERE userHasPermission(owner, 'admin')
+          GROUP BY id
+      ) t2
+      ON t1.id = t2.id
+        AND t1.updated = t2.max_updated
+        AND userHasPermission(t1.owner, 'admin')
+      WHERE t1.id = $REQUESTER
+    expert-content: |
+      SELECT
+          t1.id      AS content,
+          t1.owner   AS assigner,
+          t1.updated AS updated
+      FROM my_content t1
+      INNER JOIN (
+          SELECT id, MAX(updated) AS max_updated
+          FROM my_content
+          WHERE userHasPermission(owner, 'admin')
+          GROUP BY id
+      ) t2
+      ON t1.id = t2.id
+        AND t1.updated = t2.max_updated
+        AND t1.expert
+        AND userHasPermission(t1.owner, 'admin')
+    requested-studies: |
+      SELECT
+        study_requests.id AS study,
+        study_requests.owner AS researcher,
+        latest_grants.granted AS granted,
+        study_requests.updated
+      FROM study_requests
+      LEFT JOIN (
+        SELECT
+          id,
+          granted
+        FROM (
+          SELECT
+            id,
+            granted,
+            ROW_NUMBER() OVER (PARTITION BY id ORDER BY updated DESC) AS rn
+          FROM study_grants
+          WHERE userHasPermission(owner, 'admin')
+        ) AS subquery
+        WHERE rn = 1
+      ) latest_grants
+      ON latest_grants.id = study_requests.id
+      WHERE userHasPermission(owner, 'admin')
+        OR study_requests.owner = $REQUESTER
+    assignments-to-me: |
+      SELECT
+        DISTINCT assignment_id,
+        assignments.owner AS assigner_id,
+        assignable_items.item_type AS item_type
+      FROM assignments
+      LEFT JOIN assignable_items
+        ON assignable_items.owner = assignments.owner AND assignable_items.id = assignments.assignment_id
+      WHERE
+        assignment_id IN (
+          SELECT assignment_id
+          FROM assignments
+          WHERE group_id IN (
+            SELECT group_id
+            FROM group_members
+            WHERE user_id = $REQUESTER
+          )
+        )
+        AND (
+          assignable_items.item_type = 'teacher-to-class'
+          OR (
+            SELECT granted
+            FROM study_grants
+            WHERE userHasPermission(study_grants.owner, 'admin')
+              AND assignments.assignment_id = study_grants.id
+            ORDER BY study_grants.updated DESC
+            LIMIT 1
+          )
+        )
+    my-students: SELECT owner AS student FROM teachers WHERE id = $REQUESTER
