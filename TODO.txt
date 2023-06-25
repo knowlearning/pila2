@@ -1,0 +1,21 @@
+  Admin
+    Can download all study data
+  Researcher
+    Add dashboards to studies
+    Content assigner for study
+    Timestamp on researcher agreement about following data regulations
+    Track live data
+    Download data sets
+  Teacher
+    Flesh out assignment info
+      Name
+      Content
+    Track agreement by teacher that they have collected necessary parent/guardian consent before study assignment
+    View dashboards for assignments
+    Anonymize/denonymize student names
+    Link out to customizers
+    Agreement to terms of use and privacy policy
+  Student
+    Differentiate study and teacher "in the wild" assignments
+    Register run-states in such a way that teachers and researchers can access
+    View performance
