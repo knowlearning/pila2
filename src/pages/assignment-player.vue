@@ -1,6 +1,10 @@
 <template>
   <div v-if="assignment">
-    <vueContentComponent :id="assignment.content" />
+    <vueContentComponent
+      :id="assignment.content"
+      @state="stateListener"
+      @mutate="mutateListener"
+    />
   </div>
   <div v-else>
     ...loading...
@@ -28,6 +32,14 @@
       },
       assigner_id() {
         return this.$store.getters['assignmentsToMe/assignment'](this.assignment_id).assigner_id
+      }
+    },
+    methods: {
+      stateListener(event) {
+        console.log('STATE LISTENER!', event)
+      },
+      mutateListener(event) {
+        console.log('MUTATE LISTENER!', event)
       }
     }
   }
