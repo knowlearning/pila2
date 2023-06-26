@@ -39,6 +39,10 @@
       :assignment_id="current"
       :assigner_id="assignments[current].assigner_id"
     />
+    <ClassAssignment
+      v-else-if="type === 'teacher-to-class'"
+      :assignment_id="current"
+    />
     <div v-else>Need view for type "{{ type }}"</div>
   </div>
 </template>
@@ -47,11 +51,13 @@
   import ScopeValue from './scope-value.vue'
   import UserInfo from './user-info.vue'
   import TeacherStudyAssignment from './teacher-study-assignment.vue'
+  import ClassAssignment from './class-assignment.vue'
 
   export default {
     components: {
       UserInfo,
       ScopeValue,
+      ClassAssignment,
       TeacherStudyAssignment
     },
     props: {

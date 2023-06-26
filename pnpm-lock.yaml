@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@knowlearning/agents':
-    specifier: ^0.4.9
-    version: 0.4.9
+    specifier: ^0.4.10
+    version: 0.4.10
   '@vitejs/plugin-basic-ssl':
     specifier: ^1.0.1
     version: 1.0.1(vite@4.3.9)
@@ -716,8 +716,8 @@ packages:
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
-  /@knowlearning/agents@0.4.9:
-    resolution: {integrity: sha512-GAom5N3SJsQoAsHmmBMtABbKnYk99cGQVlg1/RugECnpiL4oJXPnUYI87lQvJH2OXmseazUvwyYHxyc2WBnVrA==}
+  /@knowlearning/agents@0.4.10:
+    resolution: {integrity: sha512-bm33vJZt8dAgJK8pcw2NH/ZrpN1NdMfr9v/Nvk0GPQKD8g1TJcIkvz892qNEPfz2/V8JYpqYindv0RVKy+H3Hw==}
     dependencies:
       fast-json-patch: 3.1.1
       firebase: 9.23.0
