@@ -1,12 +1,12 @@
 <template>
   <div v-if="assignment">
     <h1>
-      {{ assignment.name }}, content: {{ assignment.content }}
+      {{ assignment.name }}
     </h1>
     <p>
       {{ assignment.description }}
     </p>
-    <vueContentComponent :id="assignment.content" />
+    <button @click="$router.push(`/assignment/${this.assignment_id}`)">play</button>
   </div>
   <div v-else>
     ...
@@ -14,19 +14,18 @@
 </template>
 
 <script>
-  import { vueContentComponent } from '@knowlearning/agents'
-
   export default {
-    components: {
-      vueContentComponent
-    },
     props: {
-      assignment_id: String,
-      assigner_id: String
+      assignment_id: String
     },
     data() {
       return {
         assignment: null
+      }
+    },
+    computed: {
+      assigner_id() {
+        return this.$store.getters['assignmentsToMe/assignment'](this.assignment_id).assigner_id
       }
     },
     async created() {

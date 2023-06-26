@@ -37,7 +37,6 @@
     <TeacherStudyAssignment
       v-if="type === 'researcher-to-group'"
       :assignment_id="current"
-      :assigner_id="assignments[current].assigner_id"
     />
     <ClassAssignment
       v-else-if="type === 'teacher-to-class'"

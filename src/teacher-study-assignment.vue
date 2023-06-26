@@ -32,8 +32,7 @@ export default {
     ContentName
   },
   props: {
-    assignment_id: String,
-    assigner_id: String
+    assignment_id: String
   },
   data() {
     return {
@@ -42,6 +41,11 @@ export default {
   },
   async created() {
     this.study = await Agent.state(this.assignment_id, this.assigner_id)
+  },
+  computed: {
+    assigner_id() {
+      return this.$store.getters['assignmentsToMe/assignment'](this.assignment_id).assigner_id
+    }
   },
   methods: {
     download(id) { download(id) }

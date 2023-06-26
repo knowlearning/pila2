@@ -10,7 +10,8 @@ export default {
             .entries(state)
             .filter(([_, d]) => d.item_type === item_type)
         )
-    )
+    ),
+    assignment: state => id => state[id]
   },
   mutations: {
     add(state, { assignment_id, assigner_id, item_type }) {
