@@ -62,7 +62,6 @@
 <script>
   import UserInfo from './user-info.vue'
   import ContentName from './content-name.vue'
-  import ScopeValue from './scope-value.vue'
   import GroupAssigner from './group-assigner.vue'
   import download from './download.js'
 
@@ -72,7 +71,6 @@
     },
     components: {
       ContentName,
-      ScopeValue,
       UserInfo,
       GroupAssigner
     },

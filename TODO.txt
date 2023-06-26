@@ -7,9 +7,9 @@
     Track live data
     Download data sets
   Teacher
-    Flesh out assignment info
-      Name
-      Content
+X   Flesh out assignment info
+X     Name
+X     Content
     Track agreement by teacher that they have collected necessary parent/guardian consent before study assignment
     View dashboards for assignments
     Anonymize/denonymize student names
