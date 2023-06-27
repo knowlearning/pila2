@@ -1,5 +1,5 @@
 <template>
-  <div v-if="assignment">
+  <div v-if="assignment" class="wrapper">
     <vueContentComponent
       :id="assignment.content"
       @state="stateListener"
@@ -47,18 +47,12 @@
 
 <style scoped>
 
-.selected {
-  background: yellow;
-}
-
-tr {
-  cursor: pointer;
-}
-
-.member-tables {
-  display: flex;
-  justify-content: space-around;
-  align-items: top;
+.wrapper {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
 }
 
 </style>
