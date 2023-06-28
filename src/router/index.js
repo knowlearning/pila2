@@ -4,7 +4,7 @@ import ResearcherView from '../pages/researcher/index.vue'
 import TeacherView from '../pages/teacher/index.vue'
 import StudentView from '../pages/student/index.vue'
 import JoinTeacherView from '../pages/student/join-teacher.vue'
-import AssignmentPlayer from '../pages/assignment-player.vue'
+import Player from '../pages/player/index.vue'
 
 export default createRouter({
   history: createWebHistory(),
@@ -31,7 +31,7 @@ export default createRouter({
     },
     {
       path: '/assignment/:assignment_id',
-      component: AssignmentPlayer
+      component: Player
     }
   ]
 })

@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@knowlearning/agents':
-    specifier: ^0.4.12
-    version: 0.4.12
+    specifier: ^0.4.13
+    version: 0.4.13
   '@vitejs/plugin-basic-ssl':
     specifier: ^1.0.1
     version: 1.0.1(vite@4.3.9)
@@ -242,7 +242,7 @@ packages:
       '@firebase/app-compat': 0.2.13
       '@firebase/component': 0.6.4
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
     dev: false
@@ -261,7 +261,7 @@ packages:
       '@firebase/installations': 0.6.4(@firebase/app@0.9.13)
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/app-check-compat@0.3.7(@firebase/app-compat@0.2.13)(@firebase/app@0.9.13):
@@ -275,7 +275,7 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
     dev: false
@@ -297,7 +297,7 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/app-compat@0.2.13:
@@ -307,7 +307,7 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/app-types@0.9.0:
@@ -321,7 +321,7 @@ packages:
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
       idb: 7.1.1
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/auth-compat@0.4.2(@firebase/app-compat@0.2.13)(@firebase/app-types@0.9.0)(@firebase/app@0.9.13):
@@ -335,7 +335,7 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/util': 1.9.3
       node-fetch: 2.6.7
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
       - '@firebase/app-types'
@@ -366,7 +366,7 @@ packages:
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
       node-fetch: 2.6.7
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -375,7 +375,7 @@ packages:
     resolution: {integrity: sha512-rLMyrXuO9jcAUCaQXCMjCMUsWrba5fzHlNK24xz5j2W6A/SRmK8mZJ/hn7V0fViLbxC0lPMtrK1eYzk6Fg03jA==}
     dependencies:
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/database-compat@0.3.4:
@@ -386,7 +386,7 @@ packages:
       '@firebase/database-types': 0.10.4
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/database-types@0.10.4:
@@ -404,7 +404,7 @@ packages:
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
       faye-websocket: 0.11.4
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/firestore-compat@0.3.12(@firebase/app-compat@0.2.13)(@firebase/app-types@0.9.0)(@firebase/app@0.9.13):
@@ -417,7 +417,7 @@ packages:
       '@firebase/firestore': 3.13.0(@firebase/app@0.9.13)
       '@firebase/firestore-types': 2.5.1(@firebase/app-types@0.9.0)(@firebase/util@1.9.3)
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
       - '@firebase/app-types'
@@ -448,7 +448,7 @@ packages:
       '@grpc/grpc-js': 1.7.3
       '@grpc/proto-loader': 0.6.13
       node-fetch: 2.6.7
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -463,7 +463,7 @@ packages:
       '@firebase/functions': 0.10.0(@firebase/app@0.9.13)
       '@firebase/functions-types': 0.6.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
       - encoding
@@ -485,7 +485,7 @@ packages:
       '@firebase/messaging-interop-types': 0.2.0
       '@firebase/util': 1.9.3
       node-fetch: 2.6.7
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -500,7 +500,7 @@ packages:
       '@firebase/installations': 0.6.4(@firebase/app@0.9.13)
       '@firebase/installations-types': 0.5.0(@firebase/app-types@0.9.0)
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
       - '@firebase/app-types'
@@ -523,13 +523,13 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/util': 1.9.3
       idb: 7.0.1
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/logger@0.4.0:
     resolution: {integrity: sha512-eRKSeykumZ5+cJPdxxJRgAC3G5NknY2GwEbKfymdnXtnT0Ucm4pspfR6GT4MUQEDuJwRVbVcSx85kgJulMoFFA==}
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/messaging-compat@0.2.4(@firebase/app-compat@0.2.13)(@firebase/app@0.9.13):
@@ -541,7 +541,7 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/messaging': 0.12.4(@firebase/app@0.9.13)
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
     dev: false
@@ -561,7 +561,7 @@ packages:
       '@firebase/messaging-interop-types': 0.2.0
       '@firebase/util': 1.9.3
       idb: 7.0.1
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/performance-compat@0.2.4(@firebase/app-compat@0.2.13)(@firebase/app@0.9.13):
@@ -575,7 +575,7 @@ packages:
       '@firebase/performance': 0.6.4(@firebase/app@0.9.13)
       '@firebase/performance-types': 0.2.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
     dev: false
@@ -594,7 +594,7 @@ packages:
       '@firebase/installations': 0.6.4(@firebase/app@0.9.13)
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/remote-config-compat@0.2.4(@firebase/app-compat@0.2.13)(@firebase/app@0.9.13):
@@ -608,7 +608,7 @@ packages:
       '@firebase/remote-config': 0.4.4(@firebase/app@0.9.13)
       '@firebase/remote-config-types': 0.3.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
     dev: false
@@ -627,7 +627,7 @@ packages:
       '@firebase/installations': 0.6.4(@firebase/app@0.9.13)
       '@firebase/logger': 0.4.0
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/storage-compat@0.3.2(@firebase/app-compat@0.2.13)(@firebase/app-types@0.9.0)(@firebase/app@0.9.13):
@@ -640,7 +640,7 @@ packages:
       '@firebase/storage': 0.11.2(@firebase/app@0.9.13)
       '@firebase/storage-types': 0.8.0(@firebase/app-types@0.9.0)(@firebase/util@1.9.3)
       '@firebase/util': 1.9.3
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - '@firebase/app'
       - '@firebase/app-types'
@@ -666,7 +666,7 @@ packages:
       '@firebase/component': 0.6.4
       '@firebase/util': 1.9.3
       node-fetch: 2.6.7
-      tslib: 2.5.3
+      tslib: 2.6.0
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -674,7 +674,7 @@ packages:
   /@firebase/util@1.9.3:
     resolution: {integrity: sha512-DY02CRhOZwpzO36fHpuVysz6JZrscPiBXD0fXp6qSrL9oNOx5KWICKdR95C0lSITzxp0TZosVyHqzatE8JbcjA==}
     dependencies:
-      tslib: 2.5.3
+      tslib: 2.6.0
     dev: false
 
   /@firebase/webchannel-wrapper@0.10.1:
@@ -686,7 +686,7 @@ packages:
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.7
-      '@types/node': 20.3.1
+      '@types/node': 20.3.2
     dev: false
 
   /@grpc/proto-loader@0.6.13:
@@ -709,15 +709,15 @@ packages:
       '@types/long': 4.0.2
       lodash.camelcase: 4.3.0
       long: 4.0.0
-      protobufjs: 7.2.3
+      protobufjs: 7.2.4
       yargs: 17.7.2
     dev: false
 
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
-  /@knowlearning/agents@0.4.12:
-    resolution: {integrity: sha512-ArY5FgFa/G+eP9BMU6rAZtnnoa06Pj+483s9oMpUNe2/AZ/pjRTRtfHzeJtMV6U0TS2bGNlkotmXEnlzplOsig==}
+  /@knowlearning/agents@0.4.13:
+    resolution: {integrity: sha512-kwoQpFkoJVruG2uaN85w78R1/OgAwHQDQlLhxpk57kQn+KgGwcUlcF1MNv/ZTwMZMTgvTQ81k05KLYyaZUUnMA==}
     dependencies:
       fast-json-patch: 3.1.1
       firebase: 9.23.0
@@ -774,8 +774,8 @@ packages:
     resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
     dev: false
 
-  /@types/node@20.3.1:
-    resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
+  /@types/node@20.3.2:
+    resolution: {integrity: sha512-vOBLVQeCQfIcF/2Y7eKFTqrMnizK5lRNQ7ykML/5RuwVXVWxYkgwS7xbt4B6fKCUPgbSL5FSsjHQpaGQP/dQmw==}
     dev: false
 
   /@vitejs/plugin-basic-ssl@1.0.1(vite@4.3.9):
@@ -1133,12 +1133,12 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.2
-      '@types/node': 20.3.1
+      '@types/node': 20.3.2
       long: 4.0.0
     dev: false
 
-  /protobufjs@7.2.3:
-    resolution: {integrity: sha512-TtpvOqwB5Gdz/PQmOjgsrGH1nHjAQVCN7JG4A6r1sXRWESL5rNMAiRcBQlCAdKxZcAbstExQePYG8xof/JVRgg==}
+  /protobufjs@7.2.4:
+    resolution: {integrity: sha512-AT+RJgD2sH8phPmCf7OUZR8xGdcJRga4+1cOaXJ64hvcSkVhNcRHOwIxUatPH15+nj59WAGTDv3LSGZPEQbJaQ==}
     engines: {node: '>=12.0.0'}
     requiresBuild: true
     dependencies:
@@ -1152,7 +1152,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.3.1
+      '@types/node': 20.3.2
       long: 5.2.3
     dev: false
 
@@ -1161,8 +1161,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /rollup@3.25.2:
-    resolution: {integrity: sha512-VLnkxZMDr3jpxgtmS8pQZ0UvhslmF4ADq/9w4erkctbgjCqLW9oa89fJuXEs4ZmgyoF7Dm8rMDKSS5b5u2hHUg==}
+  /rollup@3.25.3:
+    resolution: {integrity: sha512-ZT279hx8gszBj9uy5FfhoG4bZx8c+0A1sbqtr7Q3KNWIizpTdDEPZbV2xcbvHsnFp4MavCQYZyzApJ+virB8Yw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -1200,8 +1200,8 @@ packages:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
     dev: false
 
-  /tslib@2.5.3:
-    resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
+  /tslib@2.6.0:
+    resolution: {integrity: sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA==}
     dev: false
 
   /uuid@8.3.2:
@@ -1241,7 +1241,7 @@ packages:
     dependencies:
       esbuild: 0.17.19
       postcss: 8.4.24
-      rollup: 3.25.2
+      rollup: 3.25.3
     optionalDependencies:
       fsevents: 2.3.2
 

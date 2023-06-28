@@ -18,6 +18,9 @@ postgres:
     assignable_items:
       item_type: TEXT
     teachers: {}
+    assignment_scopes:
+      scope: TEXT
+      assignment_id: TEXT
   functions:
     userHasPermission:
       returns: BOOLEAN
