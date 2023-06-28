@@ -16,6 +16,10 @@
       <input v-model="study.content" />
     </div>
     <div>
+      Dashboard
+      <input v-model="study.dashboard" />
+    </div>
+    <div>
       Files
       <ul>
         <li v-for="id, index in study.files">
