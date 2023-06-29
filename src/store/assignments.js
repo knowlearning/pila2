@@ -16,6 +16,14 @@ export default {
           .filter(({ assignment_id: id }) => assignment_id === id)
           .map(({ group_id }) => group_id)
       )
+    },
+    assignedStudents: (_state, getters, _rootState, rootGetters) => assignment_id => {
+      return Array.from(new Set(
+        getters
+          .assignedGroups(assignment_id)
+          .map(group_id => rootGetters['groupMembers/members'](group_id))
+          .flat()
+      ))
     }
   },
   mutations: {

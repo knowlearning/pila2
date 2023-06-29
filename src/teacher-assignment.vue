@@ -20,9 +20,16 @@
     :id="id"
     :groups="$store.getters['groups/groups']('class')"
   />
+  <div v-if="dashboardScope">
+    <vueContentComponent
+      :id="`https://dashboard.knowlearning.systems/${dashboardScope}`"
+    />
+  </div>
 </template>
 
 <script>
+  import { v4 as uuid } from 'uuid'
+  import { vueContentComponent } from '@knowlearning/agents'
   import GroupAssigner from './group-assigner.vue'
 
   export default {
@@ -30,18 +37,26 @@
       id: String
     },
     components: {
-      GroupAssigner
+      GroupAssigner,
+      vueContentComponent
     },
     data() {
       return {
         loading: true,
         selectedFile: 'UNSELECTED',
-        assignment: null
+        assignment: null,
+        dashboardScope: null
       }
     },
     async created() {
       this.assignment = await Agent.mutate(this.id)
       this.loading = false
+
+      const id = uuid()
+      const ds = await Agent.mutate(id)
+      ds.scope = this.assignment.content
+      ds.users = this.$store.getters['assignments/assignedStudents'](this.id)
+      this.dashboardScope = id
     }
   }
 
