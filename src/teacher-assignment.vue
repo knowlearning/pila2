@@ -55,7 +55,8 @@
       const id = uuid()
       const ds = await Agent.mutate(id)
       ds.scope = this.assignment.content
-      ds.users = this.$store.getters['assignments/assignedStudents'](this.id)
+      const users = this.$store.getters['assignments/assignedStudents'](this.id)
+      ds.users = users.reduce((acc, id) => (acc[id] = {}, acc), {})
       this.dashboardScope = id
     }
   }
