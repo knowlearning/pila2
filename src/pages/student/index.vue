@@ -3,7 +3,7 @@
   <div>
     <button @click="tab = 'class-assignments'">Assignments</button>
     <button @click="tab = 'study-assignments'">Studies</button>
-    <AssingmentsToMe
+    <AssignmentsToMe
       :key="tab"
       :type="assignmentType"
     />
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-  import AssingmentsToMe from '../../assignments-to-me.vue'
+  import AssignmentsToMe from '../../assignments-to-me.vue'
 
   export default {
     components: {
-      AssingmentsToMe
+      AssignmentsToMe
     },
     data() {
       return {
@@ -25,8 +25,8 @@
     computed: {
       assignmentType() {
         return {
-          'class-assignments': 'teacher-to-class',
-          'study-assignments': 'researcher-to-group'
+          'class-assignments': 'teacher-to-student',
+          'study-assignments': 'researcher-to-teacher'
         }[this.tab]
       }
     }

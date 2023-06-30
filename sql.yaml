@@ -12,6 +12,7 @@ postgres:
     assignments:
       group_id: TEXT
       assignment_id: TEXT
+      assignment_type: TEXT
     group_members:
       user_id: TEXT
       group_id: TEXT
@@ -121,6 +122,7 @@ postgres:
     assignments-to-me: |
       SELECT
         DISTINCT assignment_id,
+        assignments.assignment_type as assignment_type,
         assignments.owner AS assigner_id,
         (
           SELECT owner
@@ -128,7 +130,7 @@ postgres:
           ORDER BY created ASC
           LIMIT 1
         ) AS authority,
-        assignable_items.item_type AS item_type
+        assignable_items.item_type AS assignable_item_type
       FROM assignments
       LEFT JOIN assignable_items
         ON assignable_items.owner = assignments.owner AND assignable_items.id = assignments.assignment_id
@@ -143,7 +145,7 @@ postgres:
           )
         )
         AND (
-          assignable_items.item_type = 'teacher-to-class'
+          assignable_items.item_type = 'teacher-created'
           OR (
             SELECT granted
             FROM study_grants

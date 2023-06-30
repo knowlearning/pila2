@@ -60,6 +60,7 @@
   <GroupAssigner
     :id="id"
     :groups="$store.getters['groups/groups']('teachers')"
+    assignment_type="researcher-to-teacher"
   />
 </template>
 

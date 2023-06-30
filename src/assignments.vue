@@ -1,5 +1,5 @@
 <template>
-  <button @click="add">New Study</button>
+  <button @click="add">New Assignment</button>
   <table>
     <thead>
       <tr>
@@ -24,12 +24,12 @@
     </tbody>
   </table>
   <div v-if="current" :key="current">
-    <StudyAssignment
-      v-if="type === 'researcher-to-group'"
+    <ResearcherToTeacherAssignment
+      v-if="assignable_item_type === 'researcher-created'"
       :id="current"
     />
-    <TeacherAssignment
-      v-else-if="type === 'teacher-to-class'"
+    <TeacherToStudentAssignment
+      v-else-if="assignable_item_type === 'teacher-created'"
       :id="current"
     />
   </div>
@@ -39,18 +39,19 @@
   import { v4 as uuid } from 'uuid'
   import ScopeValue from './scope-value.vue'
   import UserInfo from './user-info.vue'
-  import StudyAssignment from './study-assignment.vue'
-  import TeacherAssignment from './teacher-assignment.vue'
+  import ResearcherToTeacherAssignment from './researcher-to-teacher-assignment.vue'
+  import TeacherToStudentAssignment from './teacher-to-student-assignment.vue'
 
   export default {
     components: {
       UserInfo,
       ScopeValue,
-      StudyAssignment,
-      TeacherAssignment
+      ResearcherToTeacherAssignment,
+      TeacherToStudentAssignment
     },
     props: {
-      type: String
+      assignable_item_type: String,
+      assignment_type: String
     },
     data() {
       return {
@@ -59,7 +60,7 @@
     },
     computed: {
       assignable_items() {
-        return this.$store.getters['assignableItems/items'](this.type)
+        return this.$store.getters['assignableItems/items'](this.assignable_item_type)
       }
     },
     methods: {
@@ -69,7 +70,7 @@
         const assignableItem = await Agent.mutate(id)
         assignableItem.name = name // TODO: add reasonable defaults based on type
         this.current = id
-        this.$store.dispatch('assignableItems/add', { id, item_type: this.type })
+        this.$store.dispatch('assignableItems/add', { id, item_type: this.assignable_item_type })
       },
       remove(id) {
         this.$store.dispatch('assignableItems/remove', id)

@@ -39,11 +39,11 @@
     :key="current"
   >
     <TeacherStudyAssignment
-      v-if="type === 'researcher-to-group'"
+      v-if="type === 'researcher-to-teacher'"
       :assignment_id="current"
     />
     <ClassAssignment
-      v-else-if="type === 'teacher-to-class'"
+      v-else-if="type === 'teacher-to-student'"
       :assignment_id="current"
     />
     <div v-else>Need view for type "{{ type }}"</div>

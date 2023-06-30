@@ -19,6 +19,7 @@
   <GroupAssigner
     :id="id"
     :groups="$store.getters['groups/groups']('class')"
+    assignment_type="teacher-to-student"
   />
   <div v-if="dashboardScope">
     <vueContentComponent
@@ -55,7 +56,7 @@
       const id = uuid()
       const ds = await Agent.mutate(id)
       ds.scope = this.assignment.content
-      const users = this.$store.getters['assignments/assignedStudents'](this.id)
+      const users = this.$store.getters['assignments/assignedStudents'](this.id, 'teacher-to-student')
       ds.users = users.reduce((acc, id) => (acc[id] = {}, acc), {})
       this.dashboardScope = id
     }

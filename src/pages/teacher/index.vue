@@ -18,11 +18,12 @@
     </div>
     <Assignments
       v-if="tab === 'assignments'"
-      type="teacher-to-class"
+      assignable_item_type="teacher-created"
+      assignment_type="teacher-to-student"
     />
-    <AssingmentsToMe
+    <AssignmentsToMe
       v-if="tab === 'assignments-to-me'"
-      type="researcher-to-group"
+      type="researcher-to-teacher"
     />
   </div>
   <RoleRequester v-else role="teacher" />
@@ -33,7 +34,7 @@
   import Groups from '../../groups.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import AssingmentsToMe from '../../assignments-to-me.vue'
+  import AssignmentsToMe from '../../assignments-to-me.vue'
   import Assignments from '../../assignments.vue'
 
   export default {
@@ -43,7 +44,7 @@
       ExpertContent,
       RoleRequester,
       Assignments,
-      AssingmentsToMe
+      AssignmentsToMe
     },
     data() {
       return {

@@ -30,7 +30,7 @@
           :key="group_id"
         >
           <td>
-            <button @click="makeAssignment(group_id, id)">+</button>
+            <button @click="makeAssignment(group_id, id, assignment_type)">+</button>
           </td>
           <td>{{ name }}</td>
         </tr>
@@ -46,7 +46,8 @@
   export default {
     props: {
       id: String,
-      groups: Object
+      groups: Object,
+      assignment_type: String
     },
     components: {
       ScopeValue,
@@ -54,10 +55,10 @@
     },
     methods: {
       groupAssignmentsFor(id) {
-        return this.$store.getters['assignments/assignedGroups'](id)
+        return this.$store.getters['assignments/assignedGroups'](id, this.assignment_type)
       },
-      makeAssignment(group_id, assignment_id) {
-        this.$store.dispatch('assignments/assign', { group_id, assignment_id })
+      makeAssignment(group_id, assignment_id, assignment_type) {
+        this.$store.dispatch('assignments/assign', { group_id, assignment_id, assignment_type })
       },
       removeAssignment(group_id, assignment_id) {
         this.$store.dispatch('assignments/unassign', { group_id, assignment_id })

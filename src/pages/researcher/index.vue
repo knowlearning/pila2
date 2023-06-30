@@ -21,7 +21,8 @@
     </div>
     <Assignments
       v-if="tab === 'studies'"
-      type="researcher-to-group"
+      assignable_item_type="researcher-created"
+      assignment_type="researcher-to-teacher"
     />
   </div>
   <RoleRequester v-else role="researcher" />
