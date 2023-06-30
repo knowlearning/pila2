@@ -17,6 +17,10 @@
         </li>
       </ul>
     </div>
+    <GroupAssigner
+      :id="assignment_id"
+      :groups="$store.getters['groups/groups']('class')"
+    />
   </div>
   <div v-else>
     ...
@@ -24,32 +28,30 @@
 </template>
 
 <script>
-import ContentName from './content-name.vue'
-import download from './download.js'
+  import GroupAssigner from './group-assigner.vue'
+  import ContentName from './content-name.vue'
+  import download from './download.js'
 
-export default {
-  components: {
-    ContentName
-  },
-  props: {
-    assignment_id: String
-  },
-  data() {
-    return {
-      study: null
+  export default {
+    components: {
+      ContentName,
+      GroupAssigner
+    },
+    props: {
+      assignment_id: String
+    },
+    data() {
+      return {
+        study: null
+      }
+    },
+    async created() {
+      const { authority } = this.$store.getters['assignmentsToMe/assignment'](this.assignment_id)
+      this.study = await Agent.state(this.assignment_id, authority)
+    },
+    methods: {
+      download(id) { download(id) }
     }
-  },
-  async created() {
-    this.study = await Agent.state(this.assignment_id, this.assigner_id)
-  },
-  computed: {
-    assigner_id() {
-      return this.$store.getters['assignmentsToMe/assignment'](this.assignment_id).assigner_id
-    }
-  },
-  methods: {
-    download(id) { download(id) }
   }
-}
 
 </script>

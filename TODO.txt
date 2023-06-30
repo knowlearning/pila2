@@ -19,3 +19,5 @@ X     Content
     Differentiate study and teacher "in the wild" assignments
     Register run-states in such a way that teachers and researchers can access
     View performance
+
+Ensure only 1 authority per assignment_id

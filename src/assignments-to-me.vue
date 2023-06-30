@@ -4,11 +4,12 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Authority</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="{ assigner_id }, id in assignments"
+        v-for="{ assigner_id, authority }, id in assignments"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
@@ -26,7 +27,10 @@
             :user="assigner_id"
             :path="['description']"
           />
-      </td>
+        </td>
+        <td>
+          {{ authority }}
+        </td>
       </tr>
     </tbody>
   </table>

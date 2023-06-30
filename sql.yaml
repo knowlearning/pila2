@@ -122,6 +122,12 @@ postgres:
       SELECT
         DISTINCT assignment_id,
         assignments.owner AS assigner_id,
+        (
+          SELECT owner
+          FROM assignable_items
+          ORDER BY created ASC
+          LIMIT 1
+        ) AS authority,
         assignable_items.item_type AS item_type
       FROM assignments
       LEFT JOIN assignable_items

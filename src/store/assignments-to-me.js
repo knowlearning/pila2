@@ -14,8 +14,8 @@ export default {
     assignment: state => id => state[id]
   },
   mutations: {
-    add(state, { assignment_id, assigner_id, item_type }) {
-      state[assignment_id] = { assigner_id, item_type }
+    add(state, { assignment_id, assigner_id, authority, item_type }) {
+      state[assignment_id] = { assigner_id, authority, item_type }
     }
   },
   actions: {
