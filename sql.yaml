@@ -122,11 +122,13 @@ postgres:
     assignments-to-me: |
       SELECT
         DISTINCT assignment_id,
+        assignments.id AS id,
         assignments.assignment_type as assignment_type,
         assignments.owner AS assigner_id,
         (
           SELECT owner
           FROM assignable_items
+          WHERE id = assignments.assignment_id
           ORDER BY created ASC
           LIMIT 1
         ) AS authority,

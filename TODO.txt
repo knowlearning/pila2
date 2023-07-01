@@ -21,3 +21,5 @@ X     Content
     View performance
 
 Ensure only 1 authority per assignment_id
+Change assignment_id to "scope" for use next to authority in assignments-to-me
+Change id to assignment_id for use next to authority and scope in assignments-to-me

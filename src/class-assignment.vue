@@ -6,7 +6,7 @@
     <p>
       {{ assignment.description }}
     </p>
-    <button @click="$router.push(`/assignment/${this.assignment_id}`)">play</button>
+    <button @click="$router.push(`/assignment/${this.id}`)">play</button>
   </div>
   <div v-else>
     ...
@@ -16,20 +16,21 @@
 <script>
   export default {
     props: {
-      assignment_id: String
+      id: String
     },
     data() {
       return {
-        assignment: null
+        assigned_item: null
       }
     },
     computed: {
-      assigner_id() {
-        return this.$store.getters['assignmentsToMe/assignment'](this.assignment_id).assigner_id
+      assignment() {
+        return this.$store.getters['assignmentsToMe/assignment'](this.id)
       }
     },
     async created() {
-      this.assignment = await Agent.state(this.assignment_id, this.assigner_id)
+      const { assignment_id, authority } = this.assignment
+      this.assigned_item = await Agent.state(assignment_id, authority)
     }
   }
 

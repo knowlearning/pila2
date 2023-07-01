@@ -2,31 +2,37 @@
   <table>
     <thead>
       <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Assigner</th>
         <th>Authority</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="{ assigner_id, authority }, id in assignments"
+        v-for="{ assigner_id, authority, assignment_id }, id in assignments"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
       >
+        <td>{{ id }}</td>
         <td>
           <ScopeValue
-            :scope="id"
-            :user="assigner_id"
+            :scope="assignment_id"
+            :user="authority"
             :path="['name']"
           />
         </td>
         <td>
           <ScopeValue
-            :scope="id"
-            :user="assigner_id"
+            :scope="assignment_id"
+            :user="authority"
             :path="['description']"
           />
+        </td>
+        <td>
+          {{ assigner_id }}
         </td>
         <td>
           {{ authority }}
@@ -40,11 +46,11 @@
   >
     <TeacherStudyAssignment
       v-if="type === 'researcher-to-teacher'"
-      :assignment_id="current"
+      :id="current"
     />
     <ClassAssignment
       v-else-if="type === 'teacher-to-student'"
-      :assignment_id="current"
+      :id="current"
     />
     <div v-else>Need view for type "{{ type }}"</div>
   </div>

@@ -38,7 +38,7 @@
       GroupAssigner
     },
     props: {
-      assignment_id: String
+      id: String
     },
     data() {
       return {

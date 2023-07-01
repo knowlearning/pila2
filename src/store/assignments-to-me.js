@@ -3,20 +3,25 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    assignments: state => assignment_type => (
-      Object
-        .fromEntries(
-          Object
-            .entries(state)
-            .filter(([_, d]) => d.assignment_type === assignment_type)
-        )
-    ),
+    assignments: state => assignment_type => {
+      const filteredEntries = (
+        Object
+        .entries(state)
+        .filter(([_id, a]) => a.assignment_type === assignment_type)
+      )
+      return Object.fromEntries(filteredEntries)
+    },
     assignment: state => id => state[id]
   },
   mutations: {
-    add(state, { assignment_id, assigner_id, authority, assignment_type }) {
-      //  TODO: probably should throw error if we try and add a duplicate
-      state[assignment_id] = { assigner_id, authority, assignment_type }
+    add(state, { id, assignment_id, authority, assigner_id, assignment_type, assignable_item_type }) {
+      state[id] = {
+        assignment_id,
+        authority,
+        assigner_id,
+        assignment_type,
+        assignable_item_type
+      }
     }
   },
   actions: {
