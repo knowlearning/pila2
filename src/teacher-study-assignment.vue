@@ -18,7 +18,7 @@
       </ul>
     </div>
     <GroupAssigner
-      :id="assignment_id"
+      :id="id"
       :groups="$store.getters['groups/groups']('class')"
     />
   </div>
@@ -46,8 +46,8 @@
       }
     },
     async created() {
-      const { authority } = this.$store.getters['assignmentsToMe/assignment'](this.assignment_id)
-      this.study = await Agent.state(this.assignment_id, authority)
+      const { authority, assignment_id } = this.$store.getters['assignmentsToMe/assignment'](this.id)
+      this.study = await Agent.state(assignment_id, authority)
     },
     methods: {
       download(id) { download(id) }
