@@ -8,6 +8,7 @@ postgres:
       type: application/json;type=role_assertion
       columns:
         role: TEXT
+        assignee: TEXT
     my_content:
       type: application/json;type=my_content
       columns:
@@ -58,47 +59,53 @@ postgres:
   scopes:
     role-assignments: |
       SELECT
-          t1.id      AS assignee,
-          t1.owner   AS assigner,
-          t1.updated AS updated,
-          CASE
-            WHEN userHasPermission(t1.id, 'admin') THEN 'admin'
-            ELSE t1.role
-          END AS role
-      FROM role_assertions t1
-      INNER JOIN (
-          SELECT id, MAX(updated) AS max_updated
+        ra.assignee,
+        CASE
+          WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
+          ELSE ra.role
+        END AS role,
+        m.updated
+      FROM role_assertions ra
+      JOIN metadata m
+        ON ra.id = m.id
+      WHERE
+        (ra.assignee, m.updated) IN (
+          SELECT assignee, MAX(updated)
           FROM role_assertions
+          JOIN metadata ON role_assertions.id = metadata.id
           WHERE userHasPermission(owner, 'admin')
-          GROUP BY id
-      ) t2
-      ON t1.id = t2.id
-        AND t1.updated = t2.max_updated
-        AND userHasPermission(t1.owner, 'admin')
-    requested-roles: |
-      SELECT id AS user, role, updated
-      FROM role_requests
-      WHERE owner = id
+          GROUP BY assignee
+        )
+        AND userHasPermission(m.owner, 'admin')
     my-role: |
       SELECT
-          t1.id      AS assignee,
-          t1.owner   AS assigner,
-          t1.updated AS updated,
-          CASE
-            WHEN userHasPermission(t1.id, 'admin') THEN 'admin'
-            ELSE t1.role
-          END AS role
-      FROM role_assertions t1
-      INNER JOIN (
-          SELECT id, MAX(updated) AS max_updated
+        ra.assignee,
+        CASE
+          WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
+          ELSE ra.role
+        END AS role,
+        m.updated
+      FROM role_assertions ra
+      JOIN metadata m
+        ON ra.id = m.id
+      WHERE
+        (ra.assignee, m.updated) IN (
+          SELECT assignee, MAX(updated)
           FROM role_assertions
+          JOIN metadata ON role_assertions.id = metadata.id
           WHERE userHasPermission(owner, 'admin')
-          GROUP BY id
-      ) t2
-      ON t1.id = t2.id
-        AND t1.updated = t2.max_updated
-        AND userHasPermission(t1.owner, 'admin')
-      WHERE t1.id = $REQUESTER
+          GROUP BY assignee
+        )
+        AND userHasPermission(m.owner, 'admin')
+        AND ra.assignee = $REQUESTER
+    requested-roles: |
+      SELECT
+        role_requests.role AS role,
+        metadata.owner     AS assignee,
+        metadata.updated   AS updated
+      FROM role_requests
+      LEFT JOIN metadata
+        ON metadata.id = role_requests.id
     expert-content: |
       SELECT
           t1.id      AS content,
