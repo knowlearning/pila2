@@ -6,8 +6,8 @@ export default {
     requests: state => () => state
   },
   mutations: {
-    add(state, { user, role, updated }) {
-      state[user] = { role, updated }
+    add(state, { assignee, role, updated }) {
+      state[assignee] = { role, updated }
     }
   },
   actions: {

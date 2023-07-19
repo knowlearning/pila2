@@ -1,22 +1,32 @@
+const ROLE_REQUEST_TYPE = 'application/json;type=role_request'
+
+setTimeout(() => {
+  Agent
+    .metadata('requested-role')
+    .then(md => {
+      if (md.active_type !== ROLE_REQUEST_TYPE) {
+        md.active_type = ROLE_REQUEST_TYPE
+      }
+    })
+})
+
 export default {
-  scope: 'role_requests',
+  scope: 'requested-role',
   namespaced: true,
-  state: () => ({}),
+  state: () => ({
+    role: null
+  }),
   getters: {
-    myRequestedRole: (state, _getters, _rootState, rootGetters) => () => {
-      const user = rootGetters['app/user']()
-      return state[user] ? state[user].role : null
-    }
+    myRequestedRole: state => () => state.role
   },
   mutations: {
-    request(state, { user, role }) {
-      state[user] = { role }
+    request(state, role) {
+      state.role = role
     }
   },
   actions: {
-    async request({ commit, rootGetters }, role) {
-      const user = rootGetters['app/user']()
-      commit('request', { user, role })
+    async request({ commit }, role) {
+      commit('request', role)
     }
   }
 }

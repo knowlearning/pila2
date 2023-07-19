@@ -1,11 +1,15 @@
 <template>
   <div v-if="requestedRole">
     You have requested to be a {{ role }}. Please wait for admin approval.
-  </div>
-  <div v-else>
     <button
-      @click="requestRole"
+      v-if="requestedRole === role"
+      @click="requestRole(null)"
     >
+      Undo
+    </button>
+  </div>
+  <div v-if="requestedRole !== role">
+    <button @click="requestRole(role)">
       Request "{{ role }}" Role
     </button>
   </div>
@@ -26,8 +30,8 @@
       }
     },
     methods: {
-      requestRole() {
-        this.$store.dispatch('roleRequests/request', this.role)
+      requestRole(role) {
+        this.$store.dispatch('roleRequests/request', role)
       }
     }
   }
