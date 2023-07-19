@@ -21,7 +21,7 @@
           v-if="expertEditing"
           @click="toggleExpert(id)"
         >
-          <span v-if="content.expert">TRUE</span>
+          <span v-if="isExpert(id)">TRUE</span>
           <span v-else>False</span>
         </td>
         <td>
@@ -58,7 +58,10 @@
         this.$store.dispatch('myContent/remove', id)
       },
       toggleExpert(id) {
-        this.$store.dispatch('myContent/toggleExpert', id)
+        this.$store.dispatch('expertContent/toggleExpert', id)
+      },
+      isExpert(id) {
+        return this.$store.getters['expertContent/isExpert'](id)
       }
     }
   }

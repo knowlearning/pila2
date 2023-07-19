@@ -9,8 +9,8 @@ postgres:
       columns:
         role: TEXT
         assignee: TEXT
-    my_content:
-      type: application/json;type=my_content
+    expert_tags:
+      type: application/json;type=expert_tag
       columns:
         content: TEXT
         expert: BOOLEAN
@@ -126,19 +126,22 @@ postgres:
         ON metadata.id = role_requests.id
     expert-content: |
       SELECT
-        mc.content
-      FROM my_content mc
-      JOIN metadata m ON mc.id = m.id
+        et.content,
+        m.owner AS assigner,
+        m.updated AS updated
+      FROM expert_tags et
+      JOIN metadata m ON et.id = m.id
       WHERE
-        (mc.content, m.updated) IN (
+        (et.content, m.updated) IN (
           SELECT content, MAX(updated)
-          FROM my_content
-          JOIN metadata ON my_content.id = metadata.id
+          FROM expert_tags
+          JOIN metadata ON expert_tags.id = metadata.id
           WHERE userHasPermission(owner, 'admin')
-            AND my_content.expert
           GROUP BY content
         )
         AND userHasPermission(m.owner, 'admin')
+        AND et.expert
+    all-expert-tags: SELECT * FROM expert_tags
     requested-studies: |
       SELECT
         study_requests.id     AS study,

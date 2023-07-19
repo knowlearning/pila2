@@ -51,7 +51,7 @@
         this.$store.dispatch('myContent/add', id)
       },
       toggleExpert(id) {
-        this.$store.dispatch('myContent/toggleExpert', id)
+        this.$store.dispatch('expertContent/toggleExpert', id)
       },
       remove(id) {
         this.$store.dispatch('myContent/remove', id)
