@@ -18,6 +18,7 @@ export default {
   },
   actions: {
     async load({ commit }) {
+      await Agent.synced()
       const roleAssignments = await Agent.state('role-assignments')
       roleAssignments
         .forEach(assignment => commit('add', assignment))
