@@ -54,7 +54,8 @@
       async uploadFile(e) {
         const file = e.target.files[0]
         const id = await Agent.upload(file.name, file.type, file)
-        console.log('uploaded file id', id)
+        const metadata = await Agent.metadata(id)
+        metadata.name = file.name
         this.$store.dispatch('files/add', id )
         e.target.value = ''
       },

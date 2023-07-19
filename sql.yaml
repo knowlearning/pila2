@@ -141,7 +141,6 @@ postgres:
         )
         AND userHasPermission(m.owner, 'admin')
         AND et.expert
-    all-expert-tags: SELECT * FROM expert_tags
     requested-studies: |
       SELECT
         study_requests.id     AS study,

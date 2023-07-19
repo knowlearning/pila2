@@ -13,7 +13,6 @@ export default {
     return { loaded: false, metadata: null }
   },
   async created() {
-    console.log('iiiiid', this.id)
     this.metadata = await Agent.metadata(this.id) || {}
     this.loaded = true
   }
