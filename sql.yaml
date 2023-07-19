@@ -68,6 +68,7 @@ postgres:
           WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
           ELSE ra.role
         END AS role,
+        m.owner as assigner,
         m.updated
       FROM role_assertions ra
       JOIN metadata m
@@ -88,6 +89,7 @@ postgres:
           WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
           ELSE ra.role
         END AS role,
+        m.owner as assigner,
         m.updated
       FROM role_assertions ra
       JOIN metadata m
@@ -102,6 +104,18 @@ postgres:
         )
         AND userHasPermission(m.owner, 'admin')
         AND ra.assignee = $REQUESTER
+
+      UNION ALL
+
+      SELECT
+        $REQUESTER AS assignee,
+        CASE
+          WHEN userHasPermission($REQUESTER, 'admin') THEN 'admin'
+          ELSE 'student'
+        END AS role,
+        NULL AS assigner,
+        NULL AS updated
+      LIMIT 1;
     requested-roles: |
       SELECT
         role_requests.role AS role,
