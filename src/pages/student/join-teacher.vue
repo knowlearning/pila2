@@ -14,7 +14,7 @@
     },
     methods: {
       async join() {
-        const teachers = await Agent.mutate('teachers')
+        const teachers = await Agent.state('teachers')
         teachers[this.$route.params.teacher] = {}
         this.joined = true
       }

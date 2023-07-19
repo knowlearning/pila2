@@ -50,11 +50,11 @@
       }
     },
     async created() {
-      this.assignment = await Agent.mutate(this.id)
+      this.assignment = await Agent.state(this.id)
       this.loading = false
 
       const id = uuid()
-      const ds = await Agent.mutate(id)
+      const ds = await Agent.state(id)
       ds.scope = this.assignment.content
       const users = this.$store.getters['assignments/assignedStudents'](this.id, 'teacher-to-student')
       ds.users = users.reduce((acc, id) => (acc[id] = {}, acc), {})

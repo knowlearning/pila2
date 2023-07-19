@@ -47,14 +47,14 @@
   </div>
   <div v-else>
     <button
-      @click="requestPublish(id)"
-      v-if="!publishRequested(id)"
+      @click="requestPublish"
+      v-if="!publishRequested()"
     >
       Request Publish
     </button>
     <div v-else>
       Publish Requested
-      <button @click="undoRequest(id)">undo</button>
+      <button @click="undoRequest">undo</button>
     </div>
   </div>
   <GroupAssigner
@@ -69,6 +69,8 @@
   import ContentName from './content-name.vue'
   import GroupAssigner from './group-assigner.vue'
   import download from './download.js'
+
+  const STUDY_TYPE = 'application/json;type=study'
 
   export default {
     props: {
@@ -87,7 +89,10 @@
       }
     },
     async created() {
-      this.study = await Agent.mutate(this.id)
+      this.study = await Agent.state(this.id)
+      Agent.metadata(this.id).then(metadata => {
+        if (metadata.active_type !== STUDY_TYPE) metadata.active_type = STUDY_TYPE
+      })
       if (!this.study.files) this.study.files = []
       this.loading = false
     },
@@ -109,14 +114,14 @@
       }
     },
     methods: {
-      requestPublish(id) {
-        this.$store.dispatch('studyRequests/add', id)
+      requestPublish() {
+        this.study.publish_requested = true
       },
-      undoRequest(id) {
-        this.$store.dispatch('studyRequests/remove', id)
+      undoRequest() {
+        this.study.publish_requested = false
       },
-      publishRequested(id) {
-        return this.$store.getters['studyRequests/requested'](id)
+      publishRequested() {
+        return this.study ? this.study.publish_requested : false
       },
       download(id) {
         download(id)

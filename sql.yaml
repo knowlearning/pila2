@@ -14,10 +14,10 @@ postgres:
       columns:
         content: TEXT
         expert: BOOLEAN
-    study_requests:
-      type: application/json;type=study_request
+    studies:
+      type: application/json;type=study
       columns:
-        study: TEXT
+        publish_requested: BOOLEAN
     study_grants:
       type: application/json;type=study_grant
       columns:
@@ -143,12 +143,12 @@ postgres:
         AND et.expert
     requested-studies: |
       SELECT
-        study_requests.id     AS study,
+        studies.id            AS study,
         latest_grants.granted AS granted,
         srm.owner             AS researcher,
         srm.updated
-      FROM study_requests
-      LEFT JOIN metadata srm ON srm.id = study_requests.id
+      FROM studies
+      LEFT JOIN metadata srm ON srm.id = studies.id
       LEFT JOIN (
         SELECT
           study,
@@ -157,15 +157,15 @@ postgres:
           SELECT
             study,
             granted,
-            ROW_NUMBER() OVER (PARTITION BY study_grants.id ORDER BY updated DESC) AS rn
+            ROW_NUMBER() OVER (PARTITION BY study_grants.id ORDER BY sgm.updated DESC) AS rn
           FROM study_grants
           LEFT JOIN metadata sgm ON sgm.id = study_grants.id
           WHERE userHasPermission(sgm.owner, 'admin')
         ) AS subquery
         WHERE rn = 1
       ) latest_grants
-      ON latest_grants.study = study_requests.study
-      WHERE srm.owner = $REQUESTER
+      ON latest_grants.study = studies.id
+      WHERE studies.publish_requested
     assignments-to-me: |
       SELECT
         assignments.item,

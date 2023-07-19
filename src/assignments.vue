@@ -67,7 +67,7 @@
       async add() {
         const name = prompt('Study name')
         const id = uuid()
-        const assignableItem = await Agent.mutate(id)
+        const assignableItem = await Agent.state(id)
         assignableItem.name = name // TODO: add reasonable defaults based on type
         this.current = id
         this.$store.dispatch('assignableItems/add', { id, item_type: this.assignable_item_type })

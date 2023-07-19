@@ -22,7 +22,7 @@
     data() {
       return {
         assignment: null,
-        assignmentScopes: Agent.mutate('assignment_scopes', false)
+        assignmentScopes: Agent.state('assignment_scopes', false)
       }
     },
     async created() {
