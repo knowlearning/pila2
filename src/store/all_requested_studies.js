@@ -15,7 +15,7 @@ export default {
   },
   actions: {
     async load({ commit }) {
-      const studyRequests = await Agent.state('requested-studies')
+      const studyRequests = await Agent.state('all-requested-studies')
       studyRequests.forEach(request => commit('add', request))
     }
   }

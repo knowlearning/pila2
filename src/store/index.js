@@ -10,7 +10,7 @@ import groups from './groups.js'
 import groupMembers from './group_members.js'
 import assignableItems from './assignable_items.js'
 import studyRequests from './study_requests.js'
-import requestedStudies from './requested_studies.js'
+import allRequestedStudies from './all_requested_studies.js'
 import studyGrants from './study_grants.js'
 import assignmentsToMe from './assignments-to-me.js'
 import assignments from './assignments.js'
@@ -23,7 +23,7 @@ export default {
     files,
     assignableItems,
     studyRequests,
-    requestedStudies,
+    allRequestedStudies,
     studyGrants,
     assignmentsToMe,
     assignments,
@@ -55,7 +55,7 @@ export default {
         store.dispatch('roleAssignments/load'),
         store.dispatch('expertContent/load'),
         store.dispatch('requestedRoles/load'),
-        store.dispatch('requestedStudies/load'),
+        store.dispatch('allRequestedStudies/load'),
         store.dispatch('assignmentsToMe/load')
       ])
 

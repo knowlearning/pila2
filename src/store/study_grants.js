@@ -1,17 +1,22 @@
+import { v4 as uuid } from 'uuid'
+
+const STUDY_GRANT_TYPE = 'application/json;type=study_grant'
+
 export default {
-  scope: 'study_grants',
+  scope: null,
   namespaced: true,
   state: () => ({}),
-  mutations: {
-    grant(state, { study, granted }) {
-      state[study] = { granted }
-    }
-  },
   actions: {
-    async grant({ commit, dispatch }, { study, granted }) {
-      console.log('GRANTING', study, granted)
-      commit('grant', { study, granted })
-      await dispatch('requestedStudies/load', null, {root:true})
+    async grant({ dispatch }, { study, granted }) {
+      const id = uuid()
+      const state = await Agent.state(id)
+      const metadata = await Agent.metadata(id)
+      metadata.active_type = STUDY_GRANT_TYPE
+      state.study = study
+      state.granted = granted
+
+      await Agent.synced()
+      await dispatch('allRequestedStudies/load', null, {root:true})
     }
   }
 }

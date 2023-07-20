@@ -141,7 +141,7 @@ postgres:
         )
         AND userHasPermission(m.owner, 'admin')
         AND et.expert
-    requested-studies: |
+    all-requested-studies: |
       SELECT
         studies.id            AS study,
         latest_grants.granted AS granted,
@@ -157,7 +157,7 @@ postgres:
           SELECT
             study,
             granted,
-            ROW_NUMBER() OVER (PARTITION BY study_grants.id ORDER BY sgm.updated DESC) AS rn
+            ROW_NUMBER() OVER (PARTITION BY study_grants.study ORDER BY sgm.updated DESC) AS rn
           FROM study_grants
           LEFT JOIN metadata sgm ON sgm.id = study_grants.id
           WHERE userHasPermission(sgm.owner, 'admin')

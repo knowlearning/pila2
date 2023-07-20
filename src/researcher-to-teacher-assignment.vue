@@ -98,7 +98,7 @@
     },
     computed: {
       isGranted() {
-        return this.$store.getters['requestedStudies/granted'](this.id)
+        return this.$store.getters['allRequestedStudies/granted'](this.id)
       },
       files() {
         return this.$store.getters['files/files']()
