@@ -60,50 +60,44 @@ postgres:
         type: TEXT
       - name: permission
         type: TEXT
+    role_assignments:
+      returns:
+        assignee: TEXT
+        role: TEXT
+        assigner: TEXT
+        updated: TIMESTAMP
+      language: PLpgSQL
+      body: |
+        BEGIN
+          RETURN QUERY
+            SELECT
+              ra.assignee,
+              CASE
+                WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
+                ELSE ra.role
+              END AS role,
+              m.owner as assigner,
+              m.updated
+            FROM role_assertions ra
+            JOIN metadata m
+              ON ra.id = m.id
+            WHERE
+              (ra.assignee, m.updated) IN (
+                SELECT ra2.assignee, MAX(m2.updated)
+                FROM role_assertions ra2
+                JOIN metadata m2 ON ra2.id = m2.id
+                WHERE userHasPermission(m2.owner, 'admin')
+                GROUP BY ra2.assignee
+              )
+              AND userHasPermission(m.owner, 'admin');
+        END;
+      arguments: []
   scopes:
-    role-assignments: |
-      SELECT
-        ra.assignee,
-        CASE
-          WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
-          ELSE ra.role
-        END AS role,
-        m.owner as assigner,
-        m.updated
-      FROM role_assertions ra
-      JOIN metadata m
-        ON ra.id = m.id
-      WHERE
-        (ra.assignee, m.updated) IN (
-          SELECT assignee, MAX(updated)
-          FROM role_assertions
-          JOIN metadata ON role_assertions.id = metadata.id
-          WHERE userHasPermission(owner, 'admin')
-          GROUP BY assignee
-        )
-        AND userHasPermission(m.owner, 'admin')
+    role-assignments: SELECT * FROM role_assignments()
     my-role: |
-      SELECT
-        ra.assignee,
-        CASE
-          WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
-          ELSE ra.role
-        END AS role,
-        m.owner as assigner,
-        m.updated
-      FROM role_assertions ra
-      JOIN metadata m
-        ON ra.id = m.id
-      WHERE
-        (ra.assignee, m.updated) IN (
-          SELECT assignee, MAX(updated)
-          FROM role_assertions
-          JOIN metadata ON role_assertions.id = metadata.id
-          WHERE userHasPermission(owner, 'admin')
-          GROUP BY assignee
-        )
-        AND userHasPermission(m.owner, 'admin')
-        AND ra.assignee = $REQUESTER
+      SELECT *
+      FROM role_assignments() ra
+      WHERE ra.assignee = $REQUESTER
 
       UNION ALL
 
