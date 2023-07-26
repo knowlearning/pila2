@@ -40,8 +40,9 @@ postgres:
         item: TEXT
         item_type: TEXT
     teachers:
-      type: application/json;type=teacher
-      columns: {}
+      type: application/json;type=teacher-join
+      columns:
+        teacher_id: TEXT
     assignment_scopes:
       type: application/json;type=assignment_scope
       columns:
@@ -197,4 +198,4 @@ postgres:
       FROM teachers
       LEFT JOIN metadata
         ON teachers.id = metadata.id
-      WHERE teachers.id = $REQUESTER
+      WHERE teachers.teacher_id = $REQUESTER

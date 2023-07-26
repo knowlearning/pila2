@@ -14,9 +14,8 @@
     },
     methods: {
       async join() {
-        const teachers = await Agent.state('teachers')
-        teachers[this.$route.params.teacher] = {}
-        this.joined = true
+        const { teacher } = this.$route.params
+        this.$store.dispatch('teachers/join', teacher)
       }
     }
   }

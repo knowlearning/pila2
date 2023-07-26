@@ -14,6 +14,7 @@ import allRequestedStudies from './all_requested_studies.js'
 import studyGrants from './study_grants.js'
 import assignmentsToMe from './assignments-to-me.js'
 import assignments from './assignments.js'
+import teachers from './teachers.js'
 import files from './files.js'
 
 export default {
@@ -21,6 +22,7 @@ export default {
     app,
     myRole,
     files,
+    teachers,
     assignableItems,
     studyRequests,
     allRequestedStudies,
