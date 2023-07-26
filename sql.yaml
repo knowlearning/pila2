@@ -199,3 +199,11 @@ postgres:
       LEFT JOIN metadata
         ON teachers.id = metadata.id
       WHERE teachers.teacher_id = $REQUESTER
+    my-teachers: |
+      SELECT DISTINCT
+        teacher_id,
+        metadata.id as id
+      FROM teachers
+      LEFT JOIN metadata
+        ON teachers.id = metadata.id
+      WHERE metadata.owner = $REQUESTER

@@ -58,7 +58,8 @@ export default {
         store.dispatch('expertContent/load'),
         store.dispatch('requestedRoles/load'),
         store.dispatch('allRequestedStudies/load'),
-        store.dispatch('assignmentsToMe/load')
+        store.dispatch('assignmentsToMe/load'),
+        store.dispatch('teachers/load')
       ])
 
       store.dispatch('loaded', true)

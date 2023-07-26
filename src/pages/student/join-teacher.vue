@@ -1,6 +1,9 @@
 <template>
   <h1>Join Teacher</h1>
-  <div>
+  <div v-if="isMyTeacher">
+    You have already joined this teacher.
+  </div>
+  <div v-else="">
     <button @click="join">Join</button>
   </div>
 </template>
@@ -12,10 +15,17 @@
         joined: false
       }
     },
+    computed: {
+      teacherId() {
+        return this.$route.params.teacher
+      },
+      isMyTeacher() {
+        return this.$store.getters['teachers/isMyTeacher'](this.teacherId)
+      }
+    },
     methods: {
       async join() {
-        const { teacher } = this.$route.params
-        this.$store.dispatch('teachers/join', teacher)
+        this.$store.dispatch('teachers/join', this.teacherId)
       }
     }
   }
