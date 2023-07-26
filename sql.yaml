@@ -193,7 +193,7 @@ postgres:
           )
         )
     my-students: |
-      SELECT
+      SELECT DISTINCT
         owner AS student
       FROM teachers
       LEFT JOIN metadata
