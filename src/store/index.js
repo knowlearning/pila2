@@ -1,21 +1,25 @@
 import app from './app.js'
-import roleRequests from './role-requests.js'
 import myContent from './my_content.js'
-import roleAssertions from './role_assertions.js'
-import requestedRoles from './requested_roles.js'
-import roleAssignments from './role-assignments.js'
 import expertContent from './expert-content.js'
-import myRole from './my-role.js'
-import groups from './groups.js'
-import groupMembers from './group_members.js'
-import assignableItems from './assignable_items.js'
-import studyRequests from './study_requests.js'
-import allRequestedStudies from './all_requested_studies.js'
-import studyGrants from './study_grants.js'
-import assignmentsToMe from './assignments-to-me.js'
-import assignments from './assignments.js'
 import teachers from './teachers.js'
 import files from './files.js'
+
+import roleRequests from './roles/role-requests.js'
+import roleAssertions from './roles/role_assertions.js'
+import requestedRoles from './roles/requested_roles.js'
+import roleAssignments from './roles/role-assignments.js'
+import myRole from './roles/my-role.js'
+
+import groups from './groups/groups.js'
+import groupMembers from './groups/group_members.js'
+
+import studyRequests from './studies/study_requests.js'
+import allRequestedStudies from './studies/all_requested_studies.js'
+import studyGrants from './studies/study_grants.js'
+
+import assignableItems from './assignments/assignable_items.js'
+import assignmentsToMe from './assignments/assignments-to-me.js'
+import assignments from './assignments/assignments.js'
 
 export default {
   modules: {
