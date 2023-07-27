@@ -49,17 +49,15 @@ postgres:
         scope: TEXT
         assignment: TEXT
   functions:
-    userHasPermission:
+    isAdmin:
       returns: BOOLEAN
       arguments:
       - name: user_id
         type: TEXT
-      - name: permission
-        type: TEXT
       language: PLpgSQL
       body: |
         BEGIN
-          RETURN permission = 'admin' AND user_id IN ('Z27illIpwKSKyneNpxhCEZiTjLJ2', 'jX4ruKnaNfRP2D0gftNPeowb2ZE2');
+          RETURN user_id IN ('Z27illIpwKSKyneNpxhCEZiTjLJ2', 'jX4ruKnaNfRP2D0gftNPeowb2ZE2');
         END;
     role_assignments:
       returns:
@@ -87,15 +85,15 @@ postgres:
                 SELECT ra2.assignee, MAX(m2.updated)
                 FROM role_assertions ra2
                 JOIN metadata m2 ON ra2.id = m2.id
-                WHERE userHasPermission(m2.owner, 'admin')
+                WHERE isAdmin(m2.owner)
                 GROUP BY ra2.assignee
               )
-              AND userHasPermission(m.owner, 'admin')
+              AND isAdmin(m.owner)
               AND (
-                userHasPermission(requester_id, 'admin')
+                isAdmin(requester_id)
                 OR ra.assignee = requester_id
               )
-              AND NOT userHasPermission(ra.assignee, 'admin')
+              AND NOT isAdmin(ra.assignee)
             UNION SELECT 'Z27illIpwKSKyneNpxhCEZiTjLJ2', 'admin', 'Z27illIpwKSKyneNpxhCEZiTjLJ2', NULL
             UNION SELECT 'jX4ruKnaNfRP2D0gftNPeowb2ZE2', 'admin', 'Z27illIpwKSKyneNpxhCEZiTjLJ2', NULL
           ;
@@ -122,10 +120,10 @@ postgres:
           SELECT content, MAX(updated)
           FROM expert_tags
           JOIN metadata ON expert_tags.id = metadata.id
-          WHERE userHasPermission(owner, 'admin')
+          WHERE isAdmin(owner)
           GROUP BY content
         )
-        AND userHasPermission(m.owner, 'admin')
+        AND isAdmin(m.owner)
         AND et.expert
     all-requested-studies: |
       SELECT
@@ -146,7 +144,7 @@ postgres:
             ROW_NUMBER() OVER (PARTITION BY study_grants.study ORDER BY sgm.updated DESC) AS rn
           FROM study_grants
           LEFT JOIN metadata sgm ON sgm.id = study_grants.id
-          WHERE userHasPermission(sgm.owner, 'admin')
+          WHERE isAdmin(sgm.owner)
         ) AS subquery
         WHERE rn = 1
       ) latest_grants
@@ -177,7 +175,7 @@ postgres:
             SELECT granted
             FROM study_grants
             LEFT JOIN metadata sgm ON sgm.id = study_grants.id
-            WHERE userHasPermission(sgm.owner, 'admin')
+            WHERE isAdmin(sgm.owner)
               AND assignments.item = study_grants.study
             ORDER BY sgm.updated DESC
             LIMIT 1
