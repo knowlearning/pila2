@@ -23,8 +23,9 @@ export default {
     ),
     role: state => user => state[user] ? state[user].role : 'student',
     hasPermission: (_state, getters) => (user, permission) => {
-      if (!rolePermissions[getters.role(user)]) return false
-      else return !!rolePermissions[myRole][permission]
+      const role = getters.role(user)
+      if (!rolePermissions[role]) return false
+      else return !!rolePermissions[role][permission]
     }
   },
   mutations: {
