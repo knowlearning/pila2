@@ -51,15 +51,19 @@ export default {
     async store => {
       store.dispatch('loaded', false)
 
+      const start = Date.now()
+      function log(name, time) {
+        console.log(name, time)
+      }
       await Promise.all([
-        store.dispatch('app/load'),
-        store.dispatch('myRole/load'),
-        store.dispatch('roleAssignments/load'),
-        store.dispatch('expertContent/load'),
-        store.dispatch('requestedRoles/load'),
-        store.dispatch('allRequestedStudies/load'),
-        store.dispatch('assignmentsToMe/load'),
-        store.dispatch('teachers/load')
+        store.dispatch('app/load').then(() => log('loaded app', Date.now() - start)),
+        store.dispatch('myRole/load').then(() => log('loaded my role', Date.now() - start)),
+        store.dispatch('roleAssignments/load').then(() => log('loaded role assignments', Date.now() - start)),
+        store.dispatch('expertContent/load').then(() => log('loaded expert content', Date.now() - start)),
+        store.dispatch('requestedRoles/load').then(() => log('loaded requested roles', Date.now() - start)),
+        store.dispatch('allRequestedStudies/load').then(() => log('loaded all requested studies', Date.now() - start)),
+        store.dispatch('assignmentsToMe/load').then(() => log('loaded assignments to me', Date.now() - start)),
+        store.dispatch('teachers/load').then(() => log('loaded teachers', Date.now() - start))
       ])
 
       store.dispatch('loaded', true)
