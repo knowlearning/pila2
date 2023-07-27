@@ -5,10 +5,8 @@ import teachers from './teachers.js'
 import files from './files.js'
 
 import roleRequests from './roles/role-requests.js'
-import roleAssertions from './roles/role_assertions.js'
 import requestedRoles from './roles/requested_roles.js'
 import roleAssignments from './roles/role-assignments.js'
-import myRole from './roles/my-role.js'
 
 import groups from './groups/groups.js'
 import groupMembers from './groups/group_members.js'
@@ -24,7 +22,6 @@ import assignments from './assignments/assignments.js'
 export default {
   modules: {
     app,
-    myRole,
     files,
     teachers,
     assignableItems,
@@ -38,7 +35,6 @@ export default {
     myContent,
     expertContent,
     roleRequests,
-    roleAssertions,
     requestedRoles,
     roleAssignments
   },
@@ -61,7 +57,6 @@ export default {
       }
       await Promise.all([
         store.dispatch('app/load').then(() => log('loaded app', Date.now() - start)),
-        store.dispatch('myRole/load').then(() => log('loaded my role', Date.now() - start)),
         store.dispatch('roleAssignments/load').then(() => log('loaded role assignments', Date.now() - start)),
         store.dispatch('expertContent/load').then(() => log('loaded expert content', Date.now() - start)),
         store.dispatch('requestedRoles/load').then(() => log('loaded requested roles', Date.now() - start)),

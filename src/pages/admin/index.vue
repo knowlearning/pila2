@@ -32,7 +32,7 @@
     },
     computed: {
       iAmAnAdmin() {
-        return this.$store.getters['myRole/myRole']() === 'admin'
+        return this.$store.getters['roleAssignments/role'](this.$store.state.app.user) === 'admin'
       }
     }
   }

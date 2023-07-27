@@ -1,6 +1,6 @@
 <template>
   <h1>Researcher</h1>
-  <div v-if="$store.getters['myRole/hasPermission']('researcher')">
+  <div v-if="$store.getters['roleAssignments/hasPermission']($store.state.app.user, 'researcher')">
     <div>
       <button @click="tab = 'teacher-groups'">Teacher Groups</button>
       <button @click="tab = 'content'">Content</button>

@@ -79,12 +79,12 @@
         return this.$store.getters['roleAssignments/assignments']()
       },
       iAmAnAdmin() {
-        return this.$store.getters['myRole/myRole']() === 'admin'
+        return this.$store.getters['roleAssignments/role'](this.$store.state.app.user) === 'admin'
       }
     },
     methods: {
       grantRole(user, role) {
-        this.$store.dispatch('roleAssertions/grant', { user, role })
+        this.$store.dispatch('roleAssignments/assert', { user, role })
       }
     }
   }

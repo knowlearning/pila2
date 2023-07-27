@@ -51,32 +51,32 @@ postgres:
   functions:
     userHasPermission:
       returns: BOOLEAN
-      language: PLpgSQL
-      body: |
-        BEGIN
-          RETURN permission = 'admin' AND user_id IN ('Z27illIpwKSKyneNpxhCEZiTjLJ2', 'jX4ruKnaNfRP2D0gftNPeowb2ZE2');
-        END;
       arguments:
       - name: user_id
         type: TEXT
       - name: permission
         type: TEXT
+      language: PLpgSQL
+      body: |
+        BEGIN
+          RETURN permission = 'admin' AND user_id IN ('Z27illIpwKSKyneNpxhCEZiTjLJ2', 'jX4ruKnaNfRP2D0gftNPeowb2ZE2');
+        END;
     role_assignments:
       returns:
         assignee: TEXT
         role: TEXT
         assigner: TEXT
         updated: TIMESTAMP
+      arguments:
+      - name: requester_id
+        type: TEXT
       language: PLpgSQL
       body: |
         BEGIN
           RETURN QUERY
             SELECT
               ra.assignee,
-              CASE
-                WHEN userHasPermission(ra.assignee, 'admin') THEN 'admin'
-                ELSE ra.role
-              END AS role,
+              ra.role,
               m.owner as assigner,
               m.updated
             FROM role_assertions ra
@@ -90,27 +90,18 @@ postgres:
                 WHERE userHasPermission(m2.owner, 'admin')
                 GROUP BY ra2.assignee
               )
-              AND userHasPermission(m.owner, 'admin');
+              AND userHasPermission(m.owner, 'admin')
+              AND (
+                userHasPermission(requester_id, 'admin')
+                OR ra.assignee = requester_id
+              )
+              AND NOT userHasPermission(ra.assignee, 'admin')
+            UNION SELECT 'Z27illIpwKSKyneNpxhCEZiTjLJ2', 'admin', 'Z27illIpwKSKyneNpxhCEZiTjLJ2', NULL
+            UNION SELECT 'jX4ruKnaNfRP2D0gftNPeowb2ZE2', 'admin', 'Z27illIpwKSKyneNpxhCEZiTjLJ2', NULL
+          ;
         END;
-      arguments: []
   scopes:
-    role-assignments: SELECT * FROM role_assignments()
-    my-role: |
-      SELECT *
-      FROM role_assignments() ra
-      WHERE ra.assignee = $REQUESTER
-
-      UNION ALL
-
-      SELECT
-        $REQUESTER AS assignee,
-        CASE
-          WHEN userHasPermission($REQUESTER, 'admin') THEN 'admin'
-          ELSE 'student'
-        END AS role,
-        NULL AS assigner,
-        NULL AS updated
-      LIMIT 1;
+    role-assignments: SELECT * FROM role_assignments($REQUESTER)
     requested-roles: |
       SELECT
         role_requests.role AS role,

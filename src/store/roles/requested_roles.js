@@ -12,10 +12,8 @@ export default {
   },
   actions: {
     async load({ commit }) {
-      // TODO: remove || [] hack...
-      const roleRequests = await Agent.state('requested-roles') || []
-      roleRequests
-        .forEach(request => commit('add', request))
+      const roleRequests = await Agent.state('requested-roles')
+      roleRequests.forEach(request => commit('add', request))
     }
   }
 }
