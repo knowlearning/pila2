@@ -4,7 +4,7 @@ import expertContent from './expert-content.js'
 import teachers from './teachers.js'
 import files from './files.js'
 
-import roles from './roles/roles.js'
+import roles from './roles.js'
 
 import groups from './groups/groups.js'
 import groupMembers from './groups/group_members.js'
