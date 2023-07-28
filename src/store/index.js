@@ -4,7 +4,6 @@ import expertContent from './expert-content.js'
 import teachers from './teachers.js'
 import files from './files.js'
 
-import requestedRoles from './roles/requested_roles.js'
 import roles from './roles/roles.js'
 
 import groups from './groups/groups.js'
@@ -33,7 +32,6 @@ export default {
     groupMembers,
     myContent,
     expertContent,
-    requestedRoles,
     roles
   },
   state: () => ({
@@ -57,7 +55,6 @@ export default {
         store.dispatch('app/load').then(() => log('loaded app', Date.now() - start)),
         store.dispatch('roles/load').then(() => log('loaded role assignments', Date.now() - start)),
         store.dispatch('expertContent/load').then(() => log('loaded expert content', Date.now() - start)),
-        store.dispatch('requestedRoles/load').then(() => log('loaded requested roles', Date.now() - start)),
         store.dispatch('allRequestedStudies/load').then(() => log('loaded all requested studies', Date.now() - start)),
         store.dispatch('assignmentsToMe/load').then(() => log('loaded assignments to me', Date.now() - start)),
         store.dispatch('teachers/load').then(() => log('loaded teachers', Date.now() - start))

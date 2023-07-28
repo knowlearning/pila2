@@ -108,6 +108,7 @@ postgres:
       FROM role_requests
       LEFT JOIN metadata
         ON metadata.id = role_requests.id
+      WHERE isAdmin($REQUESTER) OR metadata.owner = $REQUESTER
     expert-content: |
       SELECT
         et.content,

@@ -73,7 +73,7 @@
         return ['researcher', 'teacher', 'student']
       },
       roleRequests() {
-        return this.$store.getters['requestedRoles/requests']()
+        return this.$store.getters['roles/requests']()
       },
       roles() {
         return this.$store.getters['roles/assignments']()

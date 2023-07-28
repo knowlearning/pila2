@@ -15,10 +15,11 @@ export default {
   namespaced: true,
   state: () => ({
     assignments: {},
-    request: null
+    requests: {}
   }),
   getters: {
     assignments: state => () => state.assignments,
+    requests: state => () => state.requests,
     usersWithRole: state => role => (
       Object
         .entries(state.assignments)
@@ -34,16 +35,16 @@ export default {
       if (!rolePermissions[role]) return false
       else return !!rolePermissions[role][permission]
     },
-    myRequest: state => () => state.request.role
+    request: state => user => {
+      if (state.requests[user]) return state.requests[user].role
+      return null
+    }
   },
   mutations: {
-    initRoleRequest(state, request) {
-      state.request = request
+    addRequest(state, { assignee, role, updated }) {
+      state.requests[assignee] = { role, updated }
     },
-    request(state, role) {
-      state.request.role = role
-    },
-    assign(state, { assignee, role, assigner, updated }) {
+    addAssignment(state, { assignee, role, assigner, updated }) {
       state.assignments[assignee] = { role, assigner, updated }
     },
   },
@@ -54,21 +55,24 @@ export default {
         Agent
           .state('role-assignments')
           .then(assignments => {
-            assignments.forEach(assignment => commit('assign', assignment))
+            assignments.forEach(assignment => commit('addAssignment', assignment))
           }),
         Agent
-          .state('requested-role')
-          .then(async roleRequest => {
-            const metadata = await Agent.metadata('requested-role')
-            if (metadata.active_type !== ROLE_REQUEST_TYPE) {
-              metadata.active_type = ROLE_REQUEST_TYPE
-            }
-            commit('initRoleRequest', roleRequest)
+          .state('requested-roles')
+          .then(async requests => {
+            requests.forEach(request => commit('addRequest', request))
           })
       ])
     },
-    async request({ commit }, role) {
-      commit('request', role)
+    async request({ dispatch }, role) {
+      const metadata = await Agent.metadata('requested-role')
+      if (metadata.active_type !== ROLE_REQUEST_TYPE) {
+        metadata.active_type = ROLE_REQUEST_TYPE
+      }
+      const state = await Agent.state('requested-role')
+      state.role = role
+
+      await dispatch('roles/load', null, {root:true})
     },
     async assign({ dispatch }, { user, role }) {
       const id = uuid()
