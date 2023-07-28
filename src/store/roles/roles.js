@@ -49,20 +49,29 @@ export default {
     },
   },
   actions: {
-    async load({ commit }) {
-      await Agent.synced()
+    async load({ dispatch }) {
       await Promise.all([
+        dispatch('loadAssignments'),
+        dispatch('loadRequests')
+      ])
+    },
+    async loadAssignments({ commit }) {
+      await (
         Agent
           .state('role-assignments')
           .then(assignments => {
             assignments.forEach(assignment => commit('addAssignment', assignment))
-          }),
+          })
+      )
+    },
+    async loadRequests({ commit }) {
+      await (
         Agent
           .state('requested-roles')
           .then(async requests => {
             requests.forEach(request => commit('addRequest', request))
           })
-      ])
+      )
     },
     async request({ dispatch }, role) {
       const metadata = await Agent.metadata('requested-role')
@@ -72,7 +81,8 @@ export default {
       const state = await Agent.state('requested-role')
       state.role = role
 
-      await dispatch('roles/load', null, {root:true})
+      await Agent.synced()
+      await dispatch('loadRequests', null, {root:true})
     },
     async assign({ dispatch }, { user, role }) {
       const id = uuid()
@@ -82,7 +92,8 @@ export default {
       assertion.role = role
       assertion.assignee = user
     
-      await dispatch('roles/load', null, {root:true})
+      await Agent.synced()
+      await dispatch('loadAssignments', null, {root:true})
     }
   }
 }
