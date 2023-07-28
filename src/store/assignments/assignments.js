@@ -24,7 +24,7 @@ export default {
       return Array.from(new Set(
         getters
           .assignedGroups(assignment_id, assignment_type)
-          .map(group_id => rootGetters['groupMembers/members'](group_id))
+          .map(group_id => rootGetters['groups/members'](group_id))
           .flat()
       ))
     }

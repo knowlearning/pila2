@@ -5,9 +5,7 @@ import teachers from './teachers.js'
 import files from './files.js'
 
 import roles from './roles.js'
-
-import groups from './groups/groups.js'
-import groupMembers from './groups/group_members.js'
+import groups from './groups.js'
 
 import studyRequests from './studies/study_requests.js'
 import allRequestedStudies from './studies/all_requested_studies.js'
@@ -29,7 +27,6 @@ export default {
     assignmentsToMe,
     assignments,
     groups,
-    groupMembers,
     myContent,
     expertContent,
     roles

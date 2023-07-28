@@ -89,7 +89,7 @@
         return this.$store.getters['groups/groups'](this.type)
       },
       currentGroupMembers() {
-        return this.$store.getters['groupMembers/members'](this.current)
+        return this.$store.getters['groups/members'](this.current)
       }
     },
     methods: {
@@ -103,10 +103,10 @@
         if (this.current === id) this.current = null
       },
       addMember(user_id, group_id) {
-        this.$store.dispatch('groupMembers/add', { user_id, group_id })
+        this.$store.dispatch('groups/addMember', { user_id, group_id })
       },
       removeMember(user_id, group_id) {
-        this.$store.dispatch('groupMembers/remove', { user_id, group_id })
+        this.$store.dispatch('groups/removeMember', { user_id, group_id })
       }
     }
   }
