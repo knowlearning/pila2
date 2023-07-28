@@ -1,7 +1,10 @@
 import { v4 as uuid } from 'uuid'
 
+const GROUP_TYPE = 'application/json;type=group'
+const GROUP_MEMBER_TYPE = 'application/json;type=group_member'
+
 export default {
-  scope: 'groups',
+  scope: null,
   namespaced: true,
   state: () => ({
     groups: {},
@@ -12,31 +15,34 @@ export default {
       if (typeFilter) return Object.fromEntries(
         Object
           .entries(state.groups)
-          .filter(([_, { type }]) => type === typeFilter )
+          .filter(([_, { archived }]) => !archived )
+          .filter(([_, { group_type }]) => group_type === typeFilter )
       )
       else return state
     },
     members: state => groupId => (
       Object
         .values(state.members)
-        .filter(({ group_id }) => group_id === groupId)
+        .filter(({ group_id, archived }) => group_id === groupId && !archived )
         .map(({ user_id }) => user_id)
     ),
     belongs: state => (uid, gid) => (
       Object
         .values(state.members)
-        .some(({ group_id, user_id }) => group_id === gid && user_id === uid)
+        .some(({ group_id, user_id, archived }) => {
+          return !archived && group_id === gid && user_id === uid
+        })
     )
   },
   mutations: {
-    add(state, { name, type, id }) {
-      state.groups[id] = { name, type }
+    add(state, { id, name, group_type, archived }) {
+      state.groups[id] = { name, group_type, archived }
     },
     remove(state, id) {
       delete state.groups[id]
     },
-    addMember(state, { user_id, group_id }) {
-      state.members[uuid()] = { user_id, group_id }
+    addMember(state, { id, user_id, group_id, archived }) {
+      state.members[id] = { user_id, group_id, archived }
     },
     removeMember(state, { user_id, group_id }) {
       Object
@@ -47,19 +53,70 @@ export default {
     }
   },
   actions: {
-    add({commit}, { name, type, id=uuid()}) {
-      commit('add', { name, type, id })
+    async load({ dispatch }) {
+      await Promise.all([
+        dispatch('loadGroups'),
+        dispatch('loadMembers')
+      ])
+    },
+    async loadGroups({ commit }) {
+      const groups = await Agent.state('groups')
+      groups.forEach(group => commit('add', group))
+    },
+    async loadMembers({ commit }) {
+      const members = await Agent.state('group_members')
+      members.forEach(member => commit('addMember', member))
+    },
+    async add({ dispatch }, { name, type, id=uuid()}) {
+      const metadata = await Agent.metadata(id)
+      if (metadata.active_type !== GROUP_TYPE) metadata.active_type = GROUP_TYPE
+
+      const state = await Agent.state(id)
+      state.name = name
+      state.group_type = type
+
+      await Agent.synced()
+      await dispatch('loadGroups')
       return id
     },
-    remove({commit}, id) {
-      commit('remove', id)
-    },
-    addMember({ commit, getters }, { user_id, group_id }) {
+    async addMember({ getters, dispatch }, { user_id, group_id }) {
+      //  TODO: reinstate an archived member if one exists
       if (getters.belongs(user_id, group_id)) return
-      commit('addMember', { user_id, group_id })
+      const id = uuid()
+      const metadata = await Agent.metadata(id)
+      if (metadata.active_type !== GROUP_TYPE) metadata.active_type = GROUP_MEMBER_TYPE
+
+      const state = await Agent.state(id)
+      state.user_id = user_id
+      state.group_id = group_id
+
+      await Agent.synced()
+      await dispatch('loadMembers')
+      return id
     },
-    removeMember({ commit }, { user_id, group_id }) {
-      commit('removeMember', { user_id, group_id })
+    async remove({ dispatch }, id) {
+      const state = await Agent.state(id)
+      state.archived = true
+
+      await Agent.synced()
+      await dispatch('loadGroups')
+    },
+    async removeMember({ state, dispatch }, { user_id, group_id }) {
+      await Promise.all(
+        Object
+          .entries(state.members)
+          .filter(([_id, { user_id: uid, group_id: gid, archived }]) => {
+            return user_id === uid && group_id === gid && !archived
+          })
+          .map(async ([id]) => {
+            const state = await Agent.state(id)
+            console.log(state)
+            state.archived = true
+          })
+      )
+
+      await Agent.synced()
+      await dispatch('loadMembers')
     }
   }
 }

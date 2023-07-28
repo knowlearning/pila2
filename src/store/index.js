@@ -51,6 +51,7 @@ export default {
       await Promise.all([
         store.dispatch('app/load').then(() => log('loaded app', Date.now() - start)),
         store.dispatch('roles/load').then(() => log('loaded role assignments', Date.now() - start)),
+        store.dispatch('groups/load').then(() => log('loaded groups', Date.now() - start)),
         store.dispatch('expertContent/load').then(() => log('loaded expert content', Date.now() - start)),
         store.dispatch('allRequestedStudies/load').then(() => log('loaded all requested studies', Date.now() - start)),
         store.dispatch('assignmentsToMe/load').then(() => log('loaded assignments to me', Date.now() - start)),

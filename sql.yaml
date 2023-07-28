@@ -29,11 +29,18 @@ postgres:
         group_id: TEXT
         item: TEXT
         assignment_type: TEXT
+    groups:
+      type: application/json;type=group
+      columns:
+        name: TEXT
+        group_type: TEXT
+        archived: BOOLEAN
     group_members:
       type: application/json;type=group_member
       columns:
         user_id: TEXT
         group_id: TEXT
+        archived: BOOLEAN
     assignable_items:
       type: application/json;type=assignable_item
       columns:
@@ -196,4 +203,24 @@ postgres:
       FROM teachers
       LEFT JOIN metadata
         ON teachers.id = metadata.id
+      WHERE metadata.owner = $REQUESTER
+    groups: |
+      SELECT
+        groups.name,
+        groups.group_type,
+        groups.archived,
+        metadata.id as id
+      FROM groups
+      LEFT JOIN metadata
+        ON groups.id = metadata.id
+      WHERE metadata.owner = $REQUESTER
+    group_members: |
+      SELECT
+        group_members.group_id,
+        group_members.user_id,
+        group_members.archived,
+        metadata.id as id
+      FROM group_members
+      LEFT JOIN metadata
+        ON group_members.id = metadata.id
       WHERE metadata.owner = $REQUESTER
