@@ -1,8 +1,10 @@
 import app from './app.js'
+
 import myContent from './my_content.js'
 import expertContent from './expert-content.js'
-import teachers from './teachers.js'
 import files from './files.js'
+
+import teachers from './teachers.js'
 
 import roles from './roles.js'
 import groups from './groups.js'
