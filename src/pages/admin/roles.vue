@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="{ role, assigner, updated }, user in roleAssignments">
+      <tr v-for="{ role, assigner, updated }, user in roles">
         <td><UserInfo :user="user" name /></td>
         <td><UserInfo :user="user" email /></td>
         <td><UserInfo :user="assigner" name /></td>
@@ -75,16 +75,16 @@
       roleRequests() {
         return this.$store.getters['requestedRoles/requests']()
       },
-      roleAssignments() {
-        return this.$store.getters['roleAssignments/assignments']()
+      roles() {
+        return this.$store.getters['roles/assignments']()
       },
       iAmAnAdmin() {
-        return this.$store.getters['roleAssignments/role'](this.$store.state.app.user) === 'admin'
+        return this.$store.getters['roles/role'](this.$store.state.app.user) === 'admin'
       }
     },
     methods: {
       grantRole(user, role) {
-        this.$store.dispatch('roleAssignments/assert', { user, role })
+        this.$store.dispatch('roles/assign', { user, role })
       }
     }
   }

@@ -8,7 +8,7 @@
     v-else
   >
     <div>
-      {{ $store.state.app.user }}: {{ $store.getters['roleAssignments/role']($store.state.app.user) }}
+      {{ $store.state.app.user }}: {{ $store.getters['roles/role']($store.state.app.user) }}
       <button @click="logOut">log out</button>
     </div>
     <div id="main-app-body">

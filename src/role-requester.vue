@@ -23,7 +23,7 @@
     },
     computed: {
       requestedRole() {
-        return this.$store.getters['roleRequests/myRequestedRole']()
+        return this.$store.getters['roles/myRequest']()
       },
       validResearcher() {
         return false
@@ -31,7 +31,7 @@
     },
     methods: {
       requestRole(role) {
-        this.$store.dispatch('roleRequests/request', role)
+        this.$store.dispatch('roles/request', role)
       }
     }
   }

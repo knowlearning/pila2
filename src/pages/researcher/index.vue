@@ -1,6 +1,6 @@
 <template>
   <h1>Researcher</h1>
-  <div v-if="$store.getters['roleAssignments/hasPermission']($store.state.app.user, 'researcher')">
+  <div v-if="$store.getters['roles/hasPermission']($store.state.app.user, 'researcher')">
     <div>
       <button @click="tab = 'teacher-groups'">Teacher Groups</button>
       <button @click="tab = 'content'">Content</button>
@@ -52,7 +52,7 @@
     },
     methods: {
       teachers() {
-        return this.$store.getters['roleAssignments/usersWithRole']('teacher')
+        return this.$store.getters['roles/usersWithRole']('teacher')
       }
     }
   }
