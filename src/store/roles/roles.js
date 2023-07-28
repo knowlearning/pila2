@@ -82,7 +82,7 @@ export default {
       state.role = role
 
       await Agent.synced()
-      await dispatch('loadRequests', null, {root:true})
+      await dispatch('loadRequests')
     },
     async assign({ dispatch }, { user, role }) {
       const id = uuid()
@@ -93,7 +93,7 @@ export default {
       assertion.assignee = user
     
       await Agent.synced()
-      await dispatch('loadAssignments', null, {root:true})
+      await dispatch('loadAssignments')
     }
   }
 }
