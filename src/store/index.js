@@ -1,9 +1,5 @@
 import app from './app.js'
 
-import myContent from './my_content.js'
-import expertContent from './expert-content.js'
-import files from './files.js'
-
 import teachers from './teachers.js'
 
 import roles from './roles.js'
@@ -16,6 +12,10 @@ import studyGrants from './studies/study_grants.js'
 import assignableItems from './assignments/assignable_items.js'
 import assignmentsToMe from './assignments/assignments-to-me.js'
 import assignments from './assignments/assignments.js'
+
+import expertContent from './tags/expert-content.js'
+import files from './tags/files.js'
+import myContent from './tags/my_content.js'
 
 export default {
   modules: {
