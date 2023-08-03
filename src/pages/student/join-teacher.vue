@@ -2,30 +2,48 @@
   <h1>Join Teacher</h1>
   <div v-if="isMyTeacher">
     You have already joined this teacher.
+    <button @click="leave">Leave</button>
   </div>
-  <div v-else="">
+  <div v-else>
     <button @click="join">Join</button>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {
-        joined: false
-      }
-    },
     computed: {
       teacherId() {
         return this.$route.params.teacher
       },
+      teacherGroupId() {
+        return this.$store.getters['groups/specialGroupId']('teachers')
+      },
       isMyTeacher() {
-        return this.$store.getters['teachers/isMyTeacher'](this.teacherId)
+        return this.$store.getters['groups/belongs'](this.teacherId, this.teacherGroupId)
       }
     },
     methods: {
-      async join() {
-        this.$store.dispatch('teachers/join', this.teacherId)
+      join() {
+        this
+          .$store
+          .dispatch(
+            'groups/addMember',
+            {
+              user_id: this.teacherId,
+              group_id: this.teacherGroupId
+            }
+          )
+      },
+      leave() {
+        this
+          .$store
+          .dispatch(
+            'groups/removeMember',
+            {
+              user_id: this.teacherId,
+              group_id: this.teacherGroupId
+            }
+          )
       }
     }
   }

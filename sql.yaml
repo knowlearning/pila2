@@ -46,10 +46,6 @@ postgres:
       columns:
         item: TEXT
         item_type: TEXT
-    teachers:
-      type: application/json;type=teacher-join
-      columns:
-        teacher_id: TEXT
     assignment_scopes:
       type: application/json;type=assignment_scope
       columns:
@@ -189,21 +185,6 @@ postgres:
             LIMIT 1
           )
         )
-    my-students: |
-      SELECT DISTINCT
-        owner AS student
-      FROM teachers
-      LEFT JOIN metadata
-        ON teachers.id = metadata.id
-      WHERE teachers.teacher_id = $REQUESTER
-    my-teachers: |
-      SELECT DISTINCT
-        teacher_id,
-        metadata.id as id
-      FROM teachers
-      LEFT JOIN metadata
-        ON teachers.id = metadata.id
-      WHERE metadata.owner = $REQUESTER
     groups: |
       SELECT
         groups.name,

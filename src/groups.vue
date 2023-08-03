@@ -10,12 +10,12 @@
     </thead>
     <tbody>
       <tr
-        v-for="{ name }, id in groups"
+        v-for="id in groups"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
       >
-        <td>{{ name }}</td>
+        <td>{{ id }}TODO: get name from metadata name...</td>
         <td>
           <button @click.stop="remove(id)">x</button>
         </td>
@@ -24,7 +24,7 @@
   </table>
   <div v-if="current">
     <hr>
-    <h1>{{ groups[current].name }}</h1>
+    <h1>{{ current }} TODO: get name from metadata name...</h1>
     <div class="member-tables">
       <div>
         <table>

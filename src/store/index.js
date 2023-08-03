@@ -1,5 +1,3 @@
-import teachers from './teachers.js'
-
 import roles from './roles.js'
 import groups from './groups.js'
 
@@ -18,7 +16,6 @@ import myContent from './tags/my_content.js'
 export default {
   modules: {
     files,
-    teachers,
     assignableItems,
     studyRequests,
     allRequestedStudies,
@@ -65,8 +62,7 @@ export default {
         store.dispatch('groups/load'),
         store.dispatch('expertContent/load'),
         store.dispatch('allRequestedStudies/load'),
-        store.dispatch('assignmentsToMe/load'),
-        store.dispatch('teachers/load')
+        store.dispatch('assignmentsToMe/load')
       ])
 
       store.dispatch('loaded', true)

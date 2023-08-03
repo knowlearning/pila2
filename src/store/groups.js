@@ -7,18 +7,20 @@ export default {
   scope: null,
   namespaced: true,
   state: () => ({
+    specialGroupIds: {},
     groups: {},
     members: {}
   }),
   getters: {
     groups: state => typeFilter => {
-      if (typeFilter) return Object.fromEntries(
+      if (typeFilter) return (
         Object
           .entries(state.groups)
           .filter(([_, { archived }]) => !archived )
           .filter(([_, { group_type }]) => group_type === typeFilter )
+          .map(([id]) => id)
       )
-      else return state
+      else return Object.keys(state)
     },
     members: state => groupId => (
       Object
@@ -32,11 +34,12 @@ export default {
         .some(({ group_id, user_id, archived }) => {
           return !archived && group_id === gid && user_id === uid
         })
-    )
+    ),
+    specialGroupId: state => name => state.specialGroupIds[name] || null
   },
   mutations: {
-    add(state, { id, name, group_type, archived }) {
-      state.groups[id] = { name, group_type, archived }
+    add(state, { id, name, owner, group_type, archived }) {
+      state.groups[id] = { name, owner, group_type, archived }
     },
     remove(state, id) {
       delete state.groups[id]
@@ -50,6 +53,9 @@ export default {
         .forEach(([id, { user_id: u, group_id: g }]) => {
           if (user_id === u && group_id === g) delete state.members[id]
         })
+    },
+    setSpecialGroup(state, { name, id }) {
+      state.specialGroupIds[name] = id
     }
   },
   actions: {
@@ -72,7 +78,8 @@ export default {
             if (state.group_type !== name) state.group_type = name
             return state
           }
-        ])
+        ].map(f => f()))
+        commit('setSpecialGroup', { id, name })
         commit('add', { id, name, group_type, archived })
       }
       await Promise.all([
@@ -130,7 +137,6 @@ export default {
           })
           .map(async ([id]) => {
             const state = await Agent.state(id)
-            console.log(state)
             state.archived = true
           })
       )

@@ -47,14 +47,18 @@
       AssignmentsToMe
     },
     data() {
+      const { getters } = this.$store
+      //  TODO: 
       return {
         tab: 'classes',
-        students: []
+        students: (
+          getters['groups/groups']('teachers')
+            .filter(gid => {
+              // TODO: get owner of group...
+              return false
+            })
+        )
       }
     },
-    async created() {
-      const students = await Agent.state('my-students')
-      this.students = students.map(({ student }) => student)
-    }
   }
 </script>
