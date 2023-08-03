@@ -185,16 +185,25 @@ postgres:
             LIMIT 1
           )
         )
+    # all groups a user owns, or has been put in
     groups: |
       SELECT
         groups.name,
         groups.group_type,
         groups.archived,
+        metadata.owner as owner,
         metadata.id as id
       FROM groups
       LEFT JOIN metadata
         ON groups.id = metadata.id
       WHERE metadata.owner = $REQUESTER
+        OR groups.id IN (
+          SELECT group_id
+          FROM groups
+          LEFT JOIN group_members
+            ON groups.id = group_members.group_id
+          WHERE user_id = $REQUESTER
+        )
     group_members: |
       SELECT
         group_members.group_id,

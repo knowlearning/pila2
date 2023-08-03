@@ -48,15 +48,11 @@
     },
     data() {
       const { getters } = this.$store
-      //  TODO: 
       return {
         tab: 'classes',
         students: (
           getters['groups/groups']('teachers')
-            .filter(gid => {
-              // TODO: get owner of group...
-              return false
-            })
+            .map(gid => getters['groups/owner'](gid))
         )
       }
     },

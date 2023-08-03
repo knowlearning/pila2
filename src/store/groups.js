@@ -22,6 +22,7 @@ export default {
       )
       else return Object.keys(state)
     },
+    owner: state => groupId => state.groups[groupId].owner,
     members: state => groupId => (
       Object
         .values(state.members)
