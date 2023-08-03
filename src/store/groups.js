@@ -60,21 +60,27 @@ export default {
       ])
     },
     async loadGroups({ commit }) {
+      async function loadSpecialGroup(name) {
+        const [{ id }, { group_type, archived }] = await Promise.all([
+          async function () {
+            const metadata = await Agent.metadata(name)
+            if (metadata.active_type !== GROUP_TYPE) metadata.active_type = GROUP_TYPE
+            return metadata
+          },
+          async function () {
+            const state = await Agent.state(name)
+            if (state.group_type !== name) state.group_type = name
+            return state
+          }
+        ])
+        commit('add', { id, name, group_type, archived })
+      }
       await Promise.all([
         Agent
           .state('groups')
-          .then(groups => {
-            groups.forEach(group => commit('add', group))
-          }),
-        Agent
-          .metadata('students')
-          .then(async metadata => {
-            if (metadata.active_type !== GROUP_TYPE) metadata.active_type = GROUP_TYPE
-
-            const state = await Agent.state('students')
-            if (state.group_type !== 'students') state.group_type = 'students'
-            commit('add', { ...state, name: 'All Students', id: metadata.id})
-          })
+          .then(g => g.forEach(group => commit('add', group))),
+        loadSpecialGroup('students'),
+        loadSpecialGroup('teachers')
       ])
     },
     async loadMembers({ commit }) {
