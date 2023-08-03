@@ -8,7 +8,7 @@
     v-else
   >
     <div>
-      {{ $store.state.app.user }}: {{ $store.getters['roles/role']($store.state.app.user) }}
+      {{ $store.state.user }}: {{ $store.getters['roles/role']($store.state.user) }}
       <button @click="logOut">log out</button>
     </div>
     <div id="main-app-body">
@@ -24,7 +24,7 @@
     components: { LoginMenu },
     computed: {
       isLoaded() { return this.$store.state.loaded },
-      isAnonymous() { return this.$store.getters['app/isAnonymous']() }
+      isAnonymous() { return this.$store.getters['isAnonymous']() }
     },
     methods: {
       logOut() {

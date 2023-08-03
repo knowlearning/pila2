@@ -79,7 +79,7 @@
         return this.$store.getters['roles/assignments']()
       },
       iAmAnAdmin() {
-        return this.$store.getters['roles/role'](this.$store.state.app.user) === 'admin'
+        return this.$store.getters['roles/role'](this.$store.state.user) === 'admin'
       }
     },
     methods: {

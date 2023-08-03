@@ -1,5 +1,3 @@
-import app from './app.js'
-
 import teachers from './teachers.js'
 
 import roles from './roles.js'
@@ -19,7 +17,6 @@ import myContent from './tags/my_content.js'
 
 export default {
   modules: {
-    app,
     files,
     teachers,
     assignableItems,
@@ -34,30 +31,42 @@ export default {
     roles
   },
   state: () => ({
-    loaded: false
+    loaded: false,
+    user: null,
+    provider: null
   }),
+  getters: {
+    isAnonymous: state => () => state.provider === 'anonymous',
+    user: state => () => state.user
+  },
   mutations: {
-    loaded(state, loaded) { state.loaded = loaded}
+    loaded(state, loaded) { state.loaded = loaded},
+    load(state, { user, provider }) {
+      state.user = user
+      state.provider = provider
+    }
   },
   actions: {
-    loaded({ commit }, loaded) { commit('loaded', loaded) }
+    loaded({ commit }, loaded) { commit('loaded', loaded) },
+    async load({ commit, state }) {
+      if (!state.user) {
+        const { auth } = await Agent.environment()
+        commit('load', auth)
+      }
+    }
   },
   plugins: [
     async store => {
       store.dispatch('loaded', false)
 
-      const start = Date.now()
-      function log(name, time) {
-        console.log(name, time)
-      }
       await Promise.all([
-        store.dispatch('app/load').then(() => log('loaded app', Date.now() - start)),
-        store.dispatch('roles/load').then(() => log('loaded role assignments', Date.now() - start)),
-        store.dispatch('groups/load').then(() => log('loaded groups', Date.now() - start)),
-        store.dispatch('expertContent/load').then(() => log('loaded expert content', Date.now() - start)),
-        store.dispatch('allRequestedStudies/load').then(() => log('loaded all requested studies', Date.now() - start)),
-        store.dispatch('assignmentsToMe/load').then(() => log('loaded assignments to me', Date.now() - start)),
-        store.dispatch('teachers/load').then(() => log('loaded teachers', Date.now() - start))
+        store.dispatch('load'),
+        store.dispatch('roles/load'),
+        store.dispatch('groups/load'),
+        store.dispatch('expertContent/load'),
+        store.dispatch('allRequestedStudies/load'),
+        store.dispatch('assignmentsToMe/load'),
+        store.dispatch('teachers/load')
       ])
 
       store.dispatch('loaded', true)
