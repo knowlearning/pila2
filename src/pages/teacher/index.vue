@@ -10,7 +10,7 @@
     <Groups
       v-if="tab === 'classes'"
       type="class"
-      :possibleMembers="() => students"
+      :possibleMembers="students"
     />
     <div v-if="tab === 'content'">
       <MyContent />
@@ -47,14 +47,17 @@
       AssignmentsToMe
     },
     data() {
-      const { getters } = this.$store
+      const { getters, state: { user } } = this.$store
+      console.log('USER', user)
       return {
         tab: 'classes',
+        // students are anybody who has added you to a group of type "teachers"
         students: (
-          getters['groups/groups']('teachers')
+          getters['groups/groups']('my-teachers')
+            .filter(gid => getters['groups/belongs'](user, gid))
             .map(gid => getters['groups/owner'](gid))
         )
       }
-    },
+    }
   }
 </script>

@@ -68,7 +68,7 @@ export default {
     },
     async loadGroups({ commit }) {
       async function loadSpecialGroup(name) {
-        const [{ id }, { group_type, archived }] = await Promise.all([
+        const [{ id, owner }, { group_type, archived }] = await Promise.all([
           async function () {
             const metadata = await Agent.metadata(name)
             if (metadata.active_type !== GROUP_TYPE) metadata.active_type = GROUP_TYPE
@@ -81,14 +81,14 @@ export default {
           }
         ].map(f => f()))
         commit('setSpecialGroup', { id, name })
-        commit('add', { id, name, group_type, archived })
+        commit('add', { id, owner, name, group_type, archived })
       }
       await Promise.all([
         Agent
           .state('groups')
           .then(g => g.forEach(group => commit('add', group))),
-        loadSpecialGroup('students'),
-        loadSpecialGroup('teachers')
+        loadSpecialGroup('my-students'),
+        loadSpecialGroup('my-teachers')
       ])
     },
     async loadMembers({ commit }) {

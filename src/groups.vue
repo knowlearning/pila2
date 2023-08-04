@@ -53,7 +53,7 @@
             <th></th>
           </tr>
           <tr
-            v-for="member in possibleMembers()"
+            v-for="member in possibleMembers"
             :key="member"
           >
             <td>
@@ -76,7 +76,7 @@
       UserInfo
     },
     props: {
-      possibleMembers: Function,
+      possibleMembers: Array,
       type: String
     },
     data() {

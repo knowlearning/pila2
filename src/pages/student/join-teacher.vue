@@ -1,7 +1,7 @@
 <template>
   <h1>Join Teacher</h1>
   <div v-if="isMyTeacher">
-    You have already joined this teacher.
+    You have already joined this teacher. {{  teacherGroupId }} {{ teacherId }}
     <button @click="leave">Leave</button>
   </div>
   <div v-else>
@@ -16,7 +16,7 @@
         return this.$route.params.teacher
       },
       teacherGroupId() {
-        return this.$store.getters['groups/specialGroupId']('teachers')
+        return this.$store.getters['groups/specialGroupId']('my-teachers')
       },
       isMyTeacher() {
         return this.$store.getters['groups/belongs'](this.teacherId, this.teacherGroupId)

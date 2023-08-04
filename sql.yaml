@@ -202,7 +202,7 @@ postgres:
           FROM groups
           LEFT JOIN group_members
             ON groups.id = group_members.group_id
-          WHERE user_id = $REQUESTER
+          WHERE group_members.user_id = $REQUESTER
         )
     group_members: |
       SELECT
@@ -214,3 +214,4 @@ postgres:
       LEFT JOIN metadata
         ON group_members.id = metadata.id
       WHERE metadata.owner = $REQUESTER
+        OR group_members.user_id = $REQUESTER

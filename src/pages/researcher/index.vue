@@ -50,7 +50,7 @@
         tab: 'teacher-groups'
       }
     },
-    methods: {
+    computed: {
       teachers() {
         return this.$store.getters['roles/usersWithRole']('teacher')
       }

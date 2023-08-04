@@ -53,6 +53,7 @@ export default {
     }
   },
   plugins: [
+    store => window.store = store,
     async store => {
       store.dispatch('loaded', false)
 
