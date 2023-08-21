@@ -60,7 +60,10 @@ postgres:
       language: PLpgSQL
       body: |
         BEGIN
-          RETURN user_id IN ('Z27illIpwKSKyneNpxhCEZiTjLJ2', 'jX4ruKnaNfRP2D0gftNPeowb2ZE2');
+          RETURN user_id IN (
+            'c70ea7bb-da8c-4324-85f6-4980d98af4d8',
+            'c0f3a481-d4d5-4133-a198-94a325aa4536'
+          );
         END;
     role_assignments:
       returns:
@@ -97,8 +100,8 @@ postgres:
                 OR ra.assignee = requester_id
               )
               AND NOT isAdmin(ra.assignee)
-            UNION SELECT 'Z27illIpwKSKyneNpxhCEZiTjLJ2', 'admin', 'Z27illIpwKSKyneNpxhCEZiTjLJ2', NULL
-            UNION SELECT 'jX4ruKnaNfRP2D0gftNPeowb2ZE2', 'admin', 'Z27illIpwKSKyneNpxhCEZiTjLJ2', NULL
+            UNION SELECT 'c70ea7bb-da8c-4324-85f6-4980d98af4d8', 'admin', 'c70ea7bb-da8c-4324-85f6-4980d98af4d8', NULL
+            UNION SELECT 'c0f3a481-d4d5-4133-a198-94a325aa4536', 'admin', 'c70ea7bb-da8c-4324-85f6-4980d98af4d8', NULL
           ;
         END;
   scopes:
