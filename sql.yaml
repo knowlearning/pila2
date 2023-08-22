@@ -191,14 +191,14 @@ postgres:
     assignments: |
       SELECT
         assignments.item_id,
-        assignments.assignment_type as assignment_type,
+        assignments.group_id,
+        assignments.assignment_type,
         am.owner AS assigner_id
       FROM assignments
       LEFT JOIN metadata am ON am.id = assignments.id
-      LEFT JOIN assignable_items ai ON ai.item = assignments.item
       WHERE
-        assignments.item IN (
-          SELECT item
+        assignments.item_id IN (
+          SELECT item_id
           FROM assignments
           WHERE group_id IN (
             SELECT group_id
@@ -207,13 +207,13 @@ postgres:
           )
         )
         AND (
-          ai.item_type = 'teacher-created'
+          assignments.assignment_type = 'teacher-to-student'
           OR (
             SELECT granted
             FROM study_grants
             LEFT JOIN metadata sgm ON sgm.id = study_grants.id
             WHERE isAdmin(sgm.owner)
-              AND assignments.item = study_grants.study
+              AND assignments.item_id = study_grants.study
             ORDER BY sgm.updated DESC
             LIMIT 1
           )

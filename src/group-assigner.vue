@@ -26,7 +26,7 @@
           <th>Group</th>
         </tr>
         <tr
-          v-for="{ name }, group_id in groups"
+          v-for="group_id in groups"
           :key="group_id"
         >
           <td>
@@ -58,6 +58,7 @@
         return this.$store.getters['assignments/assignedGroups'](id, this.assignment_type)
       },
       makeAssignment(group_id, item_id, assignment_type) {
+        console.dir({ group_id, item_id, assignment_type })
         this.$store.dispatch('assignments/assign', { group_id, item_id, assignment_type })
       },
       removeAssignment(group_id, item_id) {

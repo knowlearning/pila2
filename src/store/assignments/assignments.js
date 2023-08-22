@@ -49,11 +49,12 @@ export default {
     }
   },
   actions: {
-    async load() {
+    async load({commit}) {
       await (
         Agent
           .state('assignments')
           .then(assignments => {
+            console.log('GOT ASSIGNMENTS!', assignments)
             assignments.forEach(assignment => commit('addAssignment', assignment))
           })
       )
