@@ -132,7 +132,7 @@ postgres:
         )
         AND isAdmin(m.owner)
         AND et.expert
-    all-requested-studies: |
+    study-requests: |
       SELECT
         studies.id            AS study,
         latest_grants.granted AS granted,
@@ -157,6 +157,7 @@ postgres:
       ) latest_grants
       ON latest_grants.study = studies.id
       WHERE studies.publish_requested
+        AND (isAdmin($REQUESTER) OR srm.owner = $REQUESTER)
     assignments-to-me: |
       SELECT
         assignments.item,

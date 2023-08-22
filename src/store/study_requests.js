@@ -19,7 +19,7 @@ export default {
   },
   actions: {
     async load({ commit }) {
-      const studyRequests = await Agent.state('all-requested-studies')
+      const studyRequests = await Agent.state('study-requests')
       studyRequests.forEach(request => commit('add', request))
     },
     async grant({ dispatch }, { study, granted }) {

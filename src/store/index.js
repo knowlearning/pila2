@@ -1,7 +1,7 @@
 import roles from './roles.js'
 import groups from './groups.js'
 
-import studyRequests from './studies/study_requests.js'
+import studyRequests from './study_requests.js'
 
 import assignableItems from './assignments/assignable_items.js'
 import assignmentsToMe from './assignments/assignments-to-me.js'
