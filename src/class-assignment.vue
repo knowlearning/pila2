@@ -20,17 +20,14 @@
     },
     data() {
       return {
+        assignment: null,
         assigned_item: null
       }
     },
-    computed: {
-      assignment() {
-        return this.$store.getters['assignmentsToMe/assignment'](this.id)
-      }
-    },
     async created() {
-      const { assignment_id, authority } = this.assignment
-      this.assigned_item = await Agent.state(assignment_id, authority)
+      const assignment = await Agent.state(this.id)
+      this.assignment = assignment
+      this.assigned_item = await Agent.state(assignment.item_id)
     }
   }
 

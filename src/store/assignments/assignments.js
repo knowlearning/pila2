@@ -1,58 +1,79 @@
 import { v4 as uuid } from 'uuid'
 
+const ASSIGNMENTS_TYPE = 'application/json;type=assignment'
+
 export default {
-  scope: 'assignments',
+  scope: null,
   namespaced: true,
   state: () => ({}),
   getters: {
     assignments: state => () => state,
-    isAssigned: (_state, getters) => (group_id, assignment_id, assignment_type) => {
-      return getters.assignedGroups(assignment_id, assignment_type).includes(group_id)
+    get: state => id => state[id],
+    isAssigned: (_state, getters) => (group_id, item_id, assignment_type) => {
+      return getters.assignedGroups(item_id, assignment_type).includes(group_id)
     },
-    assignedGroups: state => (assignment_id, assignment_type) => {
+    assignedGroups: state => (item_id, assignment_type) => {
       return (
         Object
           .values(state)
           .filter(a => (
-            a.assignment_id === assignment_id
+            a.item_id === item_id
             && a.assignment_type === assignment_type
           ))
           .map(({ group_id }) => group_id)
       )
     },
-    assignedStudents: (_state, getters, _rootState, rootGetters) => (assignment_id, assignment_type) => {
+    assignedStudents: (_state, getters, _rootState, rootGetters) => (item_id, assignment_type) => {
       return Array.from(new Set(
         getters
-          .assignedGroups(assignment_id, assignment_type)
+          .assignedGroups(item_id, assignment_type)
           .map(group_id => rootGetters['groups/members'](group_id))
           .flat()
       ))
+    },
+    to: (state, getters) => (user_id, assignment_type) => {
+      return Object.keys(state).filter(id => {
+        const { item_id } = state[id]
+        return getters.assignedStudents(item_id, assignment_type).includes(user_id)
+      })
     }
   },
   mutations: {
-    assign(state, { group_id, assignment_id, assignment_type }) {
-      const id =uuid()
-      state[id] = {}
-      state[id].group_id = group_id
-      state[id].assignment_id = assignment_id
-      state[id].assignment_type = assignment_type
-    },
-    unassign(state, { group_id, assignment_id }) {
-      Object
-        .entries(state)
-        .forEach(([id, { group_id: gid, assignment_id: sid }]) => {
-          if (group_id === gid && assignment_id === sid) delete state[id]
-        })
+    addAssignment(state, { id, group_id, item_id, assignment_type, assigner }) {
+      state[id] = {
+        group_id,
+        item_id,
+        assignment_type,
+        assigner
+      }
     }
   },
   actions: {
-    assign({commit, getters}, { group_id, assignment_id, assignment_type }) {
-      if (getters.isAssigned(group_id, assignment_id, assignment_type)) return
-
-      commit('assign', { group_id, assignment_id, assignment_type })
+    async load() {
+      await (
+        Agent
+          .state('assignments')
+          .then(assignments => {
+            assignments.forEach(assignment => commit('addAssignment', assignment))
+          })
+      )
     },
-    unassign({commit}, { group_id, assignment_id }) {
-      commit('unassign', { group_id, assignment_id })
+    async assign({getters, dispatch}, { group_id, item_id, assignment_type }) {
+      if (getters.isAssigned(group_id, item_id, assignment_type)) return
+
+      const id = uuid()
+      const state = await Agent.state(id)
+      const metadata = await Agent.metadata(id)
+      metadata.active_type = ASSIGNMENTS_TYPE
+      state.group_id = group_id
+      state.item_id = item_id
+      state.assignment_type = assignment_type
+
+      await Agent.synced()
+      await dispatch('load')
+    },
+    unassign({ commit }, { group_id, item_id }) {
+      alert('TODO: deside on deletion/archiving approach')
     }
   }
 }

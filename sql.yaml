@@ -27,7 +27,7 @@ postgres:
       type: application/json;type=assignment
       columns:
         group_id: TEXT
-        item: TEXT
+        item_id: TEXT
         assignment_type: TEXT
     groups:
       type: application/json;type=group
@@ -158,37 +158,6 @@ postgres:
       ON latest_grants.study = studies.id
       WHERE studies.publish_requested
         AND (isAdmin($REQUESTER) OR srm.owner = $REQUESTER)
-    assignments-to-me: |
-      SELECT
-        assignments.item,
-        assignments.assignment_type as assignment_type,
-        ai.item_type AS assignable_item_type,
-        am.owner AS assigner_id
-      FROM assignments
-      LEFT JOIN metadata am ON am.id = assignments.id
-      LEFT JOIN assignable_items ai ON ai.item = assignments.item
-      WHERE
-        assignments.item IN (
-          SELECT item
-          FROM assignments
-          WHERE group_id IN (
-            SELECT group_id
-            FROM group_members
-            WHERE user_id = $REQUESTER
-          )
-        )
-        AND (
-          ai.item_type = 'teacher-created'
-          OR (
-            SELECT granted
-            FROM study_grants
-            LEFT JOIN metadata sgm ON sgm.id = study_grants.id
-            WHERE isAdmin(sgm.owner)
-              AND assignments.item = study_grants.study
-            ORDER BY sgm.updated DESC
-            LIMIT 1
-          )
-        )
     # all groups a user owns, or has been put in
     groups: |
       SELECT
@@ -219,3 +188,33 @@ postgres:
         ON group_members.id = metadata.id
       WHERE metadata.owner = $REQUESTER
         OR group_members.user_id = $REQUESTER
+    assignments: |
+      SELECT
+        assignments.item_id,
+        assignments.assignment_type as assignment_type,
+        am.owner AS assigner_id
+      FROM assignments
+      LEFT JOIN metadata am ON am.id = assignments.id
+      LEFT JOIN assignable_items ai ON ai.item = assignments.item
+      WHERE
+        assignments.item IN (
+          SELECT item
+          FROM assignments
+          WHERE group_id IN (
+            SELECT group_id
+            FROM group_members
+            WHERE user_id = $REQUESTER
+          )
+        )
+        AND (
+          ai.item_type = 'teacher-created'
+          OR (
+            SELECT granted
+            FROM study_grants
+            LEFT JOIN metadata sgm ON sgm.id = study_grants.id
+            WHERE isAdmin(sgm.owner)
+              AND assignments.item = study_grants.study
+            ORDER BY sgm.updated DESC
+            LIMIT 1
+          )
+        )

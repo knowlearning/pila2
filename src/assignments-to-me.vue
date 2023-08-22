@@ -79,7 +79,8 @@
     },
     computed: {
       assignments() {
-        return this.$store.getters['assignmentsToMe/assignments'](this.type)
+        const me = this.$store.state.user
+        return this.$store.getters['assignments/to'](me, this.type)
       }
     }
   }

@@ -46,7 +46,7 @@
       }
     },
     async created() {
-      const { authority, assignment_id } = this.$store.getters['assignmentsToMe/assignment'](this.id)
+      const { authority, assignment_id } = this.$store.getters['assignments/get'](this.id)
       this.study = await Agent.state(assignment_id, authority)
     },
     methods: {

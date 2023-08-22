@@ -26,14 +26,11 @@
       }
     },
     async created() {
-      this.assignment = await Agent.state(this.assignment_id, this.authority)
+      this.assignment = await Agent.state(this.assignment_id)
     },
     computed: {
       assignment_id() {
         return this.$route.params.assignment_id
-      },
-      authority() {
-        return this.$store.getters['assignmentsToMe/assignment'](this.assignment_id).authority
       }
     },
     methods: {

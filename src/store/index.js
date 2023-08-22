@@ -4,7 +4,6 @@ import groups from './groups.js'
 import studyRequests from './study_requests.js'
 
 import assignableItems from './assignments/assignable_items.js'
-import assignmentsToMe from './assignments/assignments-to-me.js'
 import assignments from './assignments/assignments.js'
 
 import expertContent from './tags/expert-content.js'
@@ -16,7 +15,6 @@ export default {
     files,
     assignableItems,
     studyRequests,
-    assignmentsToMe,
     assignments,
     groups,
     myContent,
@@ -59,7 +57,7 @@ export default {
         store.dispatch('groups/load'),
         store.dispatch('expertContent/load'),
         store.dispatch('studyRequests/load'),
-        store.dispatch('assignmentsToMe/load')
+        store.dispatch('assignments/load')
       ])
 
       store.dispatch('loaded', true)
