@@ -57,11 +57,11 @@
       groupAssignmentsFor(id) {
         return this.$store.getters['assignments/assignedGroups'](id, this.assignment_type)
       },
-      makeAssignment(group_id, assignment_id, assignment_type) {
-        this.$store.dispatch('assignments/assign', { group_id, assignment_id, assignment_type })
+      makeAssignment(group_id, item_id, assignment_type) {
+        this.$store.dispatch('assignments/assign', { group_id, item_id, assignment_type })
       },
-      removeAssignment(group_id, assignment_id) {
-        this.$store.dispatch('assignments/unassign', { group_id, assignment_id })
+      removeAssignment(group_id, item_id) {
+        this.$store.dispatch('assignments/unassign', { group_id, item_id })
       }
     }
 

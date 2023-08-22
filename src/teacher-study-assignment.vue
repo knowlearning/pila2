@@ -46,8 +46,8 @@
       }
     },
     async created() {
-      const { authority, assignment_id } = this.$store.getters['assignments/get'](this.id)
-      this.study = await Agent.state(assignment_id, authority)
+      const { item_id } = this.$store.getters['assignments/get'](this.id)
+      this.study = await Agent.state(item_id)
     },
     methods: {
       download(id) { download(id) }

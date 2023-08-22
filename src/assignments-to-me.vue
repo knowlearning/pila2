@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="{ assigner_id, authority, assignment_id }, id in assignments"
+        v-for="{ assigner_id, authority, item_id }, id in assignments"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
@@ -19,15 +19,13 @@
         <td>{{ id }}</td>
         <td>
           <ScopeValue
-            :scope="assignment_id"
-            :user="authority"
+            :scope="item_id"
             :path="['name']"
           />
         </td>
         <td>
           <ScopeValue
-            :scope="assignment_id"
-            :user="authority"
+            :scope="item_id"
             :path="['description']"
           />
         </td>

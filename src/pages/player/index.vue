@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  import { v1 as uuid } from 'uuid'
   import { vueContentComponent } from '@knowlearning/agents'
 
   export default {
@@ -21,16 +20,15 @@
     },
     data() {
       return {
-        assignment: null,
-        assignmentScopes: Agent.state('assignment_scopes', false)
+        assignment: null
       }
     },
     async created() {
-      this.assignment = await Agent.state(this.assignment_id)
+      this.assignment = await Agent.state(this.item_id)
     },
     computed: {
-      assignment_id() {
-        return this.$route.params.assignment_id
+      item_id() {
+        return this.$route.params.item_id
       }
     },
     methods: {
@@ -38,21 +36,7 @@
         console.log('STATE LISTENER!', event)
       },
       async mutateListener({ scope }) {
-        const as = await this.assignmentScopes
-        const entryExists = (
-          Object
-            .values(as)
-            .some(({ scope: s, assignment_id: a }) => {
-              return s === scope && this.assignment_id === a
-            })
-        )
-        if (!entryExists) {
-          as[uuid()] = {
-            scope,
-            assignment_id: this.assignment_id
-          }
-          console.log(JSON.stringify(as, null, 4))
-        }
+        // TODO: register this scope as part of an assignment
       }
     }
   }
