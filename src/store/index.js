@@ -2,8 +2,6 @@ import roles from './roles.js'
 import groups from './groups.js'
 
 import studyRequests from './studies/study_requests.js'
-import allRequestedStudies from './studies/all_requested_studies.js'
-import studyGrants from './studies/study_grants.js'
 
 import assignableItems from './assignments/assignable_items.js'
 import assignmentsToMe from './assignments/assignments-to-me.js'
@@ -18,8 +16,6 @@ export default {
     files,
     assignableItems,
     studyRequests,
-    allRequestedStudies,
-    studyGrants,
     assignmentsToMe,
     assignments,
     groups,
@@ -62,7 +58,7 @@ export default {
         store.dispatch('roles/load'),
         store.dispatch('groups/load'),
         store.dispatch('expertContent/load'),
-        store.dispatch('allRequestedStudies/load'),
+        store.dispatch('studyRequests/load'),
         store.dispatch('assignmentsToMe/load')
       ])
 

@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="{ researcher, granted }, study in allRequestedStudies">
+      <tr v-for="{ researcher, granted }, study in studyRequests">
         <td><UserInfo :user="researcher" name /></td>
         <td><ScopeValue :scope="study" :path="['name']" /></td>
         <td>
@@ -37,13 +37,13 @@
       return {}
     },
     computed: {
-      allRequestedStudies() {
-        return this.$store.getters['allRequestedStudies/requests']()
+      studyRequests() {
+        return this.$store.getters['studyRequests/requests']()
       }
     },
     methods: {
       publish(study, granted) {
-        return this.$store.dispatch('studyGrants/grant', { study, granted })
+        return this.$store.dispatch('studyRequests/grant', { study, granted })
       }
     }
   }
