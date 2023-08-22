@@ -11,7 +11,7 @@
           :key="group"
         >
           <td>
-            <ScopeValue scope="groups" :path="[group, 'name']" />
+            {{ group }}
           </td>
           <td>
             <button @click="removeAssignment(group, id)">x</button>
@@ -32,7 +32,7 @@
           <td>
             <button @click="makeAssignment(group_id, id, assignment_type)">+</button>
           </td>
-          <td>{{ name }}</td>
+          <td>{{ group_id }}</td>
         </tr>
       </table>
     </div>

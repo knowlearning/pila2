@@ -196,25 +196,27 @@ postgres:
         am.owner AS assigner_id
       FROM assignments
       LEFT JOIN metadata am ON am.id = assignments.id
-      WHERE
-        assignments.item_id IN (
-          SELECT item_id
-          FROM assignments
-          WHERE group_id IN (
-            SELECT group_id
-            FROM group_members
-            WHERE user_id = $REQUESTER
+      WHERE am.owner = $REQUESTER
+        OR (
+          assignments.item_id IN (
+            SELECT item_id
+            FROM assignments
+            WHERE group_id IN (
+              SELECT group_id
+              FROM group_members
+              WHERE user_id = $REQUESTER
+            )
           )
-        )
-        AND (
-          assignments.assignment_type = 'teacher-to-student'
-          OR (
-            SELECT granted
-            FROM study_grants
-            LEFT JOIN metadata sgm ON sgm.id = study_grants.id
-            WHERE isAdmin(sgm.owner)
-              AND assignments.item_id = study_grants.study
-            ORDER BY sgm.updated DESC
-            LIMIT 1
+          AND (
+            assignments.assignment_type = 'teacher-to-student'
+            OR (
+              SELECT granted
+              FROM study_grants
+              LEFT JOIN metadata sgm ON sgm.id = study_grants.id
+              WHERE isAdmin(sgm.owner)
+                AND assignments.item_id = study_grants.study
+              ORDER BY sgm.updated DESC
+              LIMIT 1
+            )
           )
         )
