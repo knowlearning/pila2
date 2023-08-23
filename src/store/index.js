@@ -3,8 +3,8 @@ import groups from './groups.js'
 
 import studyRequests from './study_requests.js'
 
-import assignableItems from './assignments/assignable_items.js'
-import assignments from './assignments/assignments.js'
+import assignableItems from './tags/assignable_items.js'
+import assignments from './assignments.js'
 
 import expertContent from './tags/expert-content.js'
 import files from './tags/files.js'
