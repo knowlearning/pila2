@@ -212,6 +212,8 @@ postgres:
           )
           AND (
             assignments.assignment_type = 'teacher-to-student'
+            OR
+            assignments.assignment_type = 'teacher-to-student-research'
             OR (
               SELECT granted
               FROM study_grants

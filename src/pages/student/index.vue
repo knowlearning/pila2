@@ -26,7 +26,7 @@
       assignmentType() {
         return {
           'class-assignments': 'teacher-to-student',
-          'study-assignments': 'researcher-to-teacher'
+          'study-assignments': 'teacher-to-student-research'
         }[this.tab]
       }
     }

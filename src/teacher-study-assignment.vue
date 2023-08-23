@@ -20,6 +20,7 @@
     <GroupAssigner
       :id="id"
       :groups="$store.getters['groups/groups']('class')"
+      assignment_type="teacher-to-student-research"
     />
   </div>
   <div v-else>

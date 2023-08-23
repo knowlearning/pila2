@@ -40,6 +40,11 @@
       v-else-if="type === 'teacher-to-student'"
       :id="current"
     />
+    <div
+      v-else-if="type === 'teacher-to-student-research'"
+    >
+      TODO: special view for research assignment?
+    </div>
     <div v-else>Need view for type "{{ type }}"</div>
   </div>
 </template>
