@@ -1,11 +1,9 @@
 import roles from './roles.js'
 import groups from './groups.js'
-
 import studyRequests from './study_requests.js'
-
-import assignableItems from './tags/assignable_items.js'
 import assignments from './assignments.js'
 
+import assignableItems from './tags/assignable_items.js'
 import expertContent from './tags/expert-content.js'
 import files from './tags/files.js'
 import myContent from './tags/my_content.js'
