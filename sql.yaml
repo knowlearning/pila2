@@ -29,6 +29,7 @@ postgres:
         group_id: TEXT
         item_id: TEXT
         assignment_type: TEXT
+        archived: BOOLEAN
     groups:
       type: application/json;type=group
       columns:
@@ -190,9 +191,11 @@ postgres:
         OR group_members.user_id = $REQUESTER
     assignments: |
       SELECT
+        assignments.id,
         assignments.item_id,
         assignments.group_id,
         assignments.assignment_type,
+        assignments.archived,
         am.owner AS assigner_id
       FROM assignments
       LEFT JOIN metadata am ON am.id = assignments.id

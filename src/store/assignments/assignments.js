@@ -7,10 +7,18 @@ export default {
   namespaced: true,
   state: () => ({}),
   getters: {
-    assignments: state => () => state,
     get: state => id => state[id],
-    isAssigned: (_state, getters) => (group_id, item_id, assignment_type) => {
-      return getters.assignedGroups(item_id, assignment_type).includes(group_id)
+    assignments: state => (item_id, assignment_type) => {
+      return (
+        Object
+          .keys(state)
+          .filter(assignment_id => {
+            const a = state[assignment_id]
+            return a.item_id === item_id
+              && a.assignment_type === assignment_type
+              && !a.archived
+          })
+      )
     },
     assignedGroups: state => (item_id, assignment_type) => {
       return (
@@ -19,9 +27,13 @@ export default {
           .filter(a => (
             a.item_id === item_id
             && a.assignment_type === assignment_type
+            && !a.archived
           ))
           .map(({ group_id }) => group_id)
       )
+    },
+    isAssigned: (_state, getters) => (group_id, item_id, assignment_type) => {
+      return getters.assignedGroups(item_id, assignment_type).includes(group_id)
     },
     assignedStudents: (_state, getters, _rootState, rootGetters) => (item_id, assignment_type) => {
       return Array.from(new Set(
@@ -32,19 +44,25 @@ export default {
       ))
     },
     to: (state, getters) => (user_id, assignment_type) => {
-      return Object.keys(state).filter(id => {
-        const { item_id } = state[id]
-        return getters.assignedStudents(item_id, assignment_type).includes(user_id)
-      })
+      return (
+        Object
+          .keys(state)
+          .filter(id => !state[id].archived)
+          .filter(id => {
+            const { item_id } = state[id]
+            return getters.assignedStudents(item_id, assignment_type).includes(user_id)
+          })
+      )
     }
   },
   mutations: {
-    addAssignment(state, { id, group_id, item_id, assignment_type, assigner }) {
+    addAssignment(state, { id, group_id, item_id, assignment_type, assigner, archived }) {
       state[id] = {
         group_id,
         item_id,
         assignment_type,
-        assigner
+        assigner,
+        archived
       }
     }
   },
@@ -73,8 +91,11 @@ export default {
       await Agent.synced()
       await dispatch('load')
     },
-    unassign({ commit }, { group_id, item_id }) {
-      alert('TODO: deside on deletion/archiving approach')
+    async unassign({ dispatch }, assignment_id) {
+      const state = await Agent.state(assignment_id)
+      state.archived = true
+      await Agent.synced()
+      await dispatch('load')
     }
   }
 }

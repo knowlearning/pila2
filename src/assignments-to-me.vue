@@ -6,34 +6,24 @@
         <th>Name</th>
         <th>Description</th>
         <th>Assigner</th>
-        <th>Authority</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="{ assigner_id, authority, item_id }, id in assignments"
-        :key="id"
-        :class="{ selected: id === current }"
-        @click="current = current === id ? null: id"
+        v-for="assignment_id in assignments"
+        :key="assignment_id"
+        :class="{ selected: assignment_id === current }"
+        @click="current = current === assignment_id ? null: assignment_id"
       >
-        <td>{{ id }}</td>
+        <td>{{ assignment_id }}</td>
         <td>
-          <ScopeValue
-            :scope="item_id"
-            :path="['name']"
-          />
+          TODO: load info from item_id
         </td>
         <td>
-          <ScopeValue
-            :scope="item_id"
-            :path="['description']"
-          />
+          TODO: load info from item_id
         </td>
         <td>
-          {{ assigner_id }}
-        </td>
-        <td>
-          {{ authority }}
+          TODO: load info from item_id
         </td>
       </tr>
     </tbody>

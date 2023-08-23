@@ -7,14 +7,14 @@
           <th></th>
         </tr>
         <tr
-          v-for="group in groupAssignmentsFor(id)"
-          :key="group"
+          v-for="assignment_id in assignmentsFor(id)"
+          :key="assignment_id"
         >
           <td>
-            {{ group }}
+            {{ groupForAssignment(assignment_id) }}
           </td>
           <td>
-            <button @click="removeAssignment(group, id)">x</button>
+            <button @click="removeAssignment(assignment_id)">x</button>
           </td>
         </tr>
       </table>
@@ -54,15 +54,18 @@
       UserInfo
     },
     methods: {
-      groupAssignmentsFor(id) {
-        return this.$store.getters['assignments/assignedGroups'](id, this.assignment_type)
+      assignmentsFor(item_id) {
+        return this.$store.getters['assignments/assignments'](item_id, this.assignment_type)
+      },
+      groupForAssignment(assignment_id) {
+        return this.$store.getters['assignments/get'](assignment_id).group_id
       },
       makeAssignment(group_id, item_id, assignment_type) {
         console.dir({ group_id, item_id, assignment_type })
         this.$store.dispatch('assignments/assign', { group_id, item_id, assignment_type })
       },
-      removeAssignment(group_id, item_id) {
-        this.$store.dispatch('assignments/unassign', { group_id, item_id })
+      removeAssignment(assignment_id) {
+        this.$store.dispatch('assignments/unassign', assignment_id)
       }
     }
 
