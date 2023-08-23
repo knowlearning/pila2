@@ -68,14 +68,8 @@ export default {
   },
   actions: {
     async load({commit}) {
-      await (
-        Agent
-          .state('assignments')
-          .then(assignments => {
-            console.log('GOT ASSIGNMENTS!', assignments)
-            assignments.forEach(assignment => commit('addAssignment', assignment))
-          })
-      )
+      const assignments = await Agent.state('assignments')
+      assignments.forEach(assignment => commit('addAssignment', assignment))
     },
     async assign({getters, dispatch}, { group_id, item_id, assignment_type }) {
       if (getters.isAssigned(group_id, item_id, assignment_type)) return
