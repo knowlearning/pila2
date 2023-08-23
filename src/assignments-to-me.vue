@@ -6,36 +6,24 @@
         <th>Name</th>
         <th>Description</th>
         <th>Assigner</th>
-        <th>Authority</th>
       </tr>
     </thead>
     <tbody>
       <tr
-        v-for="{ assigner_id, authority, assignment_id }, id in assignments"
-        :key="id"
-        :class="{ selected: id === current }"
-        @click="current = current === id ? null: id"
+        v-for="assignment_id in assignments"
+        :key="assignment_id"
+        :class="{ selected: assignment_id === current }"
+        @click="current = current === assignment_id ? null: assignment_id"
       >
-        <td>{{ id }}</td>
+        <td>{{ assignment_id }}</td>
         <td>
-          <ScopeValue
-            :scope="assignment_id"
-            :user="authority"
-            :path="['name']"
-          />
+          TODO: load info from item_id
         </td>
         <td>
-          <ScopeValue
-            :scope="assignment_id"
-            :user="authority"
-            :path="['description']"
-          />
+          TODO: load info from item_id
         </td>
         <td>
-          {{ assigner_id }}
-        </td>
-        <td>
-          {{ authority }}
+          TODO: load info from item_id
         </td>
       </tr>
     </tbody>
@@ -52,6 +40,11 @@
       v-else-if="type === 'teacher-to-student'"
       :id="current"
     />
+    <div
+      v-else-if="type === 'teacher-to-student-research'"
+    >
+      TODO: special view for research assignment?
+    </div>
     <div v-else>Need view for type "{{ type }}"</div>
   </div>
 </template>
@@ -79,7 +72,8 @@
     },
     computed: {
       assignments() {
-        return this.$store.getters['assignmentsToMe/assignments'](this.type)
+        const me = this.$store.state.user
+        return this.$store.getters['assignments/to'](me, this.type)
       }
     }
   }

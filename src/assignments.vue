@@ -1,5 +1,6 @@
 <template>
   <button @click="add">New Assignment</button>
+  {{ current }}
   <table>
     <thead>
       <tr>

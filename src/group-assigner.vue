@@ -7,14 +7,14 @@
           <th></th>
         </tr>
         <tr
-          v-for="group in groupAssignmentsFor(id)"
-          :key="group"
+          v-for="assignment_id in assignmentsFor(id)"
+          :key="assignment_id"
         >
           <td>
-            <ScopeValue scope="groups" :path="[group, 'name']" />
+            {{ groupForAssignment(assignment_id) }}
           </td>
           <td>
-            <button @click="removeAssignment(group, id)">x</button>
+            <button @click="removeAssignment(assignment_id)">x</button>
           </td>
         </tr>
       </table>
@@ -26,13 +26,13 @@
           <th>Group</th>
         </tr>
         <tr
-          v-for="{ name }, group_id in groups"
+          v-for="group_id in groups"
           :key="group_id"
         >
           <td>
             <button @click="makeAssignment(group_id, id, assignment_type)">+</button>
           </td>
-          <td>{{ name }}</td>
+          <td>{{ group_id }}</td>
         </tr>
       </table>
     </div>
@@ -54,14 +54,18 @@
       UserInfo
     },
     methods: {
-      groupAssignmentsFor(id) {
-        return this.$store.getters['assignments/assignedGroups'](id, this.assignment_type)
+      assignmentsFor(item_id) {
+        return this.$store.getters['assignments/assignments'](item_id, this.assignment_type)
       },
-      makeAssignment(group_id, assignment_id, assignment_type) {
-        this.$store.dispatch('assignments/assign', { group_id, assignment_id, assignment_type })
+      groupForAssignment(assignment_id) {
+        return this.$store.getters['assignments/get'](assignment_id).group_id
       },
-      removeAssignment(group_id, assignment_id) {
-        this.$store.dispatch('assignments/unassign', { group_id, assignment_id })
+      makeAssignment(group_id, item_id, assignment_type) {
+        console.dir({ group_id, item_id, assignment_type })
+        this.$store.dispatch('assignments/assign', { group_id, item_id, assignment_type })
+      },
+      removeAssignment(assignment_id) {
+        this.$store.dispatch('assignments/unassign', assignment_id)
       }
     }
 

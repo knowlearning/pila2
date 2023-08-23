@@ -57,6 +57,7 @@
       <button @click="undoRequest">undo</button>
     </div>
   </div>
+  {{ id }}
   <GroupAssigner
     :id="id"
     :groups="$store.getters['groups/groups']('teachers')"

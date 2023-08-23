@@ -28,7 +28,7 @@ export default {
       state.expert = !getters.isExpert(content)
 
       await Agent.synced()
-      dispatch('load')
+      await dispatch('load')
     },
     async load({ commit, getters }) {
       const expertContent = await Agent.state('expert-content')
