@@ -4,7 +4,7 @@ import router from './router/index.js'
 import { browserAgent, vuePersistentStore } from '@knowlearning/agents'
 import './style.css'
 import storeDef from './store/index.js'
-import App from './App.vue'
+import App from './pages/App.vue'
 
 window.Agent = browserAgent()
 
