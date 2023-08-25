@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import LoginMenu from './login-menu.vue'
+  import LoginMenu from './pages/login/index.vue'
 
   export default {
     components: { LoginMenu },

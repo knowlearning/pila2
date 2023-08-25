@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import IconButton from './icon-button.vue'
+  import IconButton from './../../components/icon-button.vue'
 
   export default {
     components: { IconButton },
