@@ -31,7 +31,7 @@
 <script>
   import { v4 as uuid } from 'uuid'
   import { vueContentComponent } from '@knowlearning/agents'
-  import GroupAssigner from '../../group-assigner.vue'
+  import GroupAssigner from '../../components/groups/assigner.vue'
 
   export default {
     props: {

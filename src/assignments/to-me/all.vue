@@ -50,8 +50,8 @@
 </template>
 
 <script>
-  import ScopeValue from '../../scope-value.vue'
-  import UserInfo from '../../user-info.vue'
+  import ScopeValue from '../../components/scope-value.vue'
+  import UserInfo from '../../components/user-info.vue'
   import ResearcherToTeacher from './researcher-to-teacher.vue'
   import TeacherToStudent from './teacher-to-student.vue'
 

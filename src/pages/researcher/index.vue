@@ -29,8 +29,8 @@
 </template>
 
 <script>
-  import Groups from '../../groups.vue'
-  import RoleRequester from '../../role-requester.vue'
+  import Groups from '../../components/groups/viewer.vue'
+  import RoleRequester from '../../components/roles/requester.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
   import AssignmentsFromMe from '../../assignments/from-me/all.vue'

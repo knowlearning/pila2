@@ -40,8 +40,8 @@
 </template>
 
 <script>
-  import UserInfo from './user-info.vue'
-  import ScopeValue from './scope-value.vue'
+  import UserInfo from '../user-info.vue'
+  import ScopeValue from '../scope-value.vue'
 
   export default {
     props: {

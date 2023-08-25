@@ -30,8 +30,8 @@
 </template>
 
 <script>
-  import RoleRequester from '../../role-requester.vue'
-  import Groups from '../../groups.vue'
+  import RoleRequester from '../../components/roles/requester.vue'
+  import Groups from '../../components/groups/viewer.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
   import AssignmentsToMe from '../../assignments/to-me/all.vue'

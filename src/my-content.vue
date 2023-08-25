@@ -33,8 +33,8 @@
 </template>
 
 <script>
-  import ContentName from './content-name.vue'
-  import UserInfo from './user-info.vue'
+  import ContentName from './components/content-name.vue'
+  import UserInfo from './components/user-info.vue'
 
   export default {
     components: {

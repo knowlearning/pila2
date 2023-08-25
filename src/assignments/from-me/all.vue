@@ -38,8 +38,8 @@
 
 <script>
   import { v4 as uuid } from 'uuid'
-  import ScopeValue from '../../scope-value.vue'
-  import UserInfo from '../../user-info.vue'
+  import ScopeValue from '../../components/scope-value.vue'
+  import UserInfo from '../../components/user-info.vue'
   import ResearcherToTeacherAssignment from './researcher-to-teacher.vue'
   import TeacherToStudentAssignment from './teacher-to-student.vue'
 

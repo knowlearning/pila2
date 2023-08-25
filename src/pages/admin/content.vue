@@ -6,8 +6,8 @@
 <script>
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import ContentName from '../../content-name.vue'
-  import UserInfo from '../../user-info.vue'
+  import ContentName from '../../components/content-name.vue'
+  import UserInfo from '../../components/user-info.vue'
 
   export default {
     components: {

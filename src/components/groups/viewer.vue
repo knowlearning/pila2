@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import UserInfo from './user-info.vue'
+  import UserInfo from '../user-info.vue'
 
   export default {
     components: {

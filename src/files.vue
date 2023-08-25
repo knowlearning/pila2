@@ -38,8 +38,8 @@
 </template>
 
 <script>
-  import ContentName from './content-name.vue'
-  import download from './download.js'
+  import ContentName from './components/content-name.vue'
+  import download from './utils/download.js'
 
   export default {
     components: {
