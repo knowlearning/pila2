@@ -66,10 +66,10 @@
 </template>
 
 <script>
-  import UserInfo from './user-info.vue'
-  import ContentName from './content-name.vue'
-  import GroupAssigner from './group-assigner.vue'
-  import download from './download.js'
+  import UserInfo from '../../user-info.vue'
+  import ContentName from '../../content-name.vue'
+  import GroupAssigner from '../../group-assigner.vue'
+  import download from '../../download.js'
 
   const STUDY_TYPE = 'application/json;type=study'
 

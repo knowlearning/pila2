@@ -19,7 +19,7 @@
     <div v-if="tab === 'files'">
       <Files />
     </div>
-    <Assignments
+    <AssignmentsFromMe
       v-if="tab === 'studies'"
       assignable_item_type="researcher-created"
       assignment_type="researcher-to-teacher"
@@ -33,7 +33,7 @@
   import RoleRequester from '../../role-requester.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import Assignments from '../../assignments.vue'
+  import AssignmentsFromMe from '../../assignments/from-me/all.vue'
   import Files from '../../files.vue'
 
   export default {
@@ -43,7 +43,7 @@
       ExpertContent,
       Files,
       RoleRequester,
-      Assignments
+      AssignmentsFromMe
     },
     data() {
       return {

@@ -29,9 +29,9 @@
 </template>
 
 <script>
-  import GroupAssigner from './group-assigner.vue'
-  import ContentName from './content-name.vue'
-  import download from './download.js'
+  import GroupAssigner from '../../group-assigner.vue'
+  import ContentName from '../../content-name.vue'
+  import download from '../../download.js'
 
   export default {
     components: {

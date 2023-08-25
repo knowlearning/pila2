@@ -32,11 +32,11 @@
     v-if="current"
     :key="current"
   >
-    <TeacherStudyAssignment
+    <ResearcherToTeacher
       v-if="type === 'researcher-to-teacher'"
       :id="current"
     />
-    <ClassAssignment
+    <TeacherToStudent
       v-else-if="type === 'teacher-to-student'"
       :id="current"
     />
@@ -50,17 +50,17 @@
 </template>
 
 <script>
-  import ScopeValue from './scope-value.vue'
-  import UserInfo from './user-info.vue'
-  import TeacherStudyAssignment from './teacher-study-assignment.vue'
-  import ClassAssignment from './class-assignment.vue'
+  import ScopeValue from '../../scope-value.vue'
+  import UserInfo from '../../user-info.vue'
+  import ResearcherToTeacher from './researcher-to-teacher.vue'
+  import TeacherToStudent from './teacher-to-student.vue'
 
   export default {
     components: {
       UserInfo,
       ScopeValue,
-      ClassAssignment,
-      TeacherStudyAssignment
+      TeacherToStudent,
+      ResearcherToTeacher
     },
     props: {
       type: String

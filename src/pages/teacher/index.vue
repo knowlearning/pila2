@@ -34,8 +34,8 @@
   import Groups from '../../groups.vue'
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import AssignmentsToMe from '../../assignments-to-me.vue'
-  import Assignments from '../../assignments.vue'
+  import AssignmentsToMe from '../../assignments/to-me/all.vue'
+  import Assignments from '../../assignments/to-me/all.vue'
 
   export default {
     components: {

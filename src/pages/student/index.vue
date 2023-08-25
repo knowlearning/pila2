@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import AssignmentsToMe from '../../assignments-to-me.vue'
+  import AssignmentsToMe from '../../assignments/to-me/all.vue'
 
   export default {
     components: {
