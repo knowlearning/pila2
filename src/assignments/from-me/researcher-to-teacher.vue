@@ -69,7 +69,6 @@
   import UserInfo from '../../components/user-info.vue'
   import ContentName from '../../components/content-name.vue'
   import GroupAssigner from '../../components/groups/assigner.vue'
-  import download from '../../utils/download.js'
 
   const STUDY_TYPE = 'application/json;type=study'
 
@@ -125,7 +124,7 @@
         return this.study ? this.study.publish_requested : false
       },
       download(id) {
-        download(id)
+        Agent.download(id).direct()
       }
     }
 

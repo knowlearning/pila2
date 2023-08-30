@@ -39,7 +39,6 @@
 
 <script>
   import ContentName from './components/content-name.vue'
-  import download from './utils/download.js'
 
   export default {
     components: {
@@ -60,7 +59,7 @@
         e.target.value = ''
       },
       download(id) {        
-        download(id)
+        Agent.download(id).direct()
       },
       remove(id) {
         this.$store.dispatch('files/remove', id)

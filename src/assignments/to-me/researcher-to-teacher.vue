@@ -31,7 +31,6 @@
 <script>
   import GroupAssigner from '../../components/groups/assigner.vue'
   import ContentName from '../../components/content-name.vue'
-  import download from '../../utils/download.js'
 
   export default {
     components: {
@@ -51,7 +50,7 @@
       this.study = await Agent.state(item_id)
     },
     methods: {
-      download(id) { download(id) }
+      download(id) { Agent.download(id).direct() }
     }
   }
 
