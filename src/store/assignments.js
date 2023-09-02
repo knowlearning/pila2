@@ -74,13 +74,10 @@ export default {
     async assign({getters, dispatch}, { group_id, item_id, assignment_type }) {
       if (getters.isAssigned(group_id, item_id, assignment_type)) return
 
-      const id = uuid()
-      const state = await Agent.state(id)
-      const metadata = await Agent.metadata(id)
-      metadata.active_type = ASSIGNMENTS_TYPE
-      state.group_id = group_id
-      state.item_id = item_id
-      state.assignment_type = assignment_type
+      await Agent.create({
+        active_type: ASSIGNMENTS_TYPE,
+        active: { group_id, item_id, assignment_type }
+      })
 
       await Agent.synced()
       await dispatch('load')

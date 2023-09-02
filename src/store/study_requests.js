@@ -23,13 +23,10 @@ export default {
       studyRequests.forEach(request => commit('add', request))
     },
     async grant({ dispatch }, { study, granted }) {
-      const id = uuid()
-      const state = await Agent.state(id)
-      const metadata = await Agent.metadata(id)
-      metadata.active_type = STUDY_GRANT_TYPE
-      state.study = study
-      state.granted = granted
-
+      Agent.create({
+        active_type: STUDY_GRANT_TYPE,
+        active: { study, granted }
+      })
       await Agent.synced()
       await dispatch('studyRequests/load', null, {root:true})
     }

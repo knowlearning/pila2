@@ -20,13 +20,10 @@ export default {
   },
   actions: {
     async toggleExpert({ getters, dispatch }, content) {
-      const id = uuid()
-      const state = await Agent.state(id)
-      const metadata = await Agent.metadata(id)
-      metadata.active_type = EXPERT_CONTENT_TAG_TYPE
-      state.content = content
-      state.expert = !getters.isExpert(content)
-
+      Agent.create({
+        active_type: EXPERT_CONTENT_TAG_TYPE,
+        active: { content, expert: !getters.isExpert(content) }
+      })
       await Agent.synced()
       await dispatch('load')
     },

@@ -85,13 +85,10 @@ export default {
       await dispatch('loadRequests')
     },
     async assign({ dispatch }, { user, role }) {
-      const id = uuid()
-      const assertion = await Agent.state(id)
-      const metadata = await Agent.metadata(id)
-      metadata.active_type = ROLE_ASSERTION_TYPE
-      assertion.role = role
-      assertion.assignee = user
-    
+      Agent.create({
+        active_type: ROLE_ASSERTION_TYPE,
+        active: { role, assignee: user }
+      })
       await Agent.synced()
       await dispatch('loadAssignments')
     }
