@@ -40,7 +40,7 @@ export default {
       const tags = await Agent.state('tags')
       tags.forEach(tag => commit('add', tag))
     },
-    async tag({ commit, dispatch }, { tag_type, content_id, archived=false }) {
+    async tag({ state, commit, dispatch }, { tag_type, content_id, archived=false }) {
       const { auth: { user } } = await Agent.environment()
       const existing = await existing_tag(state, content_id, tag_type, user)
 
