@@ -4,6 +4,9 @@
       <tr>
         <th></th>
         <th>Name</th>
+        <th v-for="tag in tags" :id="tag">
+          {{tag}}
+        </th>
         <th></th>
       </tr>
     </thead>
@@ -13,6 +16,19 @@
           <button @click="download(id)">download</button>
         </td>
         <td><ContentName :id="id" /></td>
+        <td v-for="tag in tags" :id="tag">
+          <input
+            type="checkbox"
+            v-if="$store.getters['tags/hasTag'](id, tag)"
+            @click="$store.dispatch('tags/untag', { content_id: id, tag_type: tag })"
+            checked
+          />
+          <input
+            type="checkbox"
+            v-else
+            @click="$store.dispatch('tags/tag', { content_id: id, tag_type: tag })"
+          />
+        </td>
         <td>
           <button @click="remove(id)">x</button>
         </td>
@@ -26,7 +42,8 @@
 
   export default {
     props: {
-      type: String
+      type: String,
+      tags: Array
     },
     components: {
       ContentName

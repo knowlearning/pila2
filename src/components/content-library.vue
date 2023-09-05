@@ -9,9 +9,9 @@
   <span v-if="showUUIDWarning">
     not a valid UUID!!!
   </span>
-  <TaggedContent type="tracked" />
+  <TaggedContent type="tracked" :tags="['expert']" />
   <h1>Expert Content</h1>
-  <TaggedContent type="expert" />
+  <TaggedContent type="expert" :tags="['expert']" />
 </template>
 
 <script>
