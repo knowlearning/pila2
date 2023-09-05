@@ -30,10 +30,7 @@
       </ul>
       <select v-model="selectedFile">
         <option value="UNSELECTED">Add File</option>
-        <option
-          v-for="_, id in files"
-          :value="id"
-        >
+        <option v-for="id in files" :key="id" :value="id">
           <ContentName :id="id" />
         </option>
       </select>
@@ -101,7 +98,7 @@
         return this.$store.getters['studyRequests/granted'](this.id)
       },
       files() {
-        return this.$store.getters['files/files']()
+        return this.$store.getters['tags/withTag']('file')
       }
     },
     watch: {

@@ -245,8 +245,8 @@ postgres:
       UNION
       SELECT DISTINCT ON (content_id)
         tags.id as id,
-        content_id,
         md.owner as user_id,
+        content_id,
         tag_type,
         archived,
         updated

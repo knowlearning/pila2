@@ -6,12 +6,10 @@ import tags from './tags.js'
 
 import assignableItems from './tags/assignable_items.js'
 import expertContent from './tags/expert-content.js'
-import files from './tags/files.js'
 import myContent from './tags/my_content.js'
 
 export default {
   modules: {
-    files,
     assignableItems,
     studyRequests,
     assignments,

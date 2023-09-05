@@ -21,10 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="_, id in files"
-        :key="id"
-      >
+      <tr v-for="id in files" :key="id">
         <td>
           <button @click="download(id)">download</button>
         </td>
@@ -46,23 +43,24 @@
     },
     computed: {
       files() {
-        return this.$store.getters['files/files']()
+        return this.$store.getters['tags/withTag']('file')
       }
     },
     methods: {
       async uploadFile(e) {
         const file = e.target.files[0]
-        const id = await Agent.upload(file.name, file.type, file)
-        const metadata = await Agent.metadata(id)
+        const content_id = await Agent.upload(file.name, file.type, file)
+        const metadata = await Agent.metadata(content_id)
         metadata.name = file.name
-        this.$store.dispatch('files/add', id )
+        this.$store.dispatch('tags/tag', { content_id, tag_type: 'file' } )
         e.target.value = ''
       },
-      download(id) {        
+      download(id) {
+        console.log('DOWNLOADING', id)
         Agent.download(id).direct()
       },
-      remove(id) {
-        this.$store.dispatch('files/remove', id)
+      remove(content_id) {
+        this.$store.dispatch('tags/untag', { content_id, tag_type: 'file' })
       }
     }
   }
