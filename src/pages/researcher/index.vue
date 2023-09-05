@@ -31,10 +31,11 @@
 <script>
   import Groups from '../../components/groups/viewer.vue'
   import RoleRequester from '../../components/roles/requester.vue'
+  import Files from '../../components/files.vue'
+  import AssignmentsFromMe from '../../assignments/from-me/all.vue'
+
   import MyContent from '../../my-content.vue'
   import ExpertContent from '../../expert-content.vue'
-  import AssignmentsFromMe from '../../assignments/from-me/all.vue'
-  import Files from '../../files.vue'
 
   export default {
     components: {
