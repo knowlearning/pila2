@@ -13,9 +13,7 @@
       :possibleMembers="teachers"
     />
     <div v-if="tab === 'content'">
-      <MyContent />
-      <h1>Expert Content</h1>
-      <TaggedContent type="expert" />
+      <ContentLibrary />
     </div>
     <div v-if="tab === 'files'">
       <Files />
@@ -35,14 +33,12 @@
   import Files from '../../components/files.vue'
   import AssignmentsFromMe from '../../assignments/from-me/all.vue'
 
-  import MyContent from '../../my-content.vue'
-  import TaggedContent from '../../components/tagged-content.vue'
+  import ContentLibrary from '../../components/content-library.vue'
 
   export default {
     components: {
       Groups,
-      MyContent,
-      TaggedContent,
+      ContentLibrary,
       Files,
       RoleRequester,
       AssignmentsFromMe

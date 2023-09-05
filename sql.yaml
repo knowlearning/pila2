@@ -252,5 +252,5 @@ postgres:
         updated
       FROM tags
       LEFT JOIN metadata md ON md.id = tags.id
-      WHERE isAdmin(md.owner)
+      WHERE isAdmin(md.owner) WHERE tags.tag_type = 'expert'
       ORDER BY content_id, updated

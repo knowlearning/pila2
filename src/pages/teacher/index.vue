@@ -13,9 +13,7 @@
       :possibleMembers="students"
     />
     <div v-if="tab === 'content'">
-      <MyContent />
-      <h1>Expert Content</h1>
-      <TaggedContent />
+      <ContentLibrary />
     </div>
     <AssignmentsFromMe
       v-if="tab === 'assignments-from-me'"
@@ -33,16 +31,14 @@
 <script>
   import RoleRequester from '../../components/roles/requester.vue'
   import Groups from '../../components/groups/viewer.vue'
-  import MyContent from '../../my-content.vue'
-  import TaggedContent from '../../components/tagged-content.vue'
+  import ContentLibrary from '../../components/content-library.vue'
   import AssignmentsToMe from '../../assignments/to-me/all.vue'
   import AssignmentsFromMe from '../../assignments/from-me/all.vue'
 
   export default {
     components: {
       Groups,
-      MyContent,
-      TaggedContent,
+      ContentLibrary,
       RoleRequester,
       AssignmentsFromMe,
       AssignmentsToMe

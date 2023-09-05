@@ -5,7 +5,6 @@ import assignments from './assignments.js'
 import tags from './tags.js'
 
 import assignableItems from './tags/assignable_items.js'
-import myContent from './tags/my_content.js'
 
 export default {
   modules: {
@@ -13,7 +12,6 @@ export default {
     studyRequests,
     assignments,
     groups,
-    myContent,
     roles,
     tags
   },
