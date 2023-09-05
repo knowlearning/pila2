@@ -5,7 +5,6 @@ import assignments from './assignments.js'
 import tags from './tags.js'
 
 import assignableItems from './tags/assignable_items.js'
-import expertContent from './tags/expert-content.js'
 import myContent from './tags/my_content.js'
 
 export default {
@@ -15,7 +14,6 @@ export default {
     assignments,
     groups,
     myContent,
-    expertContent,
     roles,
     tags
   },
@@ -54,7 +52,6 @@ export default {
         store.dispatch('tags/load'),
         store.dispatch('roles/load'),
         store.dispatch('groups/load'),
-        store.dispatch('expertContent/load'),
         store.dispatch('studyRequests/load'),
         store.dispatch('assignments/load')
       ])

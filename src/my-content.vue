@@ -61,7 +61,7 @@
         this.$store.dispatch('expertContent/toggleExpert', id)
       },
       isExpert(id) {
-        return this.$store.getters['expertContent/isExpert'](id)
+        return this.$store.getters['tags/withTag']('expert').includes(id)
       }
     }
   }

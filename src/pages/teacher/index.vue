@@ -14,7 +14,8 @@
     />
     <div v-if="tab === 'content'">
       <MyContent />
-      <ExpertContent />
+      <h1>Expert Content</h1>
+      <TaggedContent />
     </div>
     <AssignmentsFromMe
       v-if="tab === 'assignments-from-me'"
@@ -33,7 +34,7 @@
   import RoleRequester from '../../components/roles/requester.vue'
   import Groups from '../../components/groups/viewer.vue'
   import MyContent from '../../my-content.vue'
-  import ExpertContent from '../../expert-content.vue'
+  import TaggedContent from '../../components/tagged-content.vue'
   import AssignmentsToMe from '../../assignments/to-me/all.vue'
   import AssignmentsFromMe from '../../assignments/from-me/all.vue'
 
@@ -41,7 +42,7 @@
     components: {
       Groups,
       MyContent,
-      ExpertContent,
+      TaggedContent,
       RoleRequester,
       AssignmentsFromMe,
       AssignmentsToMe

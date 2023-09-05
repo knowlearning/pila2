@@ -14,7 +14,8 @@
     />
     <div v-if="tab === 'content'">
       <MyContent />
-      <ExpertContent />
+      <h1>Expert Content</h1>
+      <TaggedContent type="expert" />
     </div>
     <div v-if="tab === 'files'">
       <Files />
@@ -35,13 +36,13 @@
   import AssignmentsFromMe from '../../assignments/from-me/all.vue'
 
   import MyContent from '../../my-content.vue'
-  import ExpertContent from '../../expert-content.vue'
+  import TaggedContent from '../../components/tagged-content.vue'
 
   export default {
     components: {
       Groups,
       MyContent,
-      ExpertContent,
+      TaggedContent,
       Files,
       RoleRequester,
       AssignmentsFromMe
