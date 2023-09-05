@@ -52,6 +52,12 @@ postgres:
       columns:
         scope: TEXT
         assignment: TEXT
+    tags:
+      type: application/json;type=tag
+      columns:
+        content_id: TEXT
+        tag_type: TEXT
+        archived: BOOLEAN
   functions:
     isAdmin:
       returns: BOOLEAN
@@ -225,3 +231,26 @@ postgres:
             )
           )
         )
+    tags: |
+      SELECT
+        tags.id as id,
+        md.owner as user_id,
+        content_id,
+        tag_type,
+        archived,
+        updated
+      FROM tags
+      LEFT JOIN metadata md ON md.id = tags.id
+      WHERE md.owner = $REQUESTER
+      UNION
+      SELECT DISTINCT ON (content_id)
+        tags.id as id,
+        content_id,
+        md.owner as user_id,
+        tag_type,
+        archived,
+        updated
+      FROM tags
+      LEFT JOIN metadata md ON md.id = tags.id
+      WHERE isAdmin(md.owner)
+      ORDER BY content_id, updated

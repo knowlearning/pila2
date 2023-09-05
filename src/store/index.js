@@ -2,6 +2,7 @@ import roles from './roles.js'
 import groups from './groups.js'
 import studyRequests from './study_requests.js'
 import assignments from './assignments.js'
+import tags from './tags.js'
 
 import assignableItems from './tags/assignable_items.js'
 import expertContent from './tags/expert-content.js'
@@ -17,7 +18,8 @@ export default {
     groups,
     myContent,
     expertContent,
-    roles
+    roles,
+    tags
   },
   state: () => ({
     loaded: false,
@@ -51,6 +53,7 @@ export default {
 
       await Promise.all([
         store.dispatch('load'),
+        store.dispatch('tags/load'),
         store.dispatch('roles/load'),
         store.dispatch('groups/load'),
         store.dispatch('expertContent/load'),
