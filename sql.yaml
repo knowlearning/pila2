@@ -75,8 +75,30 @@ postgres:
         type: TEXT
       language: PLpgSQL
       body: |
+        DECLARE
+          has_entry BOOLEAN;
         BEGIN
-          RETURN TRUE;
+          SELECT EXISTS (
+            WITH cte AS (
+              SELECT DISTINCT ON (t.content_id)
+                md.owner as user_id,
+                t.content_id,
+                t.archived,
+                md.updated
+              FROM tags t
+              LEFT JOIN metadata md ON md.id = t.id
+              WHERE t.content_id = hasAdminTag.content_id
+                AND isAdmin(md.owner)
+                AND t.tag_type = hasAdminTag.tag_type
+              ORDER BY t.content_id, md.updated DESC
+              LIMIT 1
+            )
+            SELECT 1
+            FROM cte
+            WHERE NOT cte.archived
+          ) INTO has_entry;
+
+          RETURN has_entry;
         END;
     role_assignments:
       returns:
@@ -128,23 +150,6 @@ postgres:
       LEFT JOIN metadata
         ON metadata.id = role_requests.id
       WHERE isAdmin($REQUESTER) OR metadata.owner = $REQUESTER
-    expert-content: |
-      SELECT
-        et.content,
-        m.owner AS assigner,
-        m.updated AS updated
-      FROM expert_tags et
-      JOIN metadata m ON et.id = m.id
-      WHERE
-        (et.content, m.updated) IN (
-          SELECT content, MAX(updated)
-          FROM expert_tags
-          JOIN metadata ON expert_tags.id = metadata.id
-          WHERE isAdmin(owner)
-          GROUP BY content
-        )
-        AND isAdmin(m.owner)
-        AND et.expert
     # all groups a user owns, or has been put in
     groups: |
       SELECT
@@ -202,7 +207,10 @@ postgres:
             assignments.assignment_type = 'teacher-to-student-research'
             OR (
               assignments.assignment_type = 'researcher-to-teacher'
-              AND hasAdminTag(assignments.item_id, 'admin-approved')
+              AND (
+                assignments.item_id IS NOT NULL
+                AND hasAdminTag(assignments.item_id, 'admin-approved'::text)
+              )
             )
           )
         )
