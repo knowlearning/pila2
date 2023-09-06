@@ -242,6 +242,7 @@ postgres:
       FROM tags
       LEFT JOIN metadata md ON md.id = tags.id
       WHERE md.owner = $REQUESTER
+        AND tag_type != 'expert'
       UNION
       SELECT DISTINCT ON (content_id)
         tags.id as id,
@@ -252,5 +253,6 @@ postgres:
         updated
       FROM tags
       LEFT JOIN metadata md ON md.id = tags.id
-      WHERE isAdmin(md.owner) WHERE tags.tag_type = 'expert'
-      ORDER BY content_id, updated
+      WHERE isAdmin(md.owner)
+        AND tag_type = 'expert'
+      ORDER BY content_id, updated DESC
