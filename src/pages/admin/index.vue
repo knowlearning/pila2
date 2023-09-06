@@ -7,7 +7,10 @@
       <button @click="tab = 'studies'">Studies</button>
     </div>
     <AdminRoleManager v-if="tab === 'roles'" />
-    <ContentLibrary v-else-if="tab === 'content'" />
+    <ContentLibrary
+      v-else-if="tab === 'content'"
+      :header_tag_types="['expert']"
+    />
     <AdminStudyManager v-else-if="tab === 'studies'" />
   </div>
   <div v-else>

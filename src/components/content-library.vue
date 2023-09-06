@@ -9,9 +9,9 @@
   <span v-if="showUUIDWarning">
     not a valid UUID!!!
   </span>
-  <TaggedContent type="tracked" :tags="['expert']" />
+  <TaggedContent type="tracked" :tags="header_tag_types" />
   <h1>Expert Content</h1>
-  <TaggedContent type="expert" :tags="['expert']" />
+  <TaggedContent type="expert" :tags="header_tag_types" />
 </template>
 
 <script>
@@ -19,6 +19,9 @@
   import { validate as isUUID } from 'uuid'
 
   export default {
+    props: {
+      header_tag_types: Array
+    },
     components: {
       TaggedContent
     },
