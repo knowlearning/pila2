@@ -45,7 +45,7 @@
   <div v-else>
     <button
       @click="requestPublish"
-      v-if="!publishRequested()"
+      v-if="!publishRequested"
     >
       Request Publish
     </button>
@@ -68,6 +68,7 @@
   import GroupAssigner from '../../components/groups/assigner.vue'
 
   const STUDY_TYPE = 'application/json;type=study'
+  const ADMIN_APPROVAL_REQUEST = 'admin-approval-request'
 
   export default {
     props: {
@@ -95,7 +96,10 @@
     },
     computed: {
       isGranted() {
-        return this.$store.getters['studyRequests/granted'](this.id)
+        return this.$store.getters['tags/hasTag'](this.id, 'admin-approved')
+      },
+      publishRequested() {
+        return this.$store.getters['tags/hasTag'](this.id, ADMIN_APPROVAL_REQUEST)
       },
       files() {
         return this.$store.getters['tags/withTag']('file')
@@ -112,13 +116,18 @@
     },
     methods: {
       requestPublish() {
-        this.study.publish_requested = true
+        const tagInfo = {
+          content_id: this.id,
+          tag_type: ADMIN_APPROVAL_REQUEST
+        }
+        this.$store.dispatch('tags/tag', tagInfo)
       },
       undoRequest() {
-        this.study.publish_requested = false
-      },
-      publishRequested() {
-        return this.study ? this.study.publish_requested : false
+        const tagInfo = {
+          content_id: this.id,
+          tag_type: ADMIN_APPROVAL_REQUEST
+        }
+        this.$store.dispatch('tags/untag', tagInfo)
       },
       download(id) {
         Agent.download(id).direct()

@@ -1,12 +1,10 @@
 import roles from './roles.js'
 import groups from './groups.js'
-import studyRequests from './study_requests.js'
 import assignments from './assignments.js'
 import tags from './tags.js'
 
 export default {
   modules: {
-    studyRequests,
     assignments,
     groups,
     roles,
@@ -47,7 +45,6 @@ export default {
         store.dispatch('tags/load'),
         store.dispatch('roles/load'),
         store.dispatch('groups/load'),
-        store.dispatch('studyRequests/load'),
         store.dispatch('assignments/load')
       ])
 

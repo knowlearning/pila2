@@ -16,8 +16,7 @@ postgres:
         expert: BOOLEAN
     studies:
       type: application/json;type=study
-      columns:
-        publish_requested: BOOLEAN
+      columns: {}
     study_grants:
       type: application/json;type=study_grant
       columns:
@@ -139,32 +138,6 @@ postgres:
         )
         AND isAdmin(m.owner)
         AND et.expert
-    study-requests: |
-      SELECT
-        studies.id            AS study,
-        latest_grants.granted AS granted,
-        srm.owner             AS researcher,
-        srm.updated
-      FROM studies
-      LEFT JOIN metadata srm ON srm.id = studies.id
-      LEFT JOIN (
-        SELECT
-          study,
-          granted
-        FROM (
-          SELECT
-            study,
-            granted,
-            ROW_NUMBER() OVER (PARTITION BY study_grants.study ORDER BY sgm.updated DESC) AS rn
-          FROM study_grants
-          LEFT JOIN metadata sgm ON sgm.id = study_grants.id
-          WHERE isAdmin(sgm.owner)
-        ) AS subquery
-        WHERE rn = 1
-      ) latest_grants
-      ON latest_grants.study = studies.id
-      WHERE studies.publish_requested
-        AND (isAdmin($REQUESTER) OR srm.owner = $REQUESTER)
     # all groups a user owns, or has been put in
     groups: |
       SELECT
