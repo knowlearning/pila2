@@ -9,11 +9,6 @@ postgres:
       columns:
         role: TEXT
         assignee: TEXT
-    expert_tags:
-      type: application/json;type=expert_tag
-      columns:
-        content: TEXT
-        expert: BOOLEAN
     studies:
       type: application/json;type=study
       columns: {}
@@ -36,11 +31,6 @@ postgres:
         user_id: TEXT
         group_id: TEXT
         archived: BOOLEAN
-    assignable_items:
-      type: application/json;type=assignable_item
-      columns:
-        item: TEXT
-        item_type: TEXT
     assignment_scopes:
       type: application/json;type=assignment_scope
       columns:
@@ -75,10 +65,8 @@ postgres:
         type: TEXT
       language: PLpgSQL
       body: |
-        DECLARE
-          has_entry BOOLEAN;
         BEGIN
-          SELECT EXISTS (
+          RETURN EXISTS (
             WITH cte AS (
               SELECT DISTINCT ON (t.content_id)
                 md.owner as user_id,
@@ -96,9 +84,7 @@ postgres:
             SELECT 1
             FROM cte
             WHERE NOT cte.archived
-          ) INTO has_entry;
-
-          RETURN has_entry;
+          );
         END;
     role_assignments:
       returns:
