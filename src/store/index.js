@@ -4,11 +4,8 @@ import studyRequests from './study_requests.js'
 import assignments from './assignments.js'
 import tags from './tags.js'
 
-import assignableItems from './tags/assignable_items.js'
-
 export default {
   modules: {
-    assignableItems,
     studyRequests,
     assignments,
     groups,

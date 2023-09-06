@@ -1,6 +1,5 @@
 <template>
   <button @click="add">New Assignment</button>
-  {{ current }}
   <table>
     <thead>
       <tr>
@@ -11,7 +10,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="_, id in assignable_items"
+        v-for="id in assignable_items"
         :key="id"
         :class="{ selected: id === current }"
         @click="current = current === id ? null: id"
@@ -61,21 +60,22 @@
     },
     computed: {
       assignable_items() {
-        return this.$store.getters['assignableItems/items'](this.assignable_item_type)
+        return this.$store.getters['tags/withTag'](this.assignable_item_type)
       }
     },
     methods: {
       async add() {
         const name = prompt('Study name')
-        const id = uuid()
-        const assignableItem = await Agent.state(id)
+        const content_id = uuid()
+        const assignableItem = await Agent.state(content_id)
         assignableItem.name = name // TODO: add reasonable defaults based on type
-        this.current = id
-        this.$store.dispatch('assignableItems/add', { id, item_type: this.assignable_item_type })
+        this.current = content_id
+        this.$store.dispatch('tags/tag', { content_id, tag_type: this.assignable_item_type })
       },
-      remove(id) {
-        this.$store.dispatch('assignableItems/remove', id)
-        if (this.current === id) this.current = null
+      remove(content_id) {
+        const tag_type = this.assignable_item_type
+        this.$store.dispatch('tags/untag', { content_id, tag_type })
+        if (this.current === content_id) this.current = null
       }
     }
   }
