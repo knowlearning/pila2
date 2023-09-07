@@ -16,6 +16,7 @@
         :key="id"
         :id="id"
         :tags="tags"
+        :tag_type="type"
       />
     </tbody>
   </table>
@@ -35,14 +36,6 @@
     computed: {
       content() {
         return this.$store.getters['tags/withTag'](this.type)
-      }
-    },
-    methods: {
-      download(id) {
-        Agent.download(id).direct()
-      },
-      remove(content_id) {
-        this.$store.dispatch('tags/untag', { content_id, tag_type: this.type })
       }
     }
   }

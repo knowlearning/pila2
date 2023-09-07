@@ -1,7 +1,16 @@
 <template>
   <tr>
     <td>
-      <button @click="download(id)">download</button>
+      <span v-if="loaded">
+        <button
+          v-if="metadata.active_type === UPLOAD_TYPE"
+          @click="download"
+        >
+          Download
+        </button>
+        <button v-else @click="play">Play</button>
+      </span>
+      <span v-else>...</span>
     </td>
     <td><ContentName :id="id" /></td>
     <td v-for="tag in tags" :id="tag">
@@ -18,7 +27,7 @@
       />
     </td>
     <td>
-      <button @click="remove(id)">x</button>
+      <button @click="remove(id, tag_type)">x</button>
     </td>
   </tr>
 </template>
@@ -28,10 +37,36 @@
   export default {
     props: {
       id: String,
-      tags: Array
+      tags: Array,
+      tag_type: String,
+      UPLOAD_TYPE: {
+        type: String,
+        default: 'application/json;type=upload'
+      }
     },
     components: {
       ContentName
+    },
+    data() {
+      return {
+        loaded: false,
+        metadata: null
+      }
+    },
+    async created() {
+      this.metadata = await Agent.state(this.id)
+      this.loaded = true
+    },
+    methods: {
+      download() {
+        Agent.download(this.id).direct()
+      },
+      play() {
+        alert(`Open up ${this.id}`)
+      },
+      remove(content_id, tag_type) {
+        this.$store.dispatch('tags/untag', { content_id, tag_type })
+      }
     }
   }
 </script>
