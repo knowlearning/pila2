@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import TaggedContent from './tagged-content.vue'
+  import TaggedContent from './tagged-content-collection.vue'
   import { validate as isUUID } from 'uuid'
 
   export default {

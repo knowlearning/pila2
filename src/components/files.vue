@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import TaggedContent from './tagged-content.vue'
+  import TaggedContent from './tagged-content-collection.vue'
 
   export default {
     components: {
