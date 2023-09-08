@@ -3,7 +3,7 @@
     <td>
       <span v-if="loaded">
         <button
-          v-if="metadata.active_type === UPLOAD_TYPE"
+          v-if="metadata.external"
           @click="download"
         >
           Download
@@ -54,7 +54,7 @@
       }
     },
     async created() {
-      this.metadata = await Agent.state(this.id)
+      this.metadata = await Agent.metadata(this.id)
       this.loaded = true
     },
     methods: {
