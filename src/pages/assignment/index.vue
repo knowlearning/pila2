@@ -1,10 +1,15 @@
 <template>
-  <div v-if="assignment" class="wrapper">
+  <div v-if="assignment && assignment.content" class="wrapper">
     <vueContentComponent
       :id="assignment.content"
       @state="stateListener"
       @mutate="mutateListener"
     />
+  </div>
+  <div v-else-if="assignment">
+    There is an issue with your assignment.
+    Please ask your teacher to ensure they have assigned the
+    content they intended to.
   </div>
   <div v-else>
     ...loading...
@@ -20,16 +25,14 @@
     },
     data() {
       return {
-        assignment: null
+        assignment: null,
+        metadata: null
       }
     },
     async created() {
-      this.assignment = await Agent.state(this.item_id)
-    },
-    computed: {
-      item_id() {
-        return this.$route.params.item_id
-      }
+      const id = this.$route.params.item_id
+      Agent.state(id).then(state => this.assignment = state)
+      Agent.metadata(id).then(meta => this.assignmentMeta = meta)
     },
     methods: {
       async stateListener(event) {
